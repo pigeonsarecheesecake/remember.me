@@ -90,4 +90,21 @@ accountRouter.get('/profile',async(req,res)=>{
     }
 })
 
+// Delete Profile
+accountRouter.delete('/profile',async(req,res)=>{
+    const{token}=req.cookies
+    if(token){
+        jwt.verify(token,jwtSecret,{},async(err,verifiedToken)=>{
+            if(err){
+                res.json(err.message)
+                return
+            }
+            await UserModel.findByIdAndDelete(verifiedToken.id)
+            res.json('Account Deleted')
+        })
+    }else{
+        res.json('Token missing, please log back in')
+    }
+})
+
 export default accountRouter
