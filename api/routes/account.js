@@ -77,16 +77,16 @@ accountRouter.post('/login',async(req,res)=>{
 accountRouter.get('/profile',async(req,res)=>{
     const {token} = req.cookies
     if(token){
-        jwt.verify(token,jwtSecret,{},async(err,userData)=>{
+        jwt.verify(token,jwtSecret,{},async(err,verifiedToken)=>{
             if(err){
                 res.json(err.message)
                 return
             }
-            const{name,username,_id}=await UserModel.findById(userData.id)
+            const{name,username,_id}=await UserModel.findById(verifiedToken.id)
             res.json({name,username,_id})
         })
     }else{
-        res.json('Token does not exist')
+        res.json('Token missing, please log back in')
     }
 })
 
