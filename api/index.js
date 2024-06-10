@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import accountRouter from "./routes/account.js"
+import cookieParser from "cookie-parser"
 import "dotenv/config"
 
 // Variables
@@ -20,6 +21,7 @@ async function connectDB(){
 
 // Middlewares
 app.use(express.json())
+app.use(cookieParser())
 
 // Routes
 app.use('/account',accountRouter)

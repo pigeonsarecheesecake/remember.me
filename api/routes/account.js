@@ -2,6 +2,7 @@ import { Router } from "express";
 import UserModel from "../models/User.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+
 import "dotenv/config"
 
 // Router instance is a complete middleware and routing system
@@ -69,6 +70,23 @@ accountRouter.post('/login',async(req,res)=>{
         }
     }else{
         res.json('User does not exist, please create a new account')
+    }
+})
+
+// Profile
+accountRouter.get('/profile',async(req,res)=>{
+    const {token} = req.cookies
+    if(token){
+        jwt.verify(token,jwtSecret,{},async(err,userData)=>{
+            if(err){
+                res.json(err.message)
+                return
+            }
+            const{name,username,_id}=await UserModel.findById(userData.id)
+            res.json({name,username,_id})
+        })
+    }else{
+        res.json('Token does not exist')
     }
 })
 
