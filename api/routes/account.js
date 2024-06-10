@@ -90,6 +90,12 @@ accountRouter.get('/profile',async(req,res)=>{
     }
 })
 
+
+// Logout
+accountRouter.post('/logout',async(req,res)=>{
+    res.clearCookie('token').json('Logged Out').end()
+})
+
 // Delete Profile
 accountRouter.delete('/profile',async(req,res)=>{
     const{token}=req.cookies
@@ -100,7 +106,7 @@ accountRouter.delete('/profile',async(req,res)=>{
                 return
             }
             await UserModel.findByIdAndDelete(verifiedToken.id)
-            res.json('Account Deleted')
+            res.clearCookie('token').json('Account Deleted').end()
         })
     }else{
         res.json('Token missing, please log back in')
