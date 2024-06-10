@@ -1,6 +1,8 @@
 import { Router } from "express";
 import UserModel from "../models/User.js";
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+import "dotenv/config"
 
 // Router instance is a complete middleware and routing system
 // Mini-app
@@ -15,6 +17,7 @@ accountRouter.get('/', async(req,res)=>{
     }
 })
 
+// Register
 accountRouter.post('/register',async(req,res)=>{
     const bcryptSalt=bcrypt.genSaltSync(10)
     const {name,username,password}=req.body
@@ -40,14 +43,27 @@ accountRouter.post('/register',async(req,res)=>{
     }
 })
 
+// Login
+const jwtSecret=process.env.JWT_KEY
 accountRouter.post('/login',async(req,res)=>{
     const{username,password}=req.body
-    const usernameExists=await UserModel.findOne({username})
+    const userExists=await UserModel.findOne({username})
     // If user exists, compare the password
-    if(usernameExists){
-        const correctPassword=bcrypt.compareSync(password, usernameExists.password)
+    if(userExists){
+        const correctPassword=bcrypt.compareSync(password, userExists.password)
         if (correctPassword){
-            res.json('Logged In')
+            jwt.sign(
+                {
+                    username:userExists.username,
+                    id:userExists._id
+                },jwtSecret,{}, (err,token)=>{
+                    if(err){
+                        res.json(err.message)
+                        return
+                    }
+                    res.cookie('token',token).json(userExists)
+                }
+            )
         }else{
             res.json('Wrong Password')
         }

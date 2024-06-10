@@ -14,7 +14,7 @@ async function connectDB(){
         await mongoose.connect(process.env.DB_CONNECT)
         console.log('Connected to the database')
     }catch(e){
-        console.log(e.message);
+        console.log(e.message)
     }
 }
 
@@ -25,4 +25,4 @@ app.use(express.json())
 app.use('/account',accountRouter)
 
 // Functions
-app.listen(port,()=>{console.log('Server is running');})
+app.listen(port,()=>{console.log('Server is running')})
