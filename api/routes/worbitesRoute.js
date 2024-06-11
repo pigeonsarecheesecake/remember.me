@@ -14,9 +14,20 @@ worbiteRouter.get('/',async(req,res)=>{
     }
 })
 
-worbiteRouter.post('/',(req,res)=>{
+worbiteRouter.post('/',async(req,res)=>{
+    const{
+        worbite,partOfSpeech,definition,
+        exampleOne,exampleTwo,exampleThree,
+        exampleFour, exampleFive
+    }=req.body
     try {
-        
+        const worbiteDoc = new WorbitesModel({
+            worbite,partOfSpeech,definition,
+            exampleOne,exampleTwo,exampleThree,
+            exampleFour, exampleFive
+        })
+        await worbiteDoc.save()
+        res.json('Worbite has been added!')
     } catch (error) {
         res.json(error.message)
     }

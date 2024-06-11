@@ -32,12 +32,12 @@ accountRouter.post('/register',async(req,res)=>{
 
     // If username doesn't exist
     try {
-        const user = new UserModel({
+        const userDoc = new UserModel({
             name,
             username,
             password:bcrypt.hashSync(password,bcryptSalt)
         })
-        await user.save()
+        await userDoc.save()
         res.json('User created')
     } catch (error) {
         res.json(error.message)

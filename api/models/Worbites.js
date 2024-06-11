@@ -9,7 +9,8 @@ const WorbitesSchema = new mongoose.Schema(
         exampleTwo:String,
         exampleThree:String,
         exampleFour:String,
-        exampleFive:String
+        exampleFive:String,
+        addedBy:{type:mongoose.Schema.Types.ObjectId,ref:'User'}
     },{timestamps:true}
 )
 
