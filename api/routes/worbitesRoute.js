@@ -1,8 +1,9 @@
 import { Router } from "express"
 import WorbitesModel from "../models/Worbites.js"
-
+import jwt from "jsonwebtoken"
 
 const worbiteRouter = Router()
+const jwtSecret=process.env.JWT_KEY
 
 // Worbites routes
 worbiteRouter.get('/',async(req,res)=>{
@@ -14,18 +15,30 @@ worbiteRouter.get('/',async(req,res)=>{
     }
 })
 
+// Ellicit id from token
 worbiteRouter.post('/',async(req,res)=>{
+    const {token}=req.cookies
     const{
         worbite,partOfSpeech,definition,
         examples,addedBy
     }=req.body
+
     try {
-        const worbiteDoc = new WorbitesModel({
-            worbite,partOfSpeech,definition,
-            examples,addedBy
-        })
-        await worbiteDoc.save()
-        res.json('Worbite has been added!')
+        jwt.verify(
+            token, jwtSecret,{},async(err,verifiedToken)=>{
+                if(err){
+                    res.json(err.message)
+                    return
+                }
+                const{id}=verifiedToken
+                const worbiteDoc = new WorbitesModel({
+                    worbite,partOfSpeech,definition,
+                    examples,addedBy,addedBy:id
+                })
+                await worbiteDoc.save()
+                res.json('Worbite has been added!')
+            }
+        )
     } catch (error) {
         res.json(error.message)
     }

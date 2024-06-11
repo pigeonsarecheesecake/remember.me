@@ -8,6 +8,7 @@ import "dotenv/config"
 // Router instance is a complete middleware and routing system
 // Mini-app
 const accountRouter = Router()
+const jwtSecret=process.env.JWT_KEY
 
 accountRouter.get('/', async(req,res)=>{
     try{
@@ -45,7 +46,6 @@ accountRouter.post('/register',async(req,res)=>{
 })
 
 // Login
-const jwtSecret=process.env.JWT_KEY
 accountRouter.post('/login',async(req,res)=>{
     const{username,password}=req.body
     const userExists=await UserModel.findOne({username})

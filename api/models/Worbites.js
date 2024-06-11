@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 const WorbitesSchema = new mongoose.Schema(
     {
-        worbite:String,
-        partOfSpeech:String,
-        definition:String,
-        examples:[String],
-        addedBy:{type:mongoose.Schema.Types.ObjectId,ref:'User'}
+        worbite:{type:String,required:true},
+        partOfSpeech:{type:String,required:true},
+        definition:{type:String,required:true},
+        examples:{type:[String],required:true},
+        addedBy:{type:mongoose.Schema.Types.ObjectId,ref:'users',required:true}
     },{timestamps:true}
 )
 
