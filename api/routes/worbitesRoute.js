@@ -17,14 +17,12 @@ worbiteRouter.get('/',async(req,res)=>{
 worbiteRouter.post('/',async(req,res)=>{
     const{
         worbite,partOfSpeech,definition,
-        exampleOne,exampleTwo,exampleThree,
-        exampleFour, exampleFive
+        examples,addedBy
     }=req.body
     try {
         const worbiteDoc = new WorbitesModel({
             worbite,partOfSpeech,definition,
-            exampleOne,exampleTwo,exampleThree,
-            exampleFour, exampleFive
+            examples,addedBy
         })
         await worbiteDoc.save()
         res.json('Worbite has been added!')
