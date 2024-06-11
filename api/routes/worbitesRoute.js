@@ -18,6 +18,11 @@ worbiteRouter.get('/',async(req,res)=>{
 // Ellicit id from token
 worbiteRouter.post('/',async(req,res)=>{
     const {token}=req.cookies
+    if(!token){
+        res.json('Token does not exist, please log in')
+        return
+    }
+
     const{
         worbite,partOfSpeech,definition,
         examples,addedBy
