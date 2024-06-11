@@ -1,8 +1,9 @@
 import express from "express"
 import mongoose from "mongoose"
-import accountRouter from "./routes/account.js"
 import cookieParser from "cookie-parser"
 import "dotenv/config"
+import accountRouter from "./routes/accountRoute.js"
+import worbiteRouter from "./routes/worbitesRoute.js"
 
 // Variables
 const app = express()
@@ -14,8 +15,8 @@ async function connectDB(){
     try{
         await mongoose.connect(process.env.DB_CONNECT)
         console.log('Connected to the database')
-    }catch(e){
-        console.log(e.message)
+    }catch(error){
+        console.log(error.message)
     }
 }
 
@@ -23,8 +24,10 @@ async function connectDB(){
 app.use(express.json())
 app.use(cookieParser())
 
+
 // Routes
 app.use('/account',accountRouter)
+app.use('/worbites',worbiteRouter)
 
 // Functions
 app.listen(port,()=>{console.log('Server is running')})

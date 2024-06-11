@@ -13,8 +13,8 @@ accountRouter.get('/', async(req,res)=>{
     try{
         const allUsers=await UserModel.find({})
         res.json(allUsers)
-    }catch(e){
-        res.json(e.message)
+    }catch(error){
+        res.json(error.message)
     }
 })
 
@@ -39,8 +39,8 @@ accountRouter.post('/register',async(req,res)=>{
         })
         await user.save()
         res.json('User created')
-    } catch (e) {
-        res.json(e.message)
+    } catch (error) {
+        res.json(error.message)
     }
 })
 
