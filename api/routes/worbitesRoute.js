@@ -9,9 +9,24 @@ const jwtSecret=process.env.JWT_KEY
 
 // Getting all worbites
 worbiteRouter.get('/',async(req,res)=>{
+    const {token}=req.cookies
+    if(!token){
+        res.json('Token does not exist, please log in')
+        return
+    }
     try {
-        const worbites = await WorbitesModel.find({})
-        res.json(worbites)
+        jwt.verify(
+            token, jwtSecret,{},async(err,verifiedToken)=>{
+                if(err){
+                    res.json(err.message)
+                    return
+                }
+                const{id}=verifiedToken
+                // If worbite has been added by user, let user know
+                const worbiteAdded=await WorbitesModel.find({addedBy:id})
+                res.json(worbiteAdded)
+            }
+        )
     } catch (error) {
         res.json(error.message)
     }
@@ -42,7 +57,7 @@ worbiteRouter.post('/',async(req,res)=>{
                 // If worbite has been added by user, let user know
                 const worbiteAdded=await WorbitesModel.findOne({worbite:worbite,addedBy:id})
                 if(worbiteAdded){
-                    res.json('Worbite has been added already')
+                    res.json(`Worbite: ${worbite} exists in collection`)
                     return
                 }
 
