@@ -6,6 +6,8 @@ const worbiteRouter = Router()
 const jwtSecret=process.env.JWT_KEY
 
 // Worbites routes
+
+// Getting all worbites
 worbiteRouter.get('/',async(req,res)=>{
     try {
         const worbites = await WorbitesModel.find({})
@@ -36,6 +38,15 @@ worbiteRouter.post('/',async(req,res)=>{
                     return
                 }
                 const{id}=verifiedToken
+
+                // If worbite has been added by user, let user know
+                const worbiteAdded=await WorbitesModel.findOne({worbite:worbite,addedBy:id})
+                if(worbiteAdded){
+                    res.json('Worbite has been added already')
+                    return
+                }
+
+                // If worbite is new, add it to the database
                 const worbiteDoc = new WorbitesModel({
                     worbite,partOfSpeech,definition,
                     examples,addedBy,addedBy:id
