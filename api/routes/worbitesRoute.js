@@ -5,9 +5,7 @@ import jwt from "jsonwebtoken"
 const worbiteRouter = Router()
 const jwtSecret=process.env.JWT_KEY
 
-
-
-// Getting all worbites
+// GET all worbites
 worbiteRouter.get('/',async(req,res)=>{
     const {token}=req.cookies
     if(!token){
@@ -32,7 +30,7 @@ worbiteRouter.get('/',async(req,res)=>{
     }
 })
 
-// Adds new worbite
+// POST new worbite
 worbiteRouter.post('/',async(req,res)=>{
     const {token}=req.cookies
     if(!token){
@@ -75,7 +73,35 @@ worbiteRouter.post('/',async(req,res)=>{
     }
 })
 
-// Delete Worbite
+// GET specific worbite
+worbiteRouter.get('/:worbite',async(req,res)=>{
+    const{token}=req.cookies
+    const{worbite}=req.params
+    const worbiteParam = worbite[0].toUpperCase() + worbite.slice(1)
+    if(!token){
+        res.json('Token does not exist, please log in')
+        return
+    }
+    try {
+        jwt.verify(
+            token, jwtSecret,{},async(err,verifiedToken)=>{
+                if(err){
+                    res.json(err.message)
+                    return
+                }
+                const{id}=verifiedToken
+                // If worbite has been added by user, let user know
+                const worbiteDoc=await WorbitesModel.findOne({worbite:worbiteParam,addedBy:id})
+                worbiteDoc ?  res.json(worbiteDoc) : res.json("Worbite doesn't exist")
+               
+            }
+        )
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// DELETE Worbite
 worbiteRouter.delete('/:worbite',async(req,res)=>{
     const{token}=req.cookies
     const{worbite}=req.params
