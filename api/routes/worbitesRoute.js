@@ -76,8 +76,8 @@ worbiteRouter.post('/',async(req,res)=>{
 // GET specific worbite
 worbiteRouter.get('/:worbite',async(req,res)=>{
     const{token}=req.cookies
-    const{worbite}=req.params
-    const worbiteParam = worbite[0].toUpperCase() + worbite.slice(1)
+    const{worbite:worbiteParam}=req.params
+    const worbiteUppercase = worbiteParam[0].toUpperCase() + worbiteParam.slice(1)
     if(!token){
         res.json('Token does not exist, please log in')
         return
@@ -91,9 +91,34 @@ worbiteRouter.get('/:worbite',async(req,res)=>{
                 }
                 const{id}=verifiedToken
                 // If worbite has been added by user, let user know
-                const worbiteDoc=await WorbitesModel.findOne({worbite:worbiteParam,addedBy:id})
+                const worbiteDoc=await WorbitesModel.findOne({worbite:worbiteUppercase,addedBy:id})
                 worbiteDoc ?  res.json(worbiteDoc) : res.json("Worbite doesn't exist")
                
+            }
+        )
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// PUT Worbite's examples
+worbiteRouter.put('/:worbite',async(req,res)=>{
+    const{token}=req.cookies
+    const{worbite:worbiteParam}=req.params
+    const worbiteUppercase = worbiteParam[0].toUpperCase() + worbiteParam.slice(1)
+    const{examples}=req.body
+
+    try {
+        jwt.verify(
+            token,jwtSecret,{},async(err,verifiedToken)=>{
+                if(err){
+                    res.json(err.message)
+                    return
+                }
+                const{id}=verifiedToken
+                // deleteOne does not throw an error if no document is found. Use The returned objects property of deletedCount instead
+                const {modifiedCount} = await WorbitesModel.updateOne({worbite:worbiteUppercase,addedBy:id},{examples:examples})
+                modifiedCount === 1 ? res.json('Examples Updated') : res.json('No Worbite found')
             }
         )
     } catch (error) {
@@ -104,8 +129,8 @@ worbiteRouter.get('/:worbite',async(req,res)=>{
 // DELETE Worbite
 worbiteRouter.delete('/:worbite',async(req,res)=>{
     const{token}=req.cookies
-    const{worbite}=req.params
-    const worbiteParam = worbite[0].toUpperCase() + worbite.slice(1)
+    const{worbite:worbiteParam}=req.params
+    const worbiteUppercase = worbiteParam[0].toUpperCase() + worbiteParam.slice(1)
     if(!token){
         res.json('Token does not exist, please log in')
         return
@@ -119,7 +144,7 @@ worbiteRouter.delete('/:worbite',async(req,res)=>{
                 }
                 const{id}=verifiedToken
                 // deleteOne does not throw an error if no document is found. Use The returned objects property of deletedCount instead
-                const {deletedCount} = await WorbitesModel.deleteOne({worbite:worbiteParam,addedBy:id})
+                const {deletedCount} = await WorbitesModel.deleteOne({worbite:worbiteUppercase,addedBy:id})
                 deletedCount === 1 ? res.json('Worbite deleted') : res.json('No Worbite found')
             }
         )
