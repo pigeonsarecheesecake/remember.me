@@ -7,14 +7,14 @@ export default {
   theme: {
     extend: {
       colors:{
-        'adjective':'#FDFC41',
-        'adverb':'#9BFF63',
-        'conjunction':'#D933FF',
-        'interjection':'#FF54B0',
-        'noun':'#FF5252',
+        'adjective':'#FF5252',
+        'adverb':'#FF8C5A',
+        'conjunction':'#FFCD4C',
+        'interjection':'#FDFC41',
+        'noun':'#9BFF63',
         'preposition':'#59E1FF',
-        'pronoun':'#FF8C5A',
-        'verb':'#FFCD4C',
+        'pronoun':'#D933FF',
+        'verb':'#FF54B0',
         'primary':'rgb(24, 45, 234)',
         'secondary':'#818181',
         'tertiary':'rgb(24, 45, 234, 10%)'
