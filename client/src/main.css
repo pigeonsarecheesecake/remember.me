@@ -5,11 +5,12 @@
 
 @font-face {
     font-family: 'roboto';
-    src: url('../public/Roboto-Regular.ttf');
+    src: url('Roboto-Regular.ttf');
 }
 
 html{
     font-family: 'roboto';
+    color: #080C0A;
 }
 
 

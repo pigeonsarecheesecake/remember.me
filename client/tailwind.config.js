@@ -14,7 +14,10 @@ export default {
         noun:'#FF5252',
         preposition:'#59E1FF',
         pronoun:'#FF8C5A',
-        verb:'#FFCD4C'
+        verb:'#FFCD4C',
+        primary:'rgb(24, 45, 234)',
+        secondary:'#818181',
+        tertiary:'rgb(24, 45, 234, 10%)'
       }
     },
   },
