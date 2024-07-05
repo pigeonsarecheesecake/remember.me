@@ -2,9 +2,9 @@ import { Link } from "react-router-dom"
 
 const NavigationBar = () => {
   return (
-    <div className="flex  justify-between p-1">
+    <div className="flex justify-between w-full my-10">
         {/* Logo and search bar */}
-        <div className=" flex w-4/5">
+        <div className=" flex w-4/5 items-center">
             {/* Logo */}
             <Link to={'/'}>
                 <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +13,7 @@ const NavigationBar = () => {
                 </svg>
             </Link>
             {/* Search Bar */}
-            <div className=" shadow-search-bar flex items-center justify-between rounded-[63px] w-full ml-6 px-6">
+            <div className=" shadow-search-bar flex items-center justify-between rounded-[63px] w-full ml-6 px-6 h-[50px]">
                 <p className="text-secondary">Search Worbite</p>
                 <div>
                     <svg width="20" height="20" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">

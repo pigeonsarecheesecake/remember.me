@@ -6,8 +6,10 @@ const Layout = () => {
     return (
     <div className="">
         <NavigationBar/>
-        <SideBar/>
-        <Outlet />
+        <div className="flex ">
+            <SideBar/>
+            <Outlet />
+        </div>
     </div>
     )
 }
