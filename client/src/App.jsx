@@ -4,6 +4,8 @@ import IndexPage from './pages/IndexPage'
 import AccountPage from './pages/AccountPage'
 import axios from 'axios'
 
+axios.defaults.baseURL='http://localhost:3000'
+
 function App() {
   return (
     <Routes>

@@ -12,8 +12,12 @@ wordsapiRouter.get('/',async(req,res)=>{
           'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com'
         }
       };
-    const {data}=await axios.request(options)
-    res.json(data)
+    try {
+        const {data}=await axios.request(options)
+        res.json(data)
+    } catch (error) {
+        res.json(error)
+    }
 })
 
 export default wordsapiRouter

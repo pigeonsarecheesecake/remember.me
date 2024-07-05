@@ -1,10 +1,24 @@
 import Worbite from "../components/Worbite"
 import axios from 'axios'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
-const IndexPage = () => {
+const IndexPage =  () => {
+  const [worbite, setWorbite] = useState('')
+  const [partOfSpeech, setPartOfSpeech] = useState('')
+
+  useEffect(()=>{
+      axios.get('/wordsapi').then(({data})=>{
+        setWorbite(data.word)
+        setPartOfSpeech(data.results[0].partOfSpeech)
+      }).catch(error => {
+        console.log(error)
+      })
+  },[])
+  
   return (
-    <>lrlt</>
+    <div>
+      <Worbite worbite={worbite} partOfSpeech={partOfSpeech} />
+    </div>
   )
 }
 
