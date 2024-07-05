@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import "dotenv/config"
 import accountRouter from "./routes/accountRoute.js"
 import worbiteRouter from "./routes/worbitesRoute.js"
+import wordsapiRouter from "./routes/wordsapiRoute.js"
 
 // Variables
 const app = express()
@@ -28,6 +29,7 @@ app.use(cookieParser())
 // Routes
 app.use('/account',accountRouter)
 app.use('/worbites',worbiteRouter)
+app.use('/wordsapi',wordsapiRouter)
 
 // Functions
 app.listen(port,()=>{console.log('Server is running')})
