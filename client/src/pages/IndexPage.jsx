@@ -3,21 +3,34 @@ import axios from 'axios'
 import { useEffect, useState } from "react"
 
 const IndexPage =  () => {
-  const [worbite, setWorbite] = useState('')
-  const [partOfSpeech, setPartOfSpeech] = useState('')
+  const [worbites, setWorbite] = useState([])
 
   useEffect(()=>{
-      axios.get('/wordsapi').then(({data})=>{
-        setWorbite(data.word)
-        setPartOfSpeech(data.results[0].partOfSpeech)
-      }).catch(error => {
+    const getRandomWords = async ()=>{
+      let randomWords=[]
+      try {
+        const {data}=await axios.get('/dictionary.json')
+        for(let i=0; i<25;i++){
+          const randomIndex = Math.floor(Math.random()*data.length)
+          randomWords.push(data[randomIndex])
+        }
+        console.log(data)
+        setWorbite(randomWords)
+       
+      } catch (error) {
         console.log(error)
-      })
+      }
+    }
+    getRandomWords()
   },[])
-  
+
   return (
-    <div>
-      <Worbite worbite={worbite} partOfSpeech={partOfSpeech} />
+    <div className="min-w-[237px] grid grid-cols-5 gap-3">
+      {
+        worbites.map(worbiteObject=>(
+          <Worbite worbiteObject={worbiteObject}/>
+        ))
+      }
     </div>
   )
 }
