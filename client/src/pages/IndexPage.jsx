@@ -15,65 +15,60 @@ const IndexPage =  () => {
           randomWords.push(data[randomIndex])
         }
         setWorbite(randomWords)
-       
       } catch (error) {
         console.log(error)
       }
     }
     getRandomWords()
   },[])
+
+  // Worbite groups to achieve masonry layout
+  const groupOne = worbites.slice(0,5)
+  const groupTwo = worbites.slice(5,10)
+  const groupThree = worbites.slice(10,15)
+  const groupFour = worbites.slice(15,20)
+  const groupFive = worbites.slice(20,25)
+
   console.log(worbites)
   return (
-    <div className="border w-full h-[86vh] grid grid-cols-5 gap-3 overflow-y-scroll">
-      {
-        worbites.map(worbiteObject=>(
-          <Worbite worbiteObject={worbiteObject}/>
-        ))
-      }
+    <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll">
+      <div className="">
+        {
+          groupOne.map(worbiteObject=>(
+            <Worbite worbiteObject={worbiteObject}/>
+          ))
+        }
+      </div>
+      <div className="">
+        {
+          groupTwo.map(worbiteObject=>(
+            <Worbite worbiteObject={worbiteObject}/>
+          ))
+        }
+      </div>
+      <div className="">
+        {
+          groupThree.map(worbiteObject=>(
+            <Worbite worbiteObject={worbiteObject}/>
+          ))
+        }
+      </div>
+      <div className="">
+        {
+          groupFour.map(worbiteObject=>(
+            <Worbite worbiteObject={worbiteObject}/>
+          ))
+        }
+      </div>
+      <div className="">
+        {
+          groupFive.map(worbiteObject=>(
+            <Worbite worbiteObject={worbiteObject}/>
+          ))
+        }
+      </div>
     </div>
   )
 }
 
 export default IndexPage
-
-
-/* Frame 22 */
-
-{/* <div className=" w-full grid grid-cols-5 overflow-y-scroll gap-x-3 rounded-[10px] h-[86vh]">
-      <div className=" max-w-[237px]">
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-noun rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-noun rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-      
-      </div>
-      <div className=" max-w-[237px]">
-      <div className=" bg-adverb rounded-[14px] h-60 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-verb rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-conjunction rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-noun rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-      </div>
-      <div className=" max-w-[237px]">
-      <div className=" bg-adjective rounded-[14px] h-70 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-preposition rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-noun rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-      </div>
-      <div className=" max-w-[237px]">
-      <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-pronoun rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-noun rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-      </div>
-      <div className=" max-w-[237px]">
-      <div className=" bg-preposition rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-verb rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-interjection rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-adjective rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-        <div className=" bg-noun rounded-[14px] h-40 flex justify-center items-center px-[25px] py-[18px] mb-2">chichi</div>
-      </div>
-    </div> */}
