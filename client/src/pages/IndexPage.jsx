@@ -14,7 +14,6 @@ const IndexPage =  () => {
           const randomIndex = Math.floor(Math.random()*data.length)
           randomWords.push(data[randomIndex])
         }
-        console.log(data)
         setWorbite(randomWords)
        
       } catch (error) {
@@ -23,9 +22,9 @@ const IndexPage =  () => {
     }
     getRandomWords()
   },[])
-
+  console.log(worbites)
   return (
-    <div className="min-w-[237px] grid grid-cols-5 gap-3">
+    <div className="border w-full h-[86vh] grid grid-cols-5 gap-3 overflow-y-scroll">
       {
         worbites.map(worbiteObject=>(
           <Worbite worbiteObject={worbiteObject}/>
