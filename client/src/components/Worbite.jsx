@@ -1,6 +1,11 @@
 import React from 'react'
+import { useDraggable } from '@dnd-kit/core';
 
-const Worbite = ({worbiteObject}) => {
+const Worbite = ({worbiteObject,id}) => {
+  const {attributes, listeners, setNodeRef, transform} = useDraggable({
+    id:id
+  })
+  
   // Worbite Object content
   const {word, pos, definitions} = worbiteObject
 
@@ -32,14 +37,18 @@ const Worbite = ({worbiteObject}) => {
       partOfSpeech='verb'
       break
   }
+
+  const style= transform ? {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+  } : undefined
   
   return (
-    <div className={`max-w-[237px] mb-2 flex flex-col items-center perspective-1000 cursor-pointer`}>
+    <div style={style} ref={setNodeRef} {...listeners} {...attributes} className={`max-w-[237px] mb-2 flex flex-col items-center perspective-1000 cursor-grab`}>
         {/* Flipper */}
         <div className={`bg-${partOfSpeech} grid [grid-template-columns:1fr] rounded-[14px] w-full hover:[transform:rotateY(180deg)] hover:bg-opacity-50 transition-all duration-[600ms] [transform-style:preserve-3d]`}>
           {/* Front Card */}
           <div className="[grid-row-start:1] [grid-column-start:1] flex flex-col justify-center w-full [backface-visibility:hidden] [transform:rotateY(0deg)] z-[2]">
-            <p className=' break-words text-center text-md '>
+            <p className=' break-words text-center text-md'>
               {word.toLowerCase().split(';')[0]}
             </p>
             <p className='font-normal text-sm text-center'>
