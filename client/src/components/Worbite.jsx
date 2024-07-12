@@ -45,6 +45,8 @@ const Worbite = ({worbiteObject,id}) => {
   // Apply style when element is being dragged
   const style= transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    zIndex: isDragging ? 9999 : 'auto',
+    position: 'absolute',
   } : undefined
   
   function handleClick(){
@@ -55,7 +57,7 @@ const Worbite = ({worbiteObject,id}) => {
     <div style={style} ref={setNodeRef} {...listeners} {...attributes} className={` max-w-[237px] mb-2 flex flex-col items-center perspective-1000 `}>
         <div onClick={handleClick} className={`bg-${partOfSpeech} ${side==='front'?'':'[transform:rotateY(180deg)]'} ${isDragging ? 'bg-opacity-0' : ''} hover:bg-opacity-70 grid [grid-template-columns:1fr] rounded-[14px] w-full transition-all duration-[600ms] [transform-style:preserve-3d]`}>
         {isDragging? 
-        <div className={`bg-${partOfSpeech} ${isDragging ? '[z-index:9999]' : ''} ${side==='front'? '':' [transform:rotateY(180deg)]'} text-center py-4 rounded-[14px] border border-2 border-black `}>
+        <div className={`bg-${partOfSpeech} ${side==='front'? '':' [transform:rotateY(180deg)]'} text-center p-4 rounded-[14px] border border-2 border-black `}>
           <p>{word.toLowerCase().split(';')[0]}</p>
           <svg className='absolute top-[20px] left-[-10px]' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_581_1462)">
@@ -70,7 +72,7 @@ const Worbite = ({worbiteObject,id}) => {
 </defs>
 </svg>
 
-        </div> : <><div className="[grid-row-start:1] [grid-column-start:1] flex flex-col justify-center w-full [backface-visibility:hidden] [transform:rotateY(0deg)] z-[2]">
+        </div> : <><div className={`[grid-row-start:1] [grid-column-start:1] flex flex-col justify-center w-full [backface-visibility:hidden] [transform:rotateY(0deg)] z-[2]`}>
             <p className={` ${isDragging? `bg-${partOfSpeech} p-4 border border-2 border-black rounded-[14px]`: '' } break-words text-center text-md`}>
               {word.toLowerCase().split(';')[0]}
             </p>
