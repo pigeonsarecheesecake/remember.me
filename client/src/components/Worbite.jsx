@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDraggable } from '@dnd-kit/core';
 
 const Worbite = ({worbiteObject,id}) => {
   const {attributes, listeners, setNodeRef, transform} = useDraggable({
     id:id
   })
-  
+  const [side, setSide] = useState('front')
   // Worbite Object content
   const {word, pos, definitions} = worbiteObject
-
+  
   // Part of speech
   let partOfSpeech;
   switch(pos){
@@ -40,12 +40,17 @@ const Worbite = ({worbiteObject,id}) => {
 
   const style= transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    'zIndex':'100'
   } : undefined
   
+  function handleClick(){
+   side === 'front' ? setSide('back') : setSide('front')
+  }
+
   return (
-    <div style={style} ref={setNodeRef} {...listeners} {...attributes} className={`max-w-[237px] mb-2 flex flex-col items-center perspective-1000 cursor-grab`}>
+    <div style={style} ref={setNodeRef} {...listeners} {...attributes} className={`max-w-[237px] mb-2 flex flex-col items-center perspective-1000 `}>
         {/* Flipper */}
-        <div className={`bg-${partOfSpeech} grid [grid-template-columns:1fr] rounded-[14px] w-full hover:[transform:rotateY(180deg)] hover:bg-opacity-50 transition-all duration-[600ms] [transform-style:preserve-3d]`}>
+        <div onClick={handleClick} className={`bg-${partOfSpeech} ${side==='front'?'':'[transform:rotateY(180deg)]'} grid [grid-template-columns:1fr] rounded-[14px] w-full hover:bg-opacity-50 transition-all duration-[600ms] [transform-style:preserve-3d]`}>
           {/* Front Card */}
           <div className="[grid-row-start:1] [grid-column-start:1] flex flex-col justify-center w-full [backface-visibility:hidden] [transform:rotateY(0deg)] z-[2]">
             <p className=' break-words text-center text-md'>

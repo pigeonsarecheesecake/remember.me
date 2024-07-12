@@ -13,7 +13,7 @@ const IndexPage =  () => {
         for(let i=0; i<25;i++){
           const randomIndex = Math.floor(Math.random()*data.length)
           const randomWordObject = data[randomIndex]
-          randomWordObject.id=i
+          randomWordObject.id=i+1
           randomWords.push(randomWordObject)
         }
         setWorbite(randomWords)
