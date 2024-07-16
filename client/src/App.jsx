@@ -2,12 +2,14 @@ import {Route, Routes} from 'react-router-dom'
 import Layout from './layout/Layout'
 import IndexPage from './pages/IndexPage'
 import AccountPage from './pages/AccountPage'
-import {DndContext, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
+import {DndContext, DragOverlay, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
 import axios from 'axios'
+import { useState } from 'react'
 
 // axios.defaults.baseURL='http://localhost:3000'
 
 function App() {
+  // Sensor
   const pointerSensor = useSensor(PointerSensor,{
     activationConstraint:{
       delay:100,
@@ -17,11 +19,23 @@ function App() {
   const sensors = useSensors(
     pointerSensor
   )
+
+  const [activeId, setActiveId] = useState(null)
+ 
+  // Overlay
+  function handleDragStart(event){
+    setActiveId(event.active.id)
+  }
+
+  function handleDragEnd(){
+    setActiveId(null)
+  }
+
   return (
-    <DndContext sensors={sensors}>
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <Routes>
         <Route path='/' element={<Layout/>}>
-          <Route index element={<IndexPage/>}/>
+          <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId}/>}/>
           <Route path='/account' element={<AccountPage/>}/>
         </Route>
       </Routes>

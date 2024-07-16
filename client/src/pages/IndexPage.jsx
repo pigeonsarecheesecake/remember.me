@@ -1,9 +1,11 @@
+import { DragOverlay } from "@dnd-kit/core"
 import Worbite from "../components/Worbite"
+import WorbiteOverlay from "../components/WorbiteOverlay"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 
-const IndexPage =  () => {
-  const [worbites, setWorbite] = useState([])
+const IndexPage =  ({handleDragStart, activeId}) => {
+  const [worbites, setWorbites] = useState([])
 
   useEffect(()=>{
     const getRandomWords = async ()=>{
@@ -16,7 +18,7 @@ const IndexPage =  () => {
           randomWordObject.id=i+1
           randomWords.push(randomWordObject)
         }
-        setWorbite(randomWords)
+        setWorbites(randomWords)
       } catch (error) {
         console.log(error)
       }
@@ -24,21 +26,24 @@ const IndexPage =  () => {
     getRandomWords()
   },[])
 
-
+  
+  const object = worbites.find(worbiteObject => worbiteObject.id === activeId)
+  
   // Worbite groups to achieve masonry layout
   const groupOne = worbites.slice(0,5)
   const groupTwo = worbites.slice(5,10)
   const groupThree = worbites.slice(10,15)
   const groupFour = worbites.slice(15,20)
   const groupFive = worbites.slice(20,25)
-
+  
+  
 
   return (
     <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll">
       <div className="">
         {
           groupOne.map(worbiteObject=>(
-            <Worbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
+            <Worbite activeId={activeId} worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
           ))
         }
       </div>
@@ -70,8 +75,15 @@ const IndexPage =  () => {
           ))
         }
       </div>
+      <DragOverlay>
+        {
+        activeId ? (<WorbiteOverlay worbiteObject={object} />) : null
+        }
+      </DragOverlay>
     </div>
   )
+ 
 }
+
 
 export default IndexPage
