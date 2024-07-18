@@ -1,6 +1,7 @@
 const SideBar = () => {
   return (
     <div className="border border-2 border-tertiary rounded-[10px] min-w-16 h-[539px] flex flex-col items-center mr-6 ">
+        {/* Library logo */}
         <div className="bg-tertiary h-12 w-12 rounded-[10px] my-2 flex justify-center items-center">
             <svg width="26" height="25" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_581_1092)">
