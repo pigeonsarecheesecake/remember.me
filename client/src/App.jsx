@@ -9,6 +9,7 @@ import { useState } from 'react'
 // axios.defaults.baseURL='http://localhost:3000'
 
 function App() {
+  const [parent,setParent] = useState(null)
   // Sensor
   const pointerSensor = useSensor(PointerSensor,{
     activationConstraint:{
@@ -27,14 +28,16 @@ function App() {
     setActiveId(event.active.id)
   }
 
-  function handleDragEnd(){
+  function handleDragEnd(event){
+    const {over} = event
+    setParent(over ? over.id : null)
     setActiveId(null)
   }
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <Routes>
-        <Route path='/' element={<Layout/>}>
+        <Route path='/' element={<Layout activeId={activeId}/>}>
           <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId}/>}/>
           <Route path='/account' element={<AccountPage/>}/>
         </Route>

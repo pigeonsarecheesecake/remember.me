@@ -1,6 +1,51 @@
-const SideBar = () => {
-  return (
-    <div className="border border-2 border-tertiary rounded-[10px] min-w-16 h-[539px] flex flex-col items-center mr-6 ">
+import SideBarDroppable from "./SideBarDroppable"
+const SideBar = ({activeId}) => {
+    
+    // Droppable containers
+    const Droppablecontainers = [{
+        name:'adjective',
+        abbreviation:'adj.',
+        id:1
+    },
+    {
+        name:'adverb',
+        abbreviation:'adv.',
+        id:2
+    },
+    {
+        name:'conjunction',
+        abbreviation:'con.',
+        id:3
+    },
+    {
+        name:'interjection',
+        abbreviation:'int.',
+        id:4
+    },
+    {
+        name:'noun',
+        abbreviation:'nou.',
+        id:5
+    },
+    {
+        name:'preposition',
+        abbreviation:'pre.',
+        id:6
+    },
+    {
+        name:'pronoun',
+        abbreviation:'pro.',
+        id:7
+    },
+    {
+        name:'verb',
+        abbreviation:'ver.',
+        id:8
+    }]
+
+
+    return (
+    <div className={`border border-2 border-tertiary rounded-[10px] min-w-16 h-[539px] flex flex-col items-center mr-6`}>
         {/* Library logo */}
         <div className="bg-tertiary h-12 w-12 rounded-[10px] my-2 flex justify-center items-center">
             <svg width="26" height="25" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,14 +66,11 @@ const SideBar = () => {
             <line x1="0.5" y1="1.5" x2="43.5" y2="1.5" stroke="#182DEA" strokeOpacity="0.1" strokeWidth="3"/>
         </svg>
         {/* Parts of Speech */}
-        <div className="bg-adjective h-12 w-12 rounded-[10px] mb-2 flex justify-center items-center">adj.</div>
-        <div className="bg-adverb h-12 w-12 rounded-[10px] mb-2 flex justify-center items-center">adv.</div>
-        <div className="bg-conjunction h-12 w-12 rounded-[10px] mb-2 flex justify-center items-center">con.</div>
-        <div className="bg-interjection h-12 w-12 rounded-[10px] mb-2 flex justify-center items-center">int.</div>
-        <div className="bg-noun h-12 w-12 rounded-[10px] mb-2 flex justify-center items-center">nou.</div>
-        <div className="bg-preposition h-12 w-12 rounded-[10px] mb-2 flex justify-center items-center">pre.</div>
-        <div className="bg-pronoun h-12 w-12 rounded-[10px] mb-2 flex justify-center items-center">pro.</div>
-        <div className="bg-verb h-12 w-12 rounded-[10px] mb-2 flex justify-center items-center">ver.</div>
+        {
+            Droppablecontainers.map(pos =>
+                (<SideBarDroppable id={pos.id} activeId={activeId} pos={pos} key={pos.id}/>)
+            )
+        }
     </div>
   )
 }
