@@ -48,27 +48,28 @@ const Worbite = ({worbiteObject,id}) => {
 
   return (
     <div ref={setNodeRef} {...listeners} {...attributes} className={` max-w-[237px] mb-2 flex flex-col items-center perspective-1000 `}>
-        <div onClick={handleClick} className={`bg-${partOfSpeech} ${side==='front'?'':'[transform:rotateY(180deg)]'} grid [grid-template-columns:1fr] rounded-[14px] w-full transition-all duration-[600ms] [transform-style:preserve-3d]`}>
-        <div className={`[grid-row-start:1] [grid-column-start:1] flex flex-col justify-center w-full [backface-visibility:hidden] [transform:rotateY(0deg)] z-[2]`}>
-            <p className={`bg-${partOfSpeech}  break-words text-center text-md`}>
+        {/* Flipper */}
+        <div onClick={handleClick} className={`bg-${partOfSpeech} ${side==='front'?'':'[transform:rotateY(180deg)]'} grid [grid-template-columns:1fr] rounded-[14px] w-full transition-all duration-[600ms] [transform-style:preserve-3d] hover:bg-opacity-70`}>
+          {/* Card (front) */}
+          <div className={`[grid-row-start:1] [grid-column-start:1] flex flex-col justify-center w-full [backface-visibility:hidden] [transform:rotateY(0deg)] z-[2]`}>
+            <p className={`break-words text-center text-md leading-5`}>
               {word.toLowerCase().split(';')[0]}
             </p>
-            <p className={`font-normal text-sm text-center`}>
+            <p className={`font-normal text-[0.70rem] text-center`}>
               {partOfSpeech}
             </p>
           </div>
-    
+          {/* Card (back) */}
           <div className="w-full p-3 [grid-row-start:1] [grid-column-start:1] flex flex-col justify-center [backface-visibility:hidden] p-2 [transform:rotateY(180deg)]">
             <div className='mb-2'>
-              <p className=' break-words text-md'>
+              <p className=' break-words text-md leading-4'>
                 {word.toLowerCase().split(';')[0]} 
               </p>
               <p className='font-normal text-[0.70rem]'>
                 {partOfSpeech}
               </p>
             </div>
-            <div className="border border-[1px] mb-2 border-black "></div>
-            <p className='font-normal text-[0.70rem]'>
+            <p className='font-normal text-[0.70rem] leading-3'>
               {definitions[0].split('.')[0] + '.'}
             </p>
           </div>
