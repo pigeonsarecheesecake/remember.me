@@ -35,7 +35,7 @@ const IndexPage =  ({activeId}) => {
   const groupThree = worbites.slice(10,15)
   const groupFour = worbites.slice(15,20)
   const groupFive = worbites.slice(20,25)
-  
+
   return (
     <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll">
       <div className="">

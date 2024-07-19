@@ -14,16 +14,3 @@ html{
     color: #080C0A;
     padding: 0 4rem;
 }
-
-
-@layer utilities{
-    .debug{
-      border: 5px solid red;
-    }
-    .debug-2{
-      border: 5px solid blue;
-    }
-    .debug-3{
-      border: 5px solid green;
-    }
-  }

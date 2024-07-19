@@ -6,7 +6,7 @@ const Layout = ({activeId}) => {
     return (
     <div className="">
         <NavigationBar/>
-        <div className="flex ">
+        <div className="flex">
             <SideBar activeId={activeId}/>
             <Outlet />
         </div>

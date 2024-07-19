@@ -17,28 +17,28 @@ const Worbite = ({worbiteObject,id}) => {
   let partOfSpeech;
   switch(pos){
     case 'a.':
-      partOfSpeech= 'adjective'
+      partOfSpeech= 'bg-adjective'
       break
     case 'adv.':
-      partOfSpeech='adverb'
+      partOfSpeech='bg-adverb'
       break
     case 'conj.':
-      partOfSpeech='preposition'
+      partOfSpeech='bg-conjunction'
       break
     case 'interj.':
-      partOfSpeech='interjection'
+      partOfSpeech='bg-interjection'
       break  
     case 'n.':
-      partOfSpeech='noun'
+      partOfSpeech='bg-noun'
       break
     case 'prep.':
-      partOfSpeech='preposition'
+      partOfSpeech='bg-preposition'
       break
     case 'pron.':
-      partOfSpeech='pronoun'
+      partOfSpeech='bg-pronoun'
       break
     case 'v.':
-      partOfSpeech='verb'
+      partOfSpeech='bg-verb'
       break
   }
   
@@ -49,7 +49,7 @@ const Worbite = ({worbiteObject,id}) => {
   return (
     <div ref={setNodeRef} {...listeners} {...attributes} className={` max-w-[237px] mb-2 flex flex-col items-center perspective-1000 `}>
         {/* Flipper */}
-        <div onClick={handleClick} className={`bg-${partOfSpeech} ${side==='front'?'':'[transform:rotateY(180deg)]'} grid [grid-template-columns:1fr] rounded-[14px] w-full transition-all duration-[600ms] [transform-style:preserve-3d] hover:bg-opacity-70`}>
+        <div onClick={handleClick} className={`${partOfSpeech} ${side==='front'?'':'[transform:rotateY(180deg)]'} grid [grid-template-columns:1fr] rounded-[14px] w-full transition-all duration-[600ms] [transform-style:preserve-3d] hover:bg-opacity-70`}>
           {/* Card (front) */}
           <div className={`[grid-row-start:1] [grid-column-start:1] flex flex-col justify-center w-full [backface-visibility:hidden] [transform:rotateY(0deg)] z-[2]`}>
             <p className={`break-words text-center text-md leading-5`}>
