@@ -74,9 +74,7 @@ const IndexPage =  ({activeId}) => {
         }
       </div>
       <DragOverlay>
-        {
-        activeId ? (<WorbiteOverlay activeWorbite={activeWorbite} />) : null
-        }
+        {activeId ? (<WorbiteOverlay activeWorbite={activeWorbite} />) : null}
       </DragOverlay>
     </div>
   )

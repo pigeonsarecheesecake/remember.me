@@ -2,12 +2,12 @@ import { Outlet } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 import SideBar from "../components/SideBar";
 
-const Layout = ({activeId}) => {
+const Layout = ({parent, setParent}) => {
     return (
     <div className="">
         <NavigationBar/>
         <div className="flex">
-            <SideBar activeId={activeId}/>
+            <SideBar parent={parent} setParent={setParent}/>
             <Outlet />
         </div>
     </div>

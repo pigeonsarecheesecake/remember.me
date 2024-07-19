@@ -1,5 +1,5 @@
 import SideBarDroppable from "./SideBarDroppable"
-const SideBar = ({activeId}) => {
+const SideBar = ({parent,setParent}) => {
     
     // Droppable containers
     const Droppablecontainers = [{
@@ -66,11 +66,7 @@ const SideBar = ({activeId}) => {
             <line x1="0.5" y1="1.5" x2="43.5" y2="1.5" stroke="#182DEA" strokeOpacity="0.1" strokeWidth="3"/>
         </svg>
         {/* Parts of Speech */}
-        {
-            Droppablecontainers.map(pos =>
-                (<SideBarDroppable id={pos.id} activeId={activeId} pos={pos} key={pos.id}/>)
-            )
-        }
+        {Droppablecontainers.map(pos =>(<SideBarDroppable droppableId={pos.id} parent={parent} setParent={setParent} pos={pos} key={pos.id}/>))}
     </div>
   )
 }

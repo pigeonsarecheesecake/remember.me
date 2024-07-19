@@ -30,6 +30,7 @@ function App() {
 
   function handleDragEnd(event){
     const {over} = event
+    // Over meaning, which dragable is dropped on the droppable
     setParent(over ? over.id : null)
     setActiveId(null)
   }
@@ -37,7 +38,7 @@ function App() {
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <Routes>
-        <Route path='/' element={<Layout activeId={activeId}/>}>
+        <Route path='/' element={<Layout parent={parent} setParent={setParent}/>}>
           <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId}/>}/>
           <Route path='/account' element={<AccountPage/>}/>
         </Route>
