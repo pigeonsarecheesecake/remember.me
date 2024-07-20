@@ -56,7 +56,7 @@ const Worbite = ({worbiteObject,id}) => {
               {word.toLowerCase().split(';')[0]}
             </p>
             <p className={`font-normal text-[0.70rem] text-center`}>
-              {partOfSpeech}
+              {partOfSpeech.slice(3)}
             </p>
           </div>
           {/* Card (back) */}
@@ -66,7 +66,7 @@ const Worbite = ({worbiteObject,id}) => {
                 {word.toLowerCase().split(';')[0]} 
               </p>
               <p className='font-normal text-[0.70rem]'>
-                {partOfSpeech}
+                {partOfSpeech.slice(3)}
               </p>
             </div>
             <p className='font-normal text-[0.70rem] leading-3'>
