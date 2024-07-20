@@ -17,7 +17,7 @@ export default {
         'verb':'#FF54B0',
         'primary':'rgb(24, 45, 234)',
         'secondary':'#818181',
-        'tertiary':'rgb(24, 45, 234, 10%)'
+        'tertiary':'rgb(24, 45, 234, .10)'
       },
       boxShadow:{
         'search-bar':'4px 6px 18px rgba(0, 0, 0, 0.15)'
