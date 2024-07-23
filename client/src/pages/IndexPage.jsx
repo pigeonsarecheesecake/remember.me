@@ -14,7 +14,7 @@ const IndexPage =  ({activeId, worbites, activeWorbite}) => {
   const groupFive = worbites.slice(20,25)
 
   return (
-    <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll">
+    <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll scrollbar-none">
       <div className="">
         {
           groupOne.map(worbiteObject=>(
