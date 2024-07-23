@@ -2,33 +2,10 @@ import { DragOverlay } from "@dnd-kit/core"
 import Worbite from "../components/Worbite"
 import WorbiteOverlay from "../components/WorbiteOverlay"
 import axios from 'axios'
-import { useEffect, useState } from "react"
 
-const IndexPage =  ({activeId}) => {
-  // States
-  const [worbites, setWorbites] = useState([])
+const IndexPage =  ({activeId, worbites, activeWorbite}) => {
+  
 
-  useEffect(()=>{
-    const getRandomWords = async ()=>{
-      let randomWords=[]
-      try {
-        const {data}=await axios.get('/dictionary.json')
-        for(let i=0; i<25;i++){
-          const randomIndex = Math.floor(Math.random()*data.length)
-          const randomWordObject = data[randomIndex]
-          randomWordObject.id=i+1
-          randomWords.push(randomWordObject)
-        }
-        setWorbites(randomWords)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getRandomWords()
-  },[])
-
-  // Active Worbite
-  const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)
   // Worbite groups to achieve masonry layout
   const groupOne = worbites.slice(0,5)
   const groupTwo = worbites.slice(5,10)
