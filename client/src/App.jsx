@@ -13,6 +13,7 @@ function App() {
   const [parent,setParent] = useState(null)
   const [worbites, setWorbites] = useState([])  
   const [activeId, setActiveId] = useState(null)
+  const [worbiteObject, setWorbiteObject] = useState(null)
 
   // Get random words to display in indexPage
   useEffect(()=>{
@@ -53,12 +54,14 @@ function App() {
     setActiveId(event.active.id)
   }
 
+
   function handleDragEnd(event){
     const {over} = event
     // Over meaning, which dragable is dropped on the droppable
     setParent(over ? over.id : null)
-    setActiveId(null)
+    // setActiveId(null)
   }
+
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>

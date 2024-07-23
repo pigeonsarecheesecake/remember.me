@@ -1,6 +1,6 @@
 import SideBarDroppable from "./SideBarDroppable"
 const SideBar = ({parent,setParent, activeWorbite}) => {
-    
+ 
     // Droppable containers
     const Droppablecontainers = [{
         name:'adjective',

@@ -1,7 +1,38 @@
 import React from 'react'
 
-const Modal = ({parent, setParent}) => {
-  return (
+const Modal = ({setParent, activeWorbite}) => {
+    console.log(activeWorbite)
+    const {word, definitions, pos} = activeWorbite
+    // Part of speech
+    let partOfSpeech;
+    switch(pos){
+        case 'a.':
+        partOfSpeech= 'bg-adjective'
+        break
+        case 'adv.':
+        partOfSpeech='bg-adverb'
+        break
+        case 'conj.':
+        partOfSpeech='bg-conjunction'
+        break
+        case 'interj.':
+        partOfSpeech='bg-interjection'
+        break  
+        case 'n.':
+        partOfSpeech='bg-noun'
+        break
+        case 'prep.':
+        partOfSpeech='bg-preposition'
+        break
+        case 'pron.':
+        partOfSpeech='bg-pronoun'
+        break
+        case 'v.':
+        partOfSpeech='bg-verb'
+        break
+    }
+
+    return (
     <>
     {   
         // Modal
@@ -12,14 +43,14 @@ const Modal = ({parent, setParent}) => {
             <div className="absolute top-[30%] left-[20%] bg-white w-[558px] h-[427px] rounded-[27px] overflow-hidden">
                 {/* Top Half*/}
                 <div className=" px-12 py-8 bg-[#F4F5FE]">
-                    <p className='text-[40px]'>chichi</p>
-                    <p className='text-sm font-normal'>Preposition</p>
+                    <p className='text-[40px]'>{word.toLowerCase().split(';')[0]}</p>
+                    <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
                     <div className="border-t-[2px] border-black w-100 my-2"></div>
-                    <p className='text-sm font-normal leading-4'>a feeling of warmth, comfort and relaxation. a family ambiance and cozy atmosphere. pleasant togetherness. a feeling of warmth, comfort and relaxation.</p>
+                    <p className='text-sm font-normal leading-4'>{definitions[0].split('.')[0] + '.'}</p>
                 </div>
                 {/* Bottom Half */}
                 <div className="px-12 py-8 ">
-                    <p className='text-xl'>Would you like to save worbite <span className='text-primary'>`chichi`</span> to your library?</p>
+                    <p className='text-xl'>Would you like to save worbite <span className='text-primary'>{'`' + word.toLowerCase().split(';')[0] + '`'}</span> to your library?</p>
                     <div className="text-end mt-4">
                         <button className='mx-4' onClick={()=>{setParent(null)}}>
                             <svg width="50" height="50" viewBox="0 0 91 90" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +71,7 @@ const Modal = ({parent, setParent}) => {
         </div>
     }
     </>
-  )
+    )
 }
 
 export default Modal

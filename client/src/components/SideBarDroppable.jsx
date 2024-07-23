@@ -2,7 +2,7 @@ import React from 'react'
 import { useDroppable } from "@dnd-kit/core"
 import Modal from './Modal'
 
-const SideBarDroppable = ({pos,droppableId, parent, setParent,activeWorbite}) => {
+const SideBarDroppable = ({pos,droppableId, parent, setParent, activeWorbite}) => {
     const {name, abbreviation}=pos
     const {isOver, setNodeRef} = useDroppable({
         id:droppableId
