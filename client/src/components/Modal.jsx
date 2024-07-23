@@ -45,8 +45,16 @@ const Modal = ({setParent, activeWorbite}) => {
                     <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
                         <p className='text-[40px]'>{word.toLowerCase().split(';')[0]}</p>
                         <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
-                        <div className="border-t-[2px] border-black my-2"></div>
+                        <div className="border-t-[2px] border-black my-4"></div>
                         <p className='text-sm font-normal leading-4'>{definitions[0].split('.')[0] + '.'}</p>
+                        {/* Examples */}
+                        <div className="my-4">
+                            <p className='text-md'>Example sentences</p>
+                            <p className='font-normal text-sm'>[1] For expeditious action, chichi an all-in-one leaf removal system.</p>
+                            <p className='font-normal text-sm'>[2] We really feel like we can be more chichi and get more shots in arms.</p>
+                            <p className='font-normal text-sm'>[3] Of course, any full and chichi development of these cleaner-coal strategies would require significant financial support. </p>
+                        </div>
+                        
                     </div>
                 </div>
                 {/* Bottom Half */}
