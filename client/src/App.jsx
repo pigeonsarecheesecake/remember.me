@@ -54,14 +54,12 @@ function App() {
     setActiveId(event.active.id)
   }
 
-
   function handleDragEnd(event){
     const {over} = event
     // Over meaning, which dragable is dropped on the droppable
     setParent(over ? over.id : null)
     // setActiveId(null)
   }
-
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>

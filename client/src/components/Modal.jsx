@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Modal = ({setParent, activeWorbite}) => {
-    console.log(activeWorbite)
     const {word, definitions, pos} = activeWorbite
     // Part of speech
     let partOfSpeech;
@@ -40,16 +39,18 @@ const Modal = ({setParent, activeWorbite}) => {
             {/* Overlay */}
             <div className="w-screen h-screen fixed top-0 right-0 bottom-0 left-0 bg-[rgba(49,49,49,0.8)] "></div>
             {/* Content */}
-            <div className="absolute top-[30%] left-[20%] bg-white w-[558px] h-[427px] rounded-[27px] overflow-hidden">
+            <div className="absolute top-[30%] left-[20%] bg-white w-[500px] h-[427px] rounded-[27px] overflow-hidden">
                 {/* Top Half*/}
-                <div className=" px-12 py-8 bg-[#F4F5FE]">
-                    <p className='text-[40px]'>{word.toLowerCase().split(';')[0]}</p>
-                    <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
-                    <div className="border-t-[2px] border-black w-100 my-2"></div>
-                    <p className='text-sm font-normal leading-4'>{definitions[0].split('.')[0] + '.'}</p>
+                <div className="px-8 pt-8 bg-[#F4F5FE]  h-2/4 flex items-end ">
+                    <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
+                        <p className='text-[40px]'>{word.toLowerCase().split(';')[0]}</p>
+                        <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
+                        <div className="border-t-[2px] border-black my-2"></div>
+                        <p className='text-sm font-normal leading-4'>{definitions[0].split('.')[0] + '.'}</p>
+                    </div>
                 </div>
                 {/* Bottom Half */}
-                <div className="px-12 py-8 ">
+                <div className="px-8 py-8 ">
                     <p className='text-xl'>Would you like to save worbite <span className='text-primary'>{'`' + word.toLowerCase().split(';')[0] + '`'}</span> to your library?</p>
                     <div className="text-end mt-4">
                         <button className='mx-4' onClick={()=>{setParent(null)}}>
