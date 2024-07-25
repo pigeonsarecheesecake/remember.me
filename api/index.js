@@ -6,6 +6,7 @@ import "dotenv/config"
 import accountRouter from "./routes/accountRoute.js"
 import worbiteRouter from "./routes/worbitesRoute.js"
 import wordsapiRouter from "./routes/wordsapiRoute.js"
+import openAiRouter from "./routes/openAiRoute.js"
 
 // Variables
 const app = express()
@@ -35,6 +36,7 @@ app.use(cookieParser())
 app.use('/account',accountRouter)
 app.use('/worbites',worbiteRouter)
 app.use('/wordsapi',wordsapiRouter)
+app.use('/check',openAiRouter)
 
 // Functions
 app.listen(port,()=>{console.log('Server is running')})
