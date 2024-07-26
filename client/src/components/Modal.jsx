@@ -62,7 +62,7 @@ const Modal = ({setParent, activeWorbite}) => {
                     </div>
                 </div>
                 {/* Bottom Half */}
-                <div className="px-8 py-8 h-2/4 border flex flex-col justify-between">
+                <div className="px-8 py-8 h-2/4 flex flex-col justify-between">
                     {step === 1 && (
                         <>
                             <p className='text-xl '>Would you like to save worbite <span className='text-primary'>{'`' + word.toLowerCase().split(';')[0] + '`'}</span> to your library?</p>

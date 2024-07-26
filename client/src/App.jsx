@@ -2,7 +2,7 @@ import {Route, Routes} from 'react-router-dom'
 import Layout from './layout/Layout'
 import IndexPage from './pages/IndexPage'
 import AccountPage from './pages/AccountPage'
-import {DndContext, DragOverlay, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
+import {DndContext, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
