@@ -207,7 +207,7 @@ const Modal = ({setParent, activeWorbite}) => {
               {cardState === 'default' && (
                 <form className='flex flex-col' onSubmit={handleSubmit}>
                   <input className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
-                  <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >You did really well! Go next.</button>                
+                  <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
                 </form>
               )}
 
@@ -224,7 +224,7 @@ const Modal = ({setParent, activeWorbite}) => {
                     </defs>
                   </svg>
                   <input className={`border-b-2 border-primary focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
-                  <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >Great! Add next Sentence.</button>                
+                  <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >You did really well! Go next.</button>                
                 </form>
               )}
             </>
