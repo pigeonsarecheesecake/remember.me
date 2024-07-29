@@ -8,6 +8,7 @@ const Modal = ({setParent, activeWorbite}) => {
   const [example, setExample] = useState('')
   const [examples, setExamples] = useState([])
   const [cardState, setCardState]=useState('default')
+  const [correctExample, setCorrectExample] = useState('')
 
   // Part of speech
   let partOfSpeech;
@@ -50,15 +51,25 @@ const Modal = ({setParent, activeWorbite}) => {
     if(message==='yes'){
       setExamples([...examples,example])
       setCardState('correct')
+    }else {
+      setCardState('incorrect')
+      setCorrectExample(message)
     }
   }
 
-  const handleCorrectSubmit = async (ev)=>{
+  const handleCorrectSubmit = (ev)=>{
     ev.preventDefault()
     setStep(prev => prev+1)
     setCardState('default')
     setExample('')
   }
+
+  const handleIncorrectSubmit = (ev)=>{
+    ev.preventDefault()
+    setCardState('default')
+  }
+
+  console.log(correctExample);
 
   return (
   <>
@@ -98,6 +109,21 @@ const Modal = ({setParent, activeWorbite}) => {
               {/* Grammar checker */}
               <div className="">
                 <p className='h-3/4 border-[3px] border-[#50DE00] rounded-[20px] flex items-center m-3 p-4 text-center'>{example}</p>
+                <p className='text-center text-sm'>Grammar Checker</p>  
+              </div>              
+            </div>
+          )}
+          {/* Incorrect */}
+          {cardState === 'incorrect' && (
+            <div className="flex w-full justify-center">
+              {/* Me */}
+              <div className="">
+                <p className='h-3/4 border-[3px] border-[#FF5252] rounded-[20px] flex items-center m-3 p-4 text-center'>{example}</p>
+                <p className='text-center text-sm'>Me</p>              
+              </div>
+              {/* Grammar checker */}
+              <div className="">
+                <p className='h-3/4 border-[3px] border-[#50DE00] rounded-[20px] flex items-center m-3 p-4 text-center'>{correctExample.slice(4)}</p>
                 <p className='text-center text-sm'>Grammar Checker</p>  
               </div>              
             </div>
@@ -158,7 +184,7 @@ const Modal = ({setParent, activeWorbite}) => {
               {cardState === 'correct' && (
                 <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
                   <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_597_4038)">
+                    <g clipPath="url(#clip0_597_4038)">
                       <path d="M17.5062 2.3289e-06C7.85457 -0.00493455 0.00246902 7.83977 5.82386e-07 17.4938C-0.00246786 27.1454 7.84223 34.9951 17.4963 35C27.1454 35.0049 35.0025 27.1528 35.0049 17.5062C35.0049 7.85211 27.1627 0.00493921 17.5062 2.3289e-06ZM26.8813 13.7097C25.3731 15.2895 23.8673 16.8743 22.3591 18.4565L16.8446 24.2475C16.3287 24.7905 15.7314 25.0769 15.1192 25.0769C14.507 25.0769 13.9269 24.7979 13.416 24.2697C12.7939 23.6279 12.1719 22.9886 11.5498 22.3493L11.4412 22.2357C10.323 21.0854 9.20234 19.9351 8.09154 18.7774C7.49665 18.1578 7.32386 17.4593 7.5633 16.6373C7.80767 15.8054 8.33592 15.3068 9.1826 15.1192C9.3702 15.0772 9.55286 15.0575 9.72565 15.0575C10.8562 15.0575 11.6461 16.1041 12.3693 16.8446C13.2753 17.7728 14.2108 18.7601 14.9242 19.8463C15.1982 19.708 15.4006 19.3896 15.6129 19.1699C15.9066 18.8663 16.1954 18.5577 16.4867 18.2516C17.1384 17.5679 17.7925 16.8817 18.4442 16.1979L18.8737 15.7486C19.3081 15.292 20.3597 14.1837 20.3597 14.1837L20.4732 14.0652C21.5347 12.947 22.6306 11.7917 23.7291 10.6563C24.2055 10.1626 24.7115 9.92313 25.2743 9.92313C25.5335 9.92313 25.81 9.97497 26.0963 10.0811C26.9874 10.4094 27.4589 11.0413 27.5354 12.0164C27.5848 12.6433 27.3701 13.1987 26.8813 13.7097Z" fill="#50DE00"/>
                     </g>
                     <defs>
@@ -169,6 +195,13 @@ const Modal = ({setParent, activeWorbite}) => {
                   </svg>
                   <input className={`border-b-2 border-primary focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
                   <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >Great! Add next Sentence.</button>                
+                </form>
+              )}
+              {/* Incorrect */}
+              {cardState === 'incorrect' && (
+                <form className='flex flex-col relative' onSubmit={handleIncorrectSubmit}>
+                  <input className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white bg-[#818181]`} >Try Again. You got this!</button>                
                 </form>
               )}
             </>
@@ -186,7 +219,7 @@ const Modal = ({setParent, activeWorbite}) => {
               {cardState === 'correct' && (
                 <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
                   <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_597_4038)">
+                    <g clipPath="url(#clip0_597_4038)">
                       <path d="M17.5062 2.3289e-06C7.85457 -0.00493455 0.00246902 7.83977 5.82386e-07 17.4938C-0.00246786 27.1454 7.84223 34.9951 17.4963 35C27.1454 35.0049 35.0025 27.1528 35.0049 17.5062C35.0049 7.85211 27.1627 0.00493921 17.5062 2.3289e-06ZM26.8813 13.7097C25.3731 15.2895 23.8673 16.8743 22.3591 18.4565L16.8446 24.2475C16.3287 24.7905 15.7314 25.0769 15.1192 25.0769C14.507 25.0769 13.9269 24.7979 13.416 24.2697C12.7939 23.6279 12.1719 22.9886 11.5498 22.3493L11.4412 22.2357C10.323 21.0854 9.20234 19.9351 8.09154 18.7774C7.49665 18.1578 7.32386 17.4593 7.5633 16.6373C7.80767 15.8054 8.33592 15.3068 9.1826 15.1192C9.3702 15.0772 9.55286 15.0575 9.72565 15.0575C10.8562 15.0575 11.6461 16.1041 12.3693 16.8446C13.2753 17.7728 14.2108 18.7601 14.9242 19.8463C15.1982 19.708 15.4006 19.3896 15.6129 19.1699C15.9066 18.8663 16.1954 18.5577 16.4867 18.2516C17.1384 17.5679 17.7925 16.8817 18.4442 16.1979L18.8737 15.7486C19.3081 15.292 20.3597 14.1837 20.3597 14.1837L20.4732 14.0652C21.5347 12.947 22.6306 11.7917 23.7291 10.6563C24.2055 10.1626 24.7115 9.92313 25.2743 9.92313C25.5335 9.92313 25.81 9.97497 26.0963 10.0811C26.9874 10.4094 27.4589 11.0413 27.5354 12.0164C27.5848 12.6433 27.3701 13.1987 26.8813 13.7097Z" fill="#50DE00"/>
                     </g>
                     <defs>
@@ -199,6 +232,14 @@ const Modal = ({setParent, activeWorbite}) => {
                   <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >Almost there! Add the last one!</button>                
                 </form>
               )}
+              
+              {cardState === 'incorrect' && (
+                <form className='flex flex-col relative' onSubmit={handleIncorrectSubmit}>
+                  <input className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white bg-[#818181]`} >Try Again. You got this!</button>                
+                </form>
+              )}
+              
             </>
           )}
           {step === 5 && (
@@ -214,7 +255,7 @@ const Modal = ({setParent, activeWorbite}) => {
               {cardState === 'correct' && (
                 <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
                   <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_597_4038)">
+                    <g clipPath="url(#clip0_597_4038)">
                       <path d="M17.5062 2.3289e-06C7.85457 -0.00493455 0.00246902 7.83977 5.82386e-07 17.4938C-0.00246786 27.1454 7.84223 34.9951 17.4963 35C27.1454 35.0049 35.0025 27.1528 35.0049 17.5062C35.0049 7.85211 27.1627 0.00493921 17.5062 2.3289e-06ZM26.8813 13.7097C25.3731 15.2895 23.8673 16.8743 22.3591 18.4565L16.8446 24.2475C16.3287 24.7905 15.7314 25.0769 15.1192 25.0769C14.507 25.0769 13.9269 24.7979 13.416 24.2697C12.7939 23.6279 12.1719 22.9886 11.5498 22.3493L11.4412 22.2357C10.323 21.0854 9.20234 19.9351 8.09154 18.7774C7.49665 18.1578 7.32386 17.4593 7.5633 16.6373C7.80767 15.8054 8.33592 15.3068 9.1826 15.1192C9.3702 15.0772 9.55286 15.0575 9.72565 15.0575C10.8562 15.0575 11.6461 16.1041 12.3693 16.8446C13.2753 17.7728 14.2108 18.7601 14.9242 19.8463C15.1982 19.708 15.4006 19.3896 15.6129 19.1699C15.9066 18.8663 16.1954 18.5577 16.4867 18.2516C17.1384 17.5679 17.7925 16.8817 18.4442 16.1979L18.8737 15.7486C19.3081 15.292 20.3597 14.1837 20.3597 14.1837L20.4732 14.0652C21.5347 12.947 22.6306 11.7917 23.7291 10.6563C24.2055 10.1626 24.7115 9.92313 25.2743 9.92313C25.5335 9.92313 25.81 9.97497 26.0963 10.0811C26.9874 10.4094 27.4589 11.0413 27.5354 12.0164C27.5848 12.6433 27.3701 13.1987 26.8813 13.7097Z" fill="#50DE00"/>
                     </g>
                     <defs>
@@ -225,6 +266,13 @@ const Modal = ({setParent, activeWorbite}) => {
                   </svg>
                   <input className={`border-b-2 border-primary focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
                   <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >You did really well! Go next.</button>                
+                </form>
+              )}
+              
+              {cardState === 'incorrect' && (
+                <form className='flex flex-col relative' onSubmit={handleIncorrectSubmit}>
+                  <input className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white bg-[#818181]`} >Try Again. You got this!</button>                
                 </form>
               )}
             </>
