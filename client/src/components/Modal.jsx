@@ -65,7 +65,7 @@ const Modal = ({setParent, activeWorbite}) => {
       {/* Overlay */}
       <div className="w-screen h-screen fixed top-0 right-0 bottom-0 left-0 bg-[rgba(49,49,49,0.8)] "></div>
       {/* Content */}
-      <div className="absolute top-[30%] left-[20%] bg-white w-[500px] h-[427px] rounded-[27px] overflow-hidden">
+      <div className="absolute top-[30%] left-[20%] bg-white w-[500px] h-[427px] rounded-[27px] overflow-hidden I'm going to terminal">
         {/* Top Half*/}
         <div className="px-8 pt-8 bg-[#F4F5FE] h-2/4 flex items-end ">
           <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
@@ -123,6 +123,7 @@ const Modal = ({setParent, activeWorbite}) => {
               </div>
             </>
           )}
+          {/* Examples */}
           {step === 3 && (
             <>
               <p className='text-xl text-end'>1/3</p>
@@ -152,6 +153,30 @@ const Modal = ({setParent, activeWorbite}) => {
           )}
         </div>
       </div>
+      {/* Completed form Content */}
+      {step === 6 && (
+        <div className="absolute top-[30%] left-[20%] bg-white w-[500px] rounded-[27px] overflow-hidden border border-[3px] border-primary shadow-modal">
+          <div className="px-8 pt-8 bg-[#F4F5FE] h-full flex items-end ">
+            <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
+              {/* Worbite and definition */}
+              <p className='text-[40px]'>{worbite.toLowerCase().split(';')[0]}</p>
+              <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
+              <div className="border-t-[2px] border-black my-4"></div>
+              <p className='text-sm font-normal leading-5'>{definitions[0].split('.')[0] + '.'}</p>
+              {/* Examples */}
+              <div className="my-4">
+                <p className='text-md'>Your Sentences</p>
+                {examples.map(example=>
+                 ( <p className='text-primary p-2 border border-[3px] rounded-[10px] my-2'>{example}</p>)
+                )}
+              </div>
+              <form className='my-10'>
+                <button className={`h-[50px] w-full rounded-[10px] text-white bg-primary`} >Add to library</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   }
   </>
@@ -159,3 +184,5 @@ const Modal = ({setParent, activeWorbite}) => {
 }
 
 export default Modal
+
+
