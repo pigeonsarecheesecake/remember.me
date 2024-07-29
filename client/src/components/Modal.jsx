@@ -6,6 +6,7 @@ const Modal = ({setParent, activeWorbite}) => {
   const [step, setStep] = useState(1)
   const {word:worbite, definitions, pos} = activeWorbite
   const [example, setExample] = useState('')
+  const [examples, setExamples] = useState([])
 
   // Part of speech
   let partOfSpeech;
@@ -37,17 +38,24 @@ const Modal = ({setParent, activeWorbite}) => {
   }
 
   const handleSubmit = async (ev)=>{
+    
     ev.preventDefault()
+  
     const worbiteData = {
       worbite,pos,example
     }
     const {data} = await axios.post('/check', {
       ...worbiteData
     })
-
-    console.log(data);
+    const {message} =data
+    if(message==='yes'){
+      setStep(prev => prev +1)
+      setExamples([...examples,example])
+      setExample('')
+    }
   }
 
+  console.log(examples);
 
   return (
   <>
@@ -120,7 +128,25 @@ const Modal = ({setParent, activeWorbite}) => {
               <p className='text-xl text-end'>1/3</p>
               <form className='flex flex-col' onSubmit={handleSubmit}>
                 <input className='border-b-2 border-[#E7E7E7] focus:outline-none mb-4' type="text" value={example} onChange={ev => setExample(ev.target.value)} />
-                <button className='bg-[#E7E7E7] h-[50px] rounded-[10px] text-white'>Check English Grammar</button>
+                <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>
+              </form>
+            </>
+          )}
+          {step === 4 && (
+            <>
+              <p className='text-xl text-end'>2/3</p>
+              <form className='flex flex-col' onSubmit={handleSubmit}>
+                <input className='border-b-2 border-[#E7E7E7] focus:outline-none mb-4' type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>
+              </form>
+            </>
+          )}
+          {step === 5 && (
+            <>
+              <p className='text-xl text-end'>3/3</p>
+              <form className='flex flex-col' onSubmit={handleSubmit}>
+                <input className='border-b-2 border-[#E7E7E7] focus:outline-none mb-4' type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>
               </form>
             </>
           )}
