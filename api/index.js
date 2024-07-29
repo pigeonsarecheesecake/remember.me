@@ -35,7 +35,6 @@ app.use(cookieParser())
 // Routes
 app.use('/account',accountRouter)
 app.use('/worbites',worbiteRouter)
-app.use('/wordsapi',wordsapiRouter)
 app.use('/check',openAiRouter)
 
 // Functions

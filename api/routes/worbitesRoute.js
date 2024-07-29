@@ -6,7 +6,7 @@ import verifyToken from "../middlewares/verifyToken.js"
 const worbiteRouter = Router()
 
 // Middleware
-worbiteRouter.use(verifyToken)
+// worbiteRouter.use(verifyToken)
 
 // Add a new worbite
 worbiteRouter.post('/',async(req,res)=>{
