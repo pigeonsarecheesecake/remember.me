@@ -48,18 +48,7 @@ const Modal = ({setParent, activeWorbite}) => {
     console.log(data);
   }
 
-  
-  // useEffect(()=>{
-  //   const test = async ()=> {
-  //     try {
-  //       const {data} = await axios.get('/worbites')
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   }
-  //   test()
-  // },[])
+
   return (
   <>
   {   
