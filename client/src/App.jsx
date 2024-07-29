@@ -3,10 +3,12 @@ import Layout from './layout/Layout'
 import IndexPage from './pages/IndexPage'
 import AccountPage from './pages/AccountPage'
 import {DndContext, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
-import axios from 'axios'
 import { useState, useEffect } from 'react'
-
-// axios.defaults.baseURL='http://localhost:3000'
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:3000';
+const dictionaryAxios = axios.create({
+  baseURL : '/dictionary.json'
+})
 
 function App() {
   // States
@@ -20,7 +22,7 @@ function App() {
     const getRandomWords = async ()=>{
       let randomWords=[]
       try {
-        const {data}=await axios.get('/dictionary.json')
+        const {data}=await dictionaryAxios.get()
         for(let i=0; i<25;i++){
           const randomIndex = Math.floor(Math.random()*data.length)
           const randomWordObject = data[randomIndex]

@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
 const Modal = ({setParent, activeWorbite}) => {
   // States
   const [step, setStep] = useState(1)
-  const {word, definitions, pos} = activeWorbite
+  const {word:worbite, definitions, pos} = activeWorbite
+  const [example, setExample] = useState('')
+
   // Part of speech
   let partOfSpeech;
   switch(pos){
@@ -34,10 +36,30 @@ const Modal = ({setParent, activeWorbite}) => {
       break
   }
 
-  const handleSubmit = ()=>{
+  const handleSubmit = async (ev)=>{
+    ev.preventDefault()
+    const worbiteData = {
+      worbite,pos,example
+    }
+    const {data} = await axios.post('/check', {
+      ...worbiteData
+    })
 
+    console.log(data);
   }
 
+  
+  // useEffect(()=>{
+  //   const test = async ()=> {
+  //     try {
+  //       const {data} = await axios.get('/worbites')
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   }
+  //   test()
+  // },[])
   return (
   <>
   {   
@@ -50,7 +72,7 @@ const Modal = ({setParent, activeWorbite}) => {
         {/* Top Half*/}
         <div className="px-8 pt-8 bg-[#F4F5FE] h-2/4 flex items-end ">
           <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
-            <p className='text-[40px]'>{word.toLowerCase().split(';')[0]}</p>
+            <p className='text-[40px]'>{worbite.toLowerCase().split(';')[0]}</p>
             <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
             <div className="border-t-[2px] border-black my-4"></div>
             <p className='text-sm font-normal leading-5'>{definitions[0].split('.')[0] + '.'}</p>
@@ -68,7 +90,7 @@ const Modal = ({setParent, activeWorbite}) => {
         <div className="px-8 py-8 h-2/4 flex flex-col justify-between">
           {step === 1 && (
             <>
-              <p className='text-xl '>Would you like to save worbite <span className='text-primary'>{'`' + word.toLowerCase().split(';')[0] + '`'}</span> to your library?</p>
+              <p className='text-xl '>Would you like to save worbite <span className='text-primary'>{'`' + worbite.toLowerCase().split(';')[0] + '`'}</span> to your library?</p>
               <div className="text-end ">
                 <button className='mx-4' onClick={()=>{setParent(null)}}>
                   <svg width="50" height="50" viewBox="0 0 91 90" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +109,7 @@ const Modal = ({setParent, activeWorbite}) => {
           )}
           {step === 2 && (
             <>
-              <p className='text-xl '>Make <span className='text-primary'>3</span> sentences with the wordbite you picked!</p>
+              <p className='text-xl '>Make <span className='text-primary'>3</span> sentences with the worbite you picked!</p>
               <div className="text-end">
                 <button className='mx-4' onClick={()=>{setParent(null)}}>
                   <svg width="50" height="50" viewBox="0 0 91 90" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,11 +129,9 @@ const Modal = ({setParent, activeWorbite}) => {
           {step === 3 && (
             <>
               <p className='text-xl text-end'>1/3</p>
-              <form className='flex flex-col' onClick={handleSubmit}>
-                <input className='border-b-2 border-[#E7E7E7] focus:outline-none mb-4' type="text" />
-                <button className='bg-[#E7E7E7] h-[50px] rounded-[10px] text-white'>
-                  Check English Grammar
-                </button>
+              <form className='flex flex-col' onSubmit={handleSubmit}>
+                <input className='border-b-2 border-[#E7E7E7] focus:outline-none mb-4' type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                <button className='bg-[#E7E7E7] h-[50px] rounded-[10px] text-white'>Check English Grammar</button>
               </form>
             </>
           )}
