@@ -7,6 +7,7 @@ const Modal = ({setParent, activeWorbite}) => {
   const {word:worbite, definitions, pos} = activeWorbite
   const [example, setExample] = useState('')
   const [examples, setExamples] = useState([])
+  const [cardState, setCardState]=useState('default')
 
   // Part of speech
   let partOfSpeech;
@@ -38,9 +39,7 @@ const Modal = ({setParent, activeWorbite}) => {
   }
 
   const handleSubmit = async (ev)=>{
-    
     ev.preventDefault()
-  
     const worbiteData = {
       worbite,pos,example
     }
@@ -49,13 +48,17 @@ const Modal = ({setParent, activeWorbite}) => {
     })
     const {message} =data
     if(message==='yes'){
-      setStep(prev => prev +1)
       setExamples([...examples,example])
-      setExample('')
+      setCardState('correct')
     }
   }
 
-  console.log(examples);
+  const handleCorrectSubmit = async (ev)=>{
+    ev.preventDefault()
+    setStep(prev => prev+1)
+    setCardState('default')
+    setExample('')
+  }
 
   return (
   <>
@@ -63,26 +66,44 @@ const Modal = ({setParent, activeWorbite}) => {
     // Modal
     <div className="w-screen h-screen fixed top-0 right-0 bottom-0 left-0 z-[1000]">
       {/* Overlay */}
-      <div className="w-screen h-screen fixed top-0 right-0 bottom-0 left-0 bg-[rgba(49,49,49,0.8)] "></div>
+      <div className="w-screen h-screen fixed top-0 right-0 bottom-0 left-0 bg-[rgba(49,49,49,0.8)] " onClick={()=>{setParent(null)}}></div>
       {/* Content */}
-      <div className="absolute top-[30%] left-[20%] bg-white w-[500px] h-[427px] rounded-[27px] overflow-hidden I'm going to terminal">
+      <div className="absolute top-[30%] left-[20%] bg-white w-[500px] h-[427px] rounded-[27px] overflow-hidden shadow-modal">
         {/* Top Half*/}
-        <div className="px-8 pt-8 bg-[#F4F5FE] h-2/4 flex items-end ">
-          <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
-            <p className='text-[40px]'>{worbite.toLowerCase().split(';')[0]}</p>
-            <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
-            <div className="border-t-[2px] border-black my-4"></div>
-            <p className='text-sm font-normal leading-5'>{definitions[0].split('.')[0] + '.'}</p>
-            {/* Examples */}
-            <div className="my-4">
-              <p className='text-md'>Example sentences</p>
-              <p className='font-normal text-sm'>[1] For expeditious action, chichi an all-in-one leaf removal system.</p>
-              <p className='font-normal text-sm'>[2] We really feel like we can be more chichi and get more shots in arms.</p>
-              <p className='font-normal text-sm'>[3] Of course, any full and chichi development of these cleaner-coal strategies would require significant financial support. </p>
+        <div className={` px-8 pt-8 h-2/4 flex ${cardState === 'default'? 'bg-[#F4F5FE] ' : '' }`}>
+          {/* Default */}
+          {cardState === 'default' && (
+            <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
+              <p className='text-[40px]'>{worbite.toLowerCase().split(';')[0]}</p>
+              <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
+              <div className="border-t-[2px] border-black my-4"></div>
+              <p className='text-sm font-normal leading-5'>{definitions[0].split('.')[0] + '.'}</p>
+              {/* Examples */}
+              <div className="my-4">
+                <p className='text-md'>Example sentences</p>
+                <p className='font-normal text-sm'>[1] For expeditious action, chichi an all-in-one leaf removal system.</p>
+                <p className='font-normal text-sm'>[2] We really feel like we can be more chichi and get more shots in arms.</p>
+                <p className='font-normal text-sm'>[3] Of course, any full and chichi development of these cleaner-coal strategies would require significant financial support. </p>
+              </div>
             </div>
-          </div>
+          )}
+          {/* Correct */}
+          {cardState === 'correct' && (
+            <div className="flex w-full justify-center">
+              {/* Me */}
+              <div className="">
+                <p className='h-3/4 border-[3px] border-[#FF5252] rounded-[20px] flex items-center m-3 p-4 text-center'>{example}</p>
+                <p className='text-center text-sm'>Me</p>              
+              </div>
+              {/* Grammar checker */}
+              <div className="">
+                <p className='h-3/4 border-[3px] border-[#50DE00] rounded-[20px] flex items-center m-3 p-4 text-center'>{example}</p>
+                <p className='text-center text-sm'>Grammar Checker</p>  
+              </div>              
+            </div>
+          )}
         </div>
-
+        
         {/* Bottom Half */}
         <div className="px-8 py-8 h-2/4 flex flex-col justify-between">
           {step === 1 && (
@@ -127,28 +148,85 @@ const Modal = ({setParent, activeWorbite}) => {
           {step === 3 && (
             <>
               <p className='text-xl text-end'>1/3</p>
-              <form className='flex flex-col' onSubmit={handleSubmit}>
-                <input className='border-b-2 border-[#E7E7E7] focus:outline-none mb-4' type="text" value={example} onChange={ev => setExample(ev.target.value)} />
-                <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>
-              </form>
+              {cardState === 'default' && (
+                <form className='flex flex-col' onSubmit={handleSubmit}>
+                  <input className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
+                </form>
+              )}
+
+              {cardState === 'correct' && (
+                <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
+                  <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_597_4038)">
+                      <path d="M17.5062 2.3289e-06C7.85457 -0.00493455 0.00246902 7.83977 5.82386e-07 17.4938C-0.00246786 27.1454 7.84223 34.9951 17.4963 35C27.1454 35.0049 35.0025 27.1528 35.0049 17.5062C35.0049 7.85211 27.1627 0.00493921 17.5062 2.3289e-06ZM26.8813 13.7097C25.3731 15.2895 23.8673 16.8743 22.3591 18.4565L16.8446 24.2475C16.3287 24.7905 15.7314 25.0769 15.1192 25.0769C14.507 25.0769 13.9269 24.7979 13.416 24.2697C12.7939 23.6279 12.1719 22.9886 11.5498 22.3493L11.4412 22.2357C10.323 21.0854 9.20234 19.9351 8.09154 18.7774C7.49665 18.1578 7.32386 17.4593 7.5633 16.6373C7.80767 15.8054 8.33592 15.3068 9.1826 15.1192C9.3702 15.0772 9.55286 15.0575 9.72565 15.0575C10.8562 15.0575 11.6461 16.1041 12.3693 16.8446C13.2753 17.7728 14.2108 18.7601 14.9242 19.8463C15.1982 19.708 15.4006 19.3896 15.6129 19.1699C15.9066 18.8663 16.1954 18.5577 16.4867 18.2516C17.1384 17.5679 17.7925 16.8817 18.4442 16.1979L18.8737 15.7486C19.3081 15.292 20.3597 14.1837 20.3597 14.1837L20.4732 14.0652C21.5347 12.947 22.6306 11.7917 23.7291 10.6563C24.2055 10.1626 24.7115 9.92313 25.2743 9.92313C25.5335 9.92313 25.81 9.97497 26.0963 10.0811C26.9874 10.4094 27.4589 11.0413 27.5354 12.0164C27.5848 12.6433 27.3701 13.1987 26.8813 13.7097Z" fill="#50DE00"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_597_4038">
+                      <rect width="35.0049" height="35" fill="white"/>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <input className={`border-b-2 border-primary focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >Great! Add next Sentence.</button>                
+                </form>
+              )}
             </>
           )}
           {step === 4 && (
             <>
               <p className='text-xl text-end'>2/3</p>
-              <form className='flex flex-col' onSubmit={handleSubmit}>
-                <input className='border-b-2 border-[#E7E7E7] focus:outline-none mb-4' type="text" value={example} onChange={ev => setExample(ev.target.value)} />
-                <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>
-              </form>
+              {cardState === 'default' && (
+                <form className='flex flex-col' onSubmit={handleSubmit}>
+                  <input className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
+                </form>
+              )}
+
+              {cardState === 'correct' && (
+                <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
+                  <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_597_4038)">
+                      <path d="M17.5062 2.3289e-06C7.85457 -0.00493455 0.00246902 7.83977 5.82386e-07 17.4938C-0.00246786 27.1454 7.84223 34.9951 17.4963 35C27.1454 35.0049 35.0025 27.1528 35.0049 17.5062C35.0049 7.85211 27.1627 0.00493921 17.5062 2.3289e-06ZM26.8813 13.7097C25.3731 15.2895 23.8673 16.8743 22.3591 18.4565L16.8446 24.2475C16.3287 24.7905 15.7314 25.0769 15.1192 25.0769C14.507 25.0769 13.9269 24.7979 13.416 24.2697C12.7939 23.6279 12.1719 22.9886 11.5498 22.3493L11.4412 22.2357C10.323 21.0854 9.20234 19.9351 8.09154 18.7774C7.49665 18.1578 7.32386 17.4593 7.5633 16.6373C7.80767 15.8054 8.33592 15.3068 9.1826 15.1192C9.3702 15.0772 9.55286 15.0575 9.72565 15.0575C10.8562 15.0575 11.6461 16.1041 12.3693 16.8446C13.2753 17.7728 14.2108 18.7601 14.9242 19.8463C15.1982 19.708 15.4006 19.3896 15.6129 19.1699C15.9066 18.8663 16.1954 18.5577 16.4867 18.2516C17.1384 17.5679 17.7925 16.8817 18.4442 16.1979L18.8737 15.7486C19.3081 15.292 20.3597 14.1837 20.3597 14.1837L20.4732 14.0652C21.5347 12.947 22.6306 11.7917 23.7291 10.6563C24.2055 10.1626 24.7115 9.92313 25.2743 9.92313C25.5335 9.92313 25.81 9.97497 26.0963 10.0811C26.9874 10.4094 27.4589 11.0413 27.5354 12.0164C27.5848 12.6433 27.3701 13.1987 26.8813 13.7097Z" fill="#50DE00"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_597_4038">
+                      <rect width="35.0049" height="35" fill="white"/>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <input className={`border-b-2 border-primary focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >Almost there! Add the last one!</button>                
+                </form>
+              )}
             </>
           )}
           {step === 5 && (
             <>
               <p className='text-xl text-end'>3/3</p>
-              <form className='flex flex-col' onSubmit={handleSubmit}>
-                <input className='border-b-2 border-[#E7E7E7] focus:outline-none mb-4' type="text" value={example} onChange={ev => setExample(ev.target.value)} />
-                <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>
-              </form>
+              {cardState === 'default' && (
+                <form className='flex flex-col' onSubmit={handleSubmit}>
+                  <input className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >You did really well! Go next.</button>                
+                </form>
+              )}
+
+              {cardState === 'correct' && (
+                <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
+                  <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_597_4038)">
+                      <path d="M17.5062 2.3289e-06C7.85457 -0.00493455 0.00246902 7.83977 5.82386e-07 17.4938C-0.00246786 27.1454 7.84223 34.9951 17.4963 35C27.1454 35.0049 35.0025 27.1528 35.0049 17.5062C35.0049 7.85211 27.1627 0.00493921 17.5062 2.3289e-06ZM26.8813 13.7097C25.3731 15.2895 23.8673 16.8743 22.3591 18.4565L16.8446 24.2475C16.3287 24.7905 15.7314 25.0769 15.1192 25.0769C14.507 25.0769 13.9269 24.7979 13.416 24.2697C12.7939 23.6279 12.1719 22.9886 11.5498 22.3493L11.4412 22.2357C10.323 21.0854 9.20234 19.9351 8.09154 18.7774C7.49665 18.1578 7.32386 17.4593 7.5633 16.6373C7.80767 15.8054 8.33592 15.3068 9.1826 15.1192C9.3702 15.0772 9.55286 15.0575 9.72565 15.0575C10.8562 15.0575 11.6461 16.1041 12.3693 16.8446C13.2753 17.7728 14.2108 18.7601 14.9242 19.8463C15.1982 19.708 15.4006 19.3896 15.6129 19.1699C15.9066 18.8663 16.1954 18.5577 16.4867 18.2516C17.1384 17.5679 17.7925 16.8817 18.4442 16.1979L18.8737 15.7486C19.3081 15.292 20.3597 14.1837 20.3597 14.1837L20.4732 14.0652C21.5347 12.947 22.6306 11.7917 23.7291 10.6563C24.2055 10.1626 24.7115 9.92313 25.2743 9.92313C25.5335 9.92313 25.81 9.97497 26.0963 10.0811C26.9874 10.4094 27.4589 11.0413 27.5354 12.0164C27.5848 12.6433 27.3701 13.1987 26.8813 13.7097Z" fill="#50DE00"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_597_4038">
+                      <rect width="35.0049" height="35" fill="white"/>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <input className={`border-b-2 border-primary focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >Great! Add next Sentence.</button>                
+                </form>
+              )}
             </>
           )}
         </div>
