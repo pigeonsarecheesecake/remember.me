@@ -1,11 +1,18 @@
+// Packages
 import {Route, Routes} from 'react-router-dom'
-import Layout from './layout/Layout'
-import IndexPage from './pages/IndexPage'
-import AccountPage from './pages/AccountPage'
 import {DndContext, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
 import { useState, useEffect } from 'react'
-import formatsWorbite from './modules/formatsWorbite'
 import axios from 'axios'
+
+// Pages
+import Layout from './layout/Layout'
+import IndexPage from './pages/IndexPage'
+import RegisterPage from './pages/RegisterPage'
+
+// Modules
+import formatsWorbite from './modules/formatsWorbite'
+
+// Default axios URL config
 axios.defaults.baseURL = 'http://localhost:3000';
 const dictionaryAxios = axios.create({
   baseURL : '/dictionary.json'
@@ -68,7 +75,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite}/>}>
           <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId} worbites={worbites} activeWorbite={activeWorbite}/>}/>
-          <Route path='/account' element={<AccountPage/>}/>
+          <Route path='/register' element={<RegisterPage />} />
         </Route>
       </Routes>
     </DndContext>

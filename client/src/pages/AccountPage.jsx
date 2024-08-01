@@ -1,7 +1,15 @@
+import React from 'react'
+
 const AccountPage = () => {
-    return (
-      <div>Account Page</div>
-    )
+  const handleSubmit = ()=>{
+
   }
   
-  export default AccountPage
+  return (
+    <form onSubmit={handleSubmit}>
+
+    </form>
+  )
+}
+
+export default AccountPage

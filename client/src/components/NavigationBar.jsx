@@ -25,7 +25,7 @@ const NavigationBar = () => {
        
         {/* Register and Log in */}
         <div className="flex items-center justify-end w-1/5 ">
-            <Link to={'/account'} className="mr-6">Register</Link>
+            <Link to={'/register'} className="mr-6">Register</Link>
             <Link to={'/login'}>Log In</Link>
         </div>
     </div>
