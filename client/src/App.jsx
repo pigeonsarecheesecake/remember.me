@@ -4,6 +4,9 @@ import {DndContext, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+// Context Provider
+import { UserContextProvider } from '../context_provider/UserContext'
+
 // Pages
 import Layout from './layout/Layout'
 import IndexPage from './pages/IndexPage'
@@ -73,15 +76,17 @@ function App() {
   }
 
   return (
-    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <Routes>
-        <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite}/>}>
-          <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId} worbites={worbites} activeWorbite={activeWorbite}/>}/>
-          <Route path='/register' element={<RegisterPage />} />
-          <Route path='/login' element={<LoginPage />} />
-        </Route>
-      </Routes>
+    <UserContextProvider>
+      <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <Routes>
+          <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite}/>}>
+            <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId} worbites={worbites} activeWorbite={activeWorbite}/>}/>
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='/login' element={<LoginPage />} />
+          </Route>
+        </Routes>
     </DndContext>
+    </UserContextProvider>
   )
 }
 

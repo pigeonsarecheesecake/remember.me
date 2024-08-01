@@ -66,10 +66,10 @@ accountRouter.post('/login',async(req,res)=>{
                 }
             )
         }else{
-            res.json('Wrong Password')
+            res.status(401).json({'message':'Invalid username or password'})
         }
     }else{
-        res.json('User does not exist, please create a new account')
+        res.status(401).json({'message':'Invalid username or password'})
     }
 })
 
