@@ -24,7 +24,7 @@ const Worbite = ({worbiteObject,id}) => {
           {/* Card (front) */}
           <div className={`[grid-row-start:1] [grid-column-start:1] flex flex-col justify-center w-full [backface-visibility:hidden] [transform:rotateY(0deg)] z-[2]`}>
             <p className={`break-words text-center text-md leading-5`}>
-              {word.toLowerCase().split(';')[0]}
+              {word}
             </p>
             <p className={`font-normal text-[0.70rem] text-center`}>
               {pos}
@@ -34,14 +34,14 @@ const Worbite = ({worbiteObject,id}) => {
           <div className="w-full p-3 [grid-row-start:1] [grid-column-start:1] flex flex-col justify-center [backface-visibility:hidden] p-2 [transform:rotateY(180deg)]">
             <div className='mb-2'>
               <p className=' break-words text-md leading-4'>
-                {word.toLowerCase().split(';')[0]} 
+                {word} 
               </p>
               <p className='font-normal text-[0.70rem]'>
                 {pos}
               </p>
             </div>
             <p className='font-normal text-[0.70rem] leading-3'>
-              {definitions[0].split('.')[0] + '.'}
+              {definitions}
             </p>
           </div>
         </div>

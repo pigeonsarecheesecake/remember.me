@@ -4,8 +4,6 @@ import WorbiteOverlay from "../components/WorbiteOverlay"
 import axios from 'axios'
 
 const IndexPage =  ({activeId, worbites, activeWorbite}) => {
-  
-
   // Worbite groups to achieve masonry layout
   const groupOne = worbites.slice(0,5)
   const groupTwo = worbites.slice(5,10)

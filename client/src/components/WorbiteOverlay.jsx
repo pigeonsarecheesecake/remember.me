@@ -1,10 +1,10 @@
 
 const WorbiteOverlay = ({activeWorbite}) =>{
     // Worbite Object content
-    const {word, pos, backgroundColor} = activeWorbite
+    const {word, backgroundColor} = activeWorbite
     return (
         <div className={`${backgroundColor} relative text-center p-4 rounded-[14px] border border-2 border-black mt-6`}>
-            <p>{word.toLowerCase().split(';')[0]}</p>
+            <p>{word}</p>
             <svg className='absolute top-[15px] left-[-10px]' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_581_1462)">
                     <path d="M10.7343 21.1431C16.2526 21.1431 20.726 16.6703 20.726 11.1529C20.726 5.63556 16.2526 1.16284 10.7343 1.16284C5.2161 1.16284 0.742676 5.63556 0.742676 11.1529C0.742676 16.6703 5.2161 21.1431 10.7343 21.1431Z" fill="white"/>

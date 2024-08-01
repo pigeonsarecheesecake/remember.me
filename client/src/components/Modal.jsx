@@ -4,7 +4,7 @@ import axios from 'axios';
 const Modal = ({setParent, activeWorbite}) => {
   // States
   const [step, setStep] = useState(1)
-  const {word:worbite, definitions, pos} = activeWorbite
+  const {word, definitions, pos} = activeWorbite
   const [example, setExample] = useState('')
   const [examples, setExamples] = useState([])
   const [cardState, setCardState]=useState('default')
@@ -13,7 +13,7 @@ const Modal = ({setParent, activeWorbite}) => {
   const handleSubmit = async (ev)=>{
     ev.preventDefault()
     const worbiteData = {
-      worbite,pos,example
+      word,pos,example
     }
     const {data} = await axios.post('/check', {
       ...worbiteData
@@ -40,8 +40,6 @@ const Modal = ({setParent, activeWorbite}) => {
     setCardState('default')
   }
 
-  console.log(correctExample);
-
   return (
   <>
   {   
@@ -56,10 +54,10 @@ const Modal = ({setParent, activeWorbite}) => {
           {/* Default */}
           {cardState === 'default' && (
             <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
-              <p className='text-[40px]'>{worbite.toLowerCase().split(';')[0]}</p>
+              <p className='text-[40px]'>{word}</p>
               <p className='text-sm font-normal'>{pos}</p>
               <div className="border-t-[2px] border-black my-4"></div>
-              <p className='text-sm font-normal leading-5'>{definitions[0].split('.')[0] + '.'}</p>
+              <p className='text-sm font-normal leading-5'>{definitions}</p>
               {/* Examples */}
               <div className="my-4">
                 <p className='text-md'>Example sentences</p>
@@ -105,7 +103,7 @@ const Modal = ({setParent, activeWorbite}) => {
         <div className="px-8 py-8 h-2/4 flex flex-col justify-between">
           {step === 1 && (
             <>
-              <p className='text-xl '>Would you like to save worbite <span className='text-primary'>{'`' + worbite.toLowerCase().split(';')[0] + '`'}</span> to your library?</p>
+              <p className='text-xl '>Would you like to save worbite <span className='text-primary'>{'`' + word + '`'}</span> to your library?</p>
               <div className="text-end ">
                 <button className='mx-4' onClick={()=>{setParent(null)}}>
                   <svg width="50" height="50" viewBox="0 0 91 90" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,10 +254,10 @@ const Modal = ({setParent, activeWorbite}) => {
           <div className="px-8 pt-8 bg-[#F4F5FE] h-full flex items-end ">
             <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
               {/* Worbite and definition */}
-              <p className='text-[40px]'>{worbite.toLowerCase().split(';')[0]}</p>
+              <p className='text-[40px]'>{word}</p>
               <p className='text-sm font-normal'>{pos}</p>
               <div className="border-t-[2px] border-black my-4"></div>
-              <p className='text-sm font-normal leading-5'>{definitions[0].split('.')[0] + '.'}</p>
+              <p className='text-sm font-normal leading-5'>{definitions}</p>
               {/* Examples */}
               <div className="my-4">
                 <p className='text-md'>Your Sentences</p>

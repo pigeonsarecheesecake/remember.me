@@ -4,6 +4,7 @@ import IndexPage from './pages/IndexPage'
 import AccountPage from './pages/AccountPage'
 import {DndContext, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
 import { useState, useEffect } from 'react'
+import formatsWorbite from './modules/formatsWorbite'
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000';
 const dictionaryAxios = axios.create({
@@ -15,7 +16,6 @@ function App() {
   const [parent,setParent] = useState(null)
   const [worbites, setWorbites] = useState([])  
   const [activeId, setActiveId] = useState(null)
-  // const [worbiteObject] = useState(null)
 
   // Get random words to display in indexPage
   useEffect(()=>{
@@ -27,7 +27,7 @@ function App() {
           const randomIndex = Math.floor(Math.random()*data.length)
           const randomWordObject = data[randomIndex]
           randomWordObject.id=i+1
-          convertsPartOfSpeech(randomWordObject)
+          formatsWorbite(randomWordObject)
           randomWords.push(randomWordObject)
         }
         setWorbites(randomWords)
@@ -40,46 +40,6 @@ function App() {
 
   // Active Worbite
   const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)
-  
-  // Convert part of speech
-
-  const convertsPartOfSpeech = (worbiteObject)=>{
-    const {pos} = worbiteObject
-    switch(pos){
-      case 'a.':
-        worbiteObject.pos= 'adjective'
-        worbiteObject.backgroundColor='bg-adjective'
-      break
-      case 'adv.':
-        worbiteObject.pos= 'adverb'
-        worbiteObject.backgroundColor='bg-adverb'
-      break
-      case 'conj.':
-        worbiteObject.pos= 'conjunction'
-        worbiteObject.backgroundColor='bg-conjunction'
-      break
-      case 'interj.':
-        worbiteObject.pos= 'interjection'
-        worbiteObject.backgroundColor='bg-interjection'
-      break  
-      case 'n.':
-        worbiteObject.pos= 'noun'
-        worbiteObject.backgroundColor='bg-noun'
-      break
-      case 'prep.':
-        worbiteObject.pos= 'preposition'
-        worbiteObject.backgroundColor='bg-preposition'
-      break
-      case 'pron.':
-        worbiteObject.pos= 'pronoun'
-        worbiteObject.backgroundColor='bg-pronoun'
-      break
-      case 'v.':
-        worbiteObject.pos= 'verb'
-        worbiteObject.backgroundColor='bg-verb'
-      break
-    }
-  }
 
   // Sensor to allow click event on draggable elements
   const pointerSensor = useSensor(PointerSensor,{
@@ -99,9 +59,8 @@ function App() {
   }
 
   function handleDragEnd(event){
-  const {over} = event
-  // Over meaning = which dragable is dropped on the droppable
-  setParent(over ? over.id : null)
+    const {over} = event
+    setParent(over ? over.id : null)
   }
 
   return (
