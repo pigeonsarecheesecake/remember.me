@@ -71,28 +71,28 @@ const Modal = ({setParent, activeWorbite}) => {
           {cardState === 'correct' && (
             <div className="flex w-full justify-center">
               {/* Me */}
-              <div className="">
-                <p className='h-3/4 border-[3px] border-[#FF5252] rounded-[20px] flex items-center m-3 p-4 text-center'>{example}</p>
+              <div className="w-2/4">
+                <p className='h-3/4 border-[3px] border-[#FF5252] rounded-[20px] flex items-center justify-center m-3 p-4 text-center'>{example}</p>
                 <p className='text-center text-sm'>Me</p>              
               </div>
               {/* Grammar checker */}
-              <div className="">
-                <p className='h-3/4 border-[3px] border-[#50DE00] rounded-[20px] flex items-center m-3 p-4 text-center'>{example}</p>
+              <div className="w-2/4">
+                <p className='h-3/4 border-[3px] border-[#50DE00] rounded-[20px] flex items-center justify-center m-3 p-4 text-center'>{example}</p>
                 <p className='text-center text-sm'>Grammar Checker</p>  
               </div>              
             </div>
           )}
           {/* Incorrect */}
           {cardState === 'incorrect' && (
-            <div className="flex w-full justify-center border">
+            <div className="flex w-full justify-center">
               {/* Me */}
-              <div className="w-2/4">
-                <p className='h-3/4 border-[3px] border-[#FF5252] rounded-[20px] flex items-center m-3 p-4 text-center'>{example}</p>
+              <div className="w-2/4 ">
+                <p className='h-3/4 border-[3px] border-[#FF5252] rounded-[20px] flex items-center justify-center m-3 p-4 text-center'>{example}</p>
                 <p className='text-center text-sm'>Me</p>              
               </div>
               {/* Grammar checker */}
               <div className="w-2/4">
-                <p className='h-3/4 border-[3px] border-[#50DE00] rounded-[20px] flex items-center m-3 p-4 text-center'>{correctExample.slice(4)}</p>
+                <p className='h-3/4 border-[3px] border-[#50DE00] rounded-[20px] flex items-center justify-center m-3 p-4 text-center'>{correctExample.slice(4)}</p>
                 <p className='text-center text-sm'>Grammar Checker</p>  
               </div>              
             </div>
@@ -149,7 +149,7 @@ const Modal = ({setParent, activeWorbite}) => {
                   <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
                 </form>
               )}
-
+              {/* Correct */}
               {cardState === 'correct' && (
                 <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
                   <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -169,7 +169,7 @@ const Modal = ({setParent, activeWorbite}) => {
               {/* Incorrect */}
               {cardState === 'incorrect' && (
                 <form className='flex flex-col relative' onSubmit={handleIncorrectSubmit}>
-                  <input className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <input disabled className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
                   <button className={`h-[50px] rounded-[10px] text-white bg-[#818181]`} >Try Again. You got this!</button>                
                 </form>
               )}
@@ -184,7 +184,7 @@ const Modal = ({setParent, activeWorbite}) => {
                   <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
                 </form>
               )}
-
+              {/* Correct */}
               {cardState === 'correct' && (
                 <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
                   <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -193,7 +193,7 @@ const Modal = ({setParent, activeWorbite}) => {
                     </g>
                     <defs>
                       <clipPath id="clip0_597_4038">
-                      <rect width="35.0049" height="35" fill="white"/>
+                        <rect width="35.0049" height="35" fill="white"/>
                       </clipPath>
                     </defs>
                   </svg>
@@ -201,10 +201,10 @@ const Modal = ({setParent, activeWorbite}) => {
                   <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >Almost there! Add the last one!</button>                
                 </form>
               )}
-              
+              {/* Incorrect */}
               {cardState === 'incorrect' && (
                 <form className='flex flex-col relative' onSubmit={handleIncorrectSubmit}>
-                  <input className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <input disabled className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
                   <button className={`h-[50px] rounded-[10px] text-white bg-[#818181]`} >Try Again. You got this!</button>                
                 </form>
               )}
@@ -220,7 +220,7 @@ const Modal = ({setParent, activeWorbite}) => {
                   <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
                 </form>
               )}
-
+              {/* Correct */}
               {cardState === 'correct' && (
                 <form className='flex flex-col relative' onSubmit={handleCorrectSubmit}>
                   <svg className='absolute right-0' width="20" height="20" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -237,10 +237,10 @@ const Modal = ({setParent, activeWorbite}) => {
                   <button className={`h-[50px] rounded-[10px] text-white bg-primary`} >You did really well! Go next.</button>                
                 </form>
               )}
-              
+              {/* Incorrect */}
               {cardState === 'incorrect' && (
                 <form className='flex flex-col relative' onSubmit={handleIncorrectSubmit}>
-                  <input className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                  <input disabled className={`border-b-2 focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
                   <button className={`h-[50px] rounded-[10px] text-white bg-[#818181]`} >Try Again. You got this!</button>                
                 </form>
               )}
