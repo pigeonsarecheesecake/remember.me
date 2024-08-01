@@ -15,7 +15,7 @@ function App() {
   const [parent,setParent] = useState(null)
   const [worbites, setWorbites] = useState([])  
   const [activeId, setActiveId] = useState(null)
-  const [worbiteObject, setWorbiteObject] = useState(null)
+  const [worbiteObject] = useState(null)
 
   // Get random words to display in indexPage
   useEffect(()=>{
@@ -47,6 +47,7 @@ function App() {
       tolerance:10
     }
   })
+
   const sensors = useSensors(
     pointerSensor
   )
@@ -57,10 +58,9 @@ function App() {
   }
 
   function handleDragEnd(event){
-    const {over} = event
-    // Over meaning, which dragable is dropped on the droppable
-    setParent(over ? over.id : null)
-    // setActiveId(null)
+  const {over} = event
+  // Over meaning = which dragable is dropped on the droppable
+  setParent(over ? over.id : null)
   }
 
   return (

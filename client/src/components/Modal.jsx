@@ -115,14 +115,14 @@ const Modal = ({setParent, activeWorbite}) => {
           )}
           {/* Incorrect */}
           {cardState === 'incorrect' && (
-            <div className="flex w-full justify-center">
+            <div className="flex w-full justify-center border">
               {/* Me */}
-              <div className="">
+              <div className="w-2/4">
                 <p className='h-3/4 border-[3px] border-[#FF5252] rounded-[20px] flex items-center m-3 p-4 text-center'>{example}</p>
                 <p className='text-center text-sm'>Me</p>              
               </div>
               {/* Grammar checker */}
-              <div className="">
+              <div className="w-2/4">
                 <p className='h-3/4 border-[3px] border-[#50DE00] rounded-[20px] flex items-center m-3 p-4 text-center'>{correctExample.slice(4)}</p>
                 <p className='text-center text-sm'>Grammar Checker</p>  
               </div>              
