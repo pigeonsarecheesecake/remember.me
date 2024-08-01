@@ -1,37 +1,9 @@
 
 const WorbiteOverlay = ({activeWorbite}) =>{
     // Worbite Object content
-    const {word, pos} = activeWorbite
-    // Part of speech
-    let partOfSpeech;
-    switch(pos){
-        case 'a.':
-        partOfSpeech= 'bg-adjective'
-        break
-        case 'adv.':
-        partOfSpeech='bg-adverb'
-        break
-        case 'conj.':
-        partOfSpeech='bg-preposition'
-        break
-        case 'interj.':
-        partOfSpeech='bg-interjection'
-        break  
-        case 'n.':
-        partOfSpeech='bg-noun'
-        break
-        case 'prep.':
-        partOfSpeech='bg-preposition'
-        break
-        case 'pron.':
-        partOfSpeech='bg-pronoun'
-        break
-        case 'v.':
-        partOfSpeech='bg-verb'
-        break
-    }
+    const {word, pos, backgroundColor} = activeWorbite
     return (
-        <div className={`${partOfSpeech} relative text-center p-4 rounded-[14px] border border-2 border-black mt-6`}>
+        <div className={`${backgroundColor} relative text-center p-4 rounded-[14px] border border-2 border-black mt-6`}>
             <p>{word.toLowerCase().split(';')[0]}</p>
             <svg className='absolute top-[15px] left-[-10px]' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_581_1462)">

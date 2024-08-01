@@ -10,35 +10,6 @@ const Modal = ({setParent, activeWorbite}) => {
   const [cardState, setCardState]=useState('default')
   const [correctExample, setCorrectExample] = useState('')
 
-  // Part of speech
-  let partOfSpeech;
-  switch(pos){
-      case 'a.':
-      partOfSpeech= 'bg-adjective'
-      break
-      case 'adv.':
-      partOfSpeech='bg-adverb'
-      break
-      case 'conj.':
-      partOfSpeech='bg-conjunction'
-      break
-      case 'interj.':
-      partOfSpeech='bg-interjection'
-      break  
-      case 'n.':
-      partOfSpeech='bg-noun'
-      break
-      case 'prep.':
-      partOfSpeech='bg-preposition'
-      break
-      case 'pron.':
-      partOfSpeech='bg-pronoun'
-      break
-      case 'v.':
-      partOfSpeech='bg-verb'
-      break
-  }
-
   const handleSubmit = async (ev)=>{
     ev.preventDefault()
     const worbiteData = {
@@ -86,7 +57,7 @@ const Modal = ({setParent, activeWorbite}) => {
           {cardState === 'default' && (
             <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
               <p className='text-[40px]'>{worbite.toLowerCase().split(';')[0]}</p>
-              <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
+              <p className='text-sm font-normal'>{pos}</p>
               <div className="border-t-[2px] border-black my-4"></div>
               <p className='text-sm font-normal leading-5'>{definitions[0].split('.')[0] + '.'}</p>
               {/* Examples */}
@@ -286,7 +257,7 @@ const Modal = ({setParent, activeWorbite}) => {
             <div className="h-full w-full pr-6 overflow-y-scroll scrollbar scrollbar-thumb-[#D9D9D9] scrollbar-thumb-rounded-full scrollbar-w-[5px] ">
               {/* Worbite and definition */}
               <p className='text-[40px]'>{worbite.toLowerCase().split(';')[0]}</p>
-              <p className='text-sm font-normal'>{partOfSpeech.slice(3)}</p>
+              <p className='text-sm font-normal'>{pos}</p>
               <div className="border-t-[2px] border-black my-4"></div>
               <p className='text-sm font-normal leading-5'>{definitions[0].split('.')[0] + '.'}</p>
               {/* Examples */}
