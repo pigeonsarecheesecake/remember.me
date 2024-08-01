@@ -48,8 +48,8 @@ accountRouter.post('/register',async(req,res)=>{
 // Login
 accountRouter.post('/login',async(req,res)=>{
     const{username,password}=req.body
+    // This returns user object
     const userExists=await UserModel.findOne({username})
-    // If user exists, compare the password
     if(userExists){
         const correctPassword=bcrypt.compareSync(password, userExists.password)
         if (correctPassword){

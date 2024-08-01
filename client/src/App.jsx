@@ -11,9 +11,11 @@ import RegisterPage from './pages/RegisterPage'
 
 // Modules
 import formatsWorbite from './modules/formatsWorbite'
+import LoginPage from './pages/LoginPage'
 
 // Default axios URL config
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.withCredentials=true
 const dictionaryAxios = axios.create({
   baseURL : '/dictionary.json'
 })
@@ -76,6 +78,7 @@ function App() {
         <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite}/>}>
           <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId} worbites={worbites} activeWorbite={activeWorbite}/>}/>
           <Route path='/register' element={<RegisterPage />} />
+          <Route path='/login' element={<LoginPage />} />
         </Route>
       </Routes>
     </DndContext>
