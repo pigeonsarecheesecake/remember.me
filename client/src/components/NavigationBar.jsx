@@ -4,8 +4,6 @@ import { UserContext } from "../../context_provider/UserContext"
 
 const NavigationBar = () => {
     const {user} = useContext(UserContext)
-    console.log(user);
-    
     return (
         <div className="flex justify-between w-full my-10">
             {/* Logo and search bar */}

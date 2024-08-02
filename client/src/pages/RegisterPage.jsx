@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
 
 const RegisterPage = () => {
   const [name,setName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [redirect, setRedirect] = useState(false)
 
   const handleSubmit= async (ev)=>{
     ev.preventDefault()
@@ -13,13 +15,19 @@ const RegisterPage = () => {
       name, username, password
     }
     try {
-      const res = await axios.post('/account/register', {
+      const {data} = await axios.post('/account/register', {
         ...userData
       })
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+      alert(data)
+      setRedirect(true)
+    } 
+    catch (error) {
+      alert(error)
     }
+  }
+
+  if(redirect){
+    return <Navigate to={'/login'} />
   }
 
   return (
