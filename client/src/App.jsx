@@ -15,6 +15,7 @@ import RegisterPage from './pages/RegisterPage'
 // Modules
 import formatsWorbite from './modules/formatsWorbite'
 import LoginPage from './pages/LoginPage'
+import ProfilePage from './pages/ProfilePage'
 
 // Default axios URL config
 axios.defaults.baseURL = 'http://localhost:3000'
@@ -83,6 +84,7 @@ function App() {
             <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId} worbites={worbites} activeWorbite={activeWorbite}/>}/>
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/account' element={<ProfilePage />} /> 
           </Route>
         </Routes>
     </DndContext>
