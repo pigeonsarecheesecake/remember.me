@@ -6,7 +6,7 @@ import axios from "axios"
 const NavigationBar = () => {
     const {user} = useContext(UserContext)
     const [userInput, setUserInput] = useState('')
-
+    
     const searchWorbite = async(ev)=>{
         ev.preventDefault()
         const {data} = await axios.post('/search',{userInput})
