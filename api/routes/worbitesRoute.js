@@ -6,27 +6,27 @@ import verifyToken from "../middlewares/verifyToken.js"
 const worbiteRouter = Router()
 
 // Middleware
-// worbiteRouter.use(verifyToken)
+worbiteRouter.use(verifyToken)
 
 // Add a new worbite
 worbiteRouter.post('/',async(req,res)=>{
     const{
-        worbite,partOfSpeech,definition,
-        examples,addedBy,id
+        word,pos,definitions,
+        examples,id
     }=req.body
 
     try {
         // If worbite has been added by user, let user know
-        const worbiteAdded=await WorbitesModel.findOne({worbite:worbite,addedBy:id})
+        const worbiteAdded=await WorbitesModel.findOne({worbite:word,addedBy:id})
         if(worbiteAdded){
-            res.json(`Worbite: ${worbite} exists in collection`)
+            res.json(`Worbite: ${word} exists in collection`)
             return
         }
 
         // If worbite is new, add it to the database
         const worbiteDoc = new WorbitesModel({
-            worbite,partOfSpeech,definition,
-            examples,addedBy,addedBy:id
+            worbite:word,partOfSpeech:pos,definition:definitions,
+            examples,addedBy:id
         })
         await worbiteDoc.save()
         res.json('Worbite has been added!')
