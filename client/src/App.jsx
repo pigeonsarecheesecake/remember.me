@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 // Context Provider
-import { UserContextProvider } from '../context_provider/UserContext'
+import { UserContextProvider } from './context_provider/UserContext'
 
 // Pages
 import Layout from './layout/Layout'
