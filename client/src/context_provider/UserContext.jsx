@@ -10,14 +10,17 @@ export const UserContextProvider = ({children}) => {
   const [user, setUser] = useState(null)
   const[ready,setReady]=useState(false)
 
-  // useEffect(()=>{
-  //   const getUser = async()=>{
-  //     const {data} = await axios.get('/account/profile')
-  //     setUser(data)
-  //     setReady(true)
-  //   }
-  //   getUser()
-  // },[])
+  // If user refreshes page, and user goes back to null, retrieve user data using token
+  useEffect(()=>{
+    const getUser = async()=>{
+      if(!user){
+        const {data} = await axios.get('/account/profile')
+        setUser(data)
+        setReady(true)
+      }
+    }
+    getUser()
+  },[])
 
   return (
     <UserContext.Provider value={{user,setUser,ready}}>

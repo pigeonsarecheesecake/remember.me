@@ -28,6 +28,7 @@ const Modal = ({setParent, activeWorbite}) => {
     }
   }
 
+  // Handlers
   const handleCorrectSubmit = (ev)=>{
     ev.preventDefault()
     setStep(prev => prev+1)
@@ -38,6 +39,17 @@ const Modal = ({setParent, activeWorbite}) => {
   const handleIncorrectSubmit = (ev)=>{
     ev.preventDefault()
     setCardState('default')
+  }
+
+  const addsWorbite = async (ev)=>{
+    ev.preventDefault()
+    const worbiteData={
+      word,pos,definitions,examples
+    }
+    const {data} =await axios.post('/worbites',{
+      ...worbiteData
+    })
+    console.log(data);
   }
 
   return (
@@ -267,7 +279,7 @@ const Modal = ({setParent, activeWorbite}) => {
                  ( <p className='text-primary p-2 border border-[3px] rounded-[10px] my-2'>{example}</p>)
                 )}
               </div>
-              <form className='my-10'>
+              <form className='my-10' onSubmit={addsWorbite}>
                 <button className={`h-[50px] w-full rounded-[10px] text-white bg-primary`} >Add to library</button>
               </form>
             </div>
