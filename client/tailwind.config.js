@@ -20,7 +20,7 @@ export default {
         'tertiary':'rgb(24, 45, 234, .10)'
       },
       boxShadow:{
-        'search-bar':'4px 6px 18px rgba(0, 0, 0, 0.15)',
+        'custom':'4px 6px 18px rgba(0, 0, 0, 0.15)',
         'modal':'5px 8px 20px rgba(0, 0, 0, 0.25)'
       }
     },

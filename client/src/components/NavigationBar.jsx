@@ -16,7 +16,7 @@ const NavigationBar = () => {
                     </svg>
                 </Link>
                 {/* Search Bar */}
-                <div className=" shadow-search-bar flex items-center justify-between rounded-[63px] w-full ml-6 px-6 h-[50px]">
+                <div className=" shadow-custom flex items-center justify-between rounded-[63px] w-full ml-6 px-6 h-[50px]">
                     <input className="w-full focus:outline-none" type="text" placeholder="Search Worbite" />
                     <div>
                         <svg width="20" height="20" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +35,7 @@ const NavigationBar = () => {
                 )}
                 {!user && (
                     <>
-                    <Link to={'/register'} className="mr-6">Register</Link>
+                    <Link to={'/register'} className="mr-6">Sign Up</Link>
                     <Link to={'/login'}>Log In</Link>
                     </>
                 )}

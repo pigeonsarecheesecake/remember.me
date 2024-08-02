@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 
 const RegisterPage = () => {
@@ -31,14 +31,17 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="border w-full">
-      <h2 className='border w-full text-center'>Create an account</h2>
-      <form className='border flex flex-col items-center' onSubmit={handleSubmit}>
-        <input required placeholder='name' className='w-2/4 border' value={name} onChange={(ev)=>{setName(ev.target.value)}} type="text" />
-        <input required placeholder='username' className='w-2/4 border' value={username} onChange={(ev)=>{setUsername(ev.target.value)}} type="text" />
-        <input required placeholder='password'className='w-2/4 border' value={password} onChange={(ev)=>{setPassword(ev.target.value)}} type="password" name="" id="" />
-        <button>Register</button>
-      </form>
+    <div className=" w-full flex items-center justify-center">
+      <div className=" w-4/5 flex flex-col items-center">
+        <h2 className=' w-full text-center my-6 text-xl'>Sign up</h2>
+        <form className='w-2/4 flex flex-col items-center justify-center' onSubmit={handleSubmit}>
+          <input required placeholder='Name' className='w-full focus:outline-none shadow-custom p-2 my-4 rounded-[5px] text-sm' value={name} onChange={(ev)=>{setName(ev.target.value)}} type="text" />
+          <input required placeholder='Username' className='w-full focus:outline-none shadow-custom p-2 my-4 rounded-[5px] text-sm' value={username} onChange={(ev)=>{setUsername(ev.target.value)}} type="text" />
+          <input required placeholder='Password'className='w-full focus:outline-none shadow-custom p-2 my-4 rounded-[5px] text-sm' value={password} onChange={(ev)=>{setPassword(ev.target.value)}} type="password" name="" id="" />
+          <button className='w-full bg-primary text-white shadow-custom p-2 my-4 rounded-[5px] text-sm'>Sign Up</button>
+          <p className='text-secondary text-sm my-4'>Have An Account ? <span className='text-primary'><Link to={'/login'}>Log In</Link></span></p>
+        </form>
+      </div>
     </div>
   )
 }
