@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../../context_provider/UserContext'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
@@ -34,13 +34,16 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="border w-full">
-      <h2 className='border w-full text-center'>Login to your account</h2>
-      <form className='border flex flex-col items-center' onSubmit={handleSubmit}>
-        <input required placeholder='username' className='w-2/4 border' value={username} onChange={(ev)=>{setUsername(ev.target.value)}} type="text" />
-        <input required placeholder='password'className='w-2/4 border' value={password} onChange={(ev)=>{setPassword(ev.target.value)}} type="password" name="" id="" />
-        <button>Login</button>
-      </form>
+    <div className="w-full flex items-center justify-center">
+      <div className="w-4/5 flex flex-col items-center">
+        <h2 className='w-full text-center my-6 text-xl'>Log In</h2>
+        <form className='w-2/4 flex flex-col items-center justify-center' onSubmit={handleSubmit}>
+          <input required placeholder='username' className='w-full focus:outline-none shadow-custom p-2 my-4 rounded-[5px] text-sm' value={username} onChange={(ev)=>{setUsername(ev.target.value)}} type="text" />
+          <input required placeholder='password'className='w-full focus:outline-none shadow-custom p-2 my-4 rounded-[5px] text-sm' value={password} onChange={(ev)=>{setPassword(ev.target.value)}} type="password" name="" id="" />
+          <button className='w-full bg-primary text-white shadow-custom p-2 my-4 rounded-[5px] text-sm'>Log In</button>
+          <p className='text-secondary text-sm my-4'>Don't Have An Account ? <span className='text-primary'><Link to={'/register'}>Sign Up</Link></span></p>
+        </form>
+      </div>
     </div>
   )
 }
