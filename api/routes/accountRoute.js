@@ -86,7 +86,7 @@ accountRouter.get('/profile',async(req,res)=>{
             res.json({name,username,_id})
         })
     }else{
-        res.json('Token missing, please log back in')
+        res.json(null)
     }
 })
 
