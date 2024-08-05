@@ -52,7 +52,6 @@ const Worbite = ({worbiteObject,id}) => {
           </div>
         </div>
     </div>
-    
   )
 }
 

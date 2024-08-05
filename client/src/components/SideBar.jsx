@@ -41,8 +41,7 @@ const SideBar = ({parent,setParent, activeWorbite}) => {
         abbreviation:'ver.',
         id:8
     }]
-
-
+    
     return (
     <div className={`border border-2 border-tertiary rounded-[10px] min-w-16 h-[539px] flex flex-col items-center mr-6`}>
         {/* Library logo */}

@@ -16,6 +16,7 @@ import RegisterPage from './pages/RegisterPage'
 import formatsWorbite from './modules/formatsWorbite'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
+import ResultsPage from './pages/ResultsPage'
 
 // Default axios URL config
 axios.defaults.baseURL = 'http://localhost:3000'
@@ -29,6 +30,7 @@ function App() {
   const [parent,setParent] = useState(null)
   const [worbites, setWorbites] = useState([])  
   const [activeId, setActiveId] = useState(null)
+  const [searchResults, setSearchResults] = useState([])
 
   // Get random words to display in indexPage
   useEffect(()=>{
@@ -80,11 +82,12 @@ function App() {
     <UserContextProvider>
       <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <Routes>
-          <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite}/>}>
+          <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite} setSearchResults={setSearchResults}/>}>
             <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId} worbites={worbites} activeWorbite={activeWorbite}/>}/>
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/account' element={<ProfilePage />} /> 
+            <Route path='/search-results' element={<ResultsPage searchResults={searchResults} />} /> 
           </Route>
         </Routes>
     </DndContext>
