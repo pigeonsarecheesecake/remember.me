@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
 
 const Modal = ({setParent, activeWorbite}) => {
   // States
@@ -10,7 +9,6 @@ const Modal = ({setParent, activeWorbite}) => {
   const [examples, setExamples] = useState([])
   const [cardState, setCardState]=useState('default')
   const [correctExample, setCorrectExample] = useState('')
-  const [redirect, setRedirect] = useState(false)
 
   const handleSubmit = async (ev)=>{
     ev.preventDefault()
@@ -48,12 +46,16 @@ const Modal = ({setParent, activeWorbite}) => {
     const worbiteData={
       word,pos,definitions,examples
     }
-    const {data} =await axios.post('/worbites',{
-      ...worbiteData
-    })
-    setRedirect(true)
-    alert('Worbite added!')
-    setParent(null)
+    try {
+      await axios.post('/worbites',{
+        ...worbiteData
+      })
+      alert('Worbite added!')
+      setParent(null)
+    } 
+    catch (error) {
+      alert(error.response.data);
+    }
   }
 
   return (

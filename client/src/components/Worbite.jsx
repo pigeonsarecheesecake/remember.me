@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useDraggable } from '@dnd-kit/core';
+import { UserContext } from '../context_provider/UserContext';
 
 const Worbite = ({worbiteObject,id}) => {
+  const{user} = useContext(UserContext)
+
   // States 
   const [side, setSide] = useState('front')
 
@@ -9,6 +12,9 @@ const Worbite = ({worbiteObject,id}) => {
   const {attributes, listeners, setNodeRef} = useDraggable({
     id:id
   })
+
+  // Is user is logged in, worbites are draggable. If not, worbites are static
+  const nodeRef = user ? setNodeRef:null
  
   // Worbite Object content
   const {word, pos, definitions, backgroundColor} = worbiteObject
@@ -18,7 +24,7 @@ const Worbite = ({worbiteObject,id}) => {
   }
 
   return (
-    <div ref={setNodeRef} {...listeners} {...attributes} className={` max-w-[237px] mb-2 flex flex-col items-center perspective-1000 `}>
+    <div ref={nodeRef} {...listeners} {...attributes} className={` max-w-[237px] mb-2 flex flex-col items-center perspective-1000 `}>
         {/* Flipper */}
         <div onClick={handleClick} className={`${backgroundColor} ${side==='front'?'':'[transform:rotateY(180deg)]'} grid [grid-template-columns:1fr] rounded-[14px] w-full transition-all duration-[600ms] [transform-style:preserve-3d] hover:bg-opacity-70`}>
           {/* Card (front) */}

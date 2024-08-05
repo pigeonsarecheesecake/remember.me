@@ -4,7 +4,7 @@ const jwtSecret=process.env.JWT_KEY
 export default function verifyToken(req,res,next){
     const {token}=req.cookies
     if(!token){
-        res.json('Token does not exist, please log in')
+        res.status(401).json('Token does not exist, please log in')
         return
     }
     try {

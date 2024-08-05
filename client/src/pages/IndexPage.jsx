@@ -1,7 +1,6 @@
 import { DragOverlay } from "@dnd-kit/core"
 import Worbite from "../components/Worbite"
 import WorbiteOverlay from "../components/WorbiteOverlay"
-import axios from 'axios'
 
 const IndexPage =  ({activeId, worbites, activeWorbite}) => {
   // Worbite groups to achieve masonry layout

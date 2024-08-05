@@ -1,7 +1,7 @@
 // Packages
 import {Route, Routes} from 'react-router-dom'
 import {DndContext, PointerSensor, useSensor, useSensors} from '@dnd-kit/core'
-import { useState, useEffect } from 'react'
+import {useState, useEffect } from 'react'
 import axios from 'axios'
 
 // Context Provider
@@ -70,7 +70,7 @@ function App() {
   function handleDragStart(event){
     setActiveId(event.active.id)
   }
-
+ 
   function handleDragEnd(event){
     const {over} = event
     setParent(over ? over.id : null)

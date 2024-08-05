@@ -6,7 +6,7 @@ import { Link, Navigate } from 'react-router-dom'
 const LoginPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const[redirect, setRedirect]= useState(false)
+  const [redirect, setRedirect]= useState(false)
 
   // Use the user context and the value is an object passed in the provider
   const{setUser,user} = useContext(UserContext)
@@ -22,7 +22,6 @@ const LoginPage = () => {
       })
       setUser(data)
       setRedirect(true)
-      console.log(user);
     } catch (error) {
       alert(error.response.data.message)
     }

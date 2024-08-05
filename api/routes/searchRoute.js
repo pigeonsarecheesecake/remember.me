@@ -9,8 +9,7 @@ searchRouter.post('/',async(req,res)=>{
   
   try {
     const {data} = await axios.get(`https://dictionaryapi.com/api/v3/references/collegiate/json/${userInput}?key=${process.env.DICTIONARY_KEY}`)
-    console.log(data);
-    
+    res.json(data)
   } catch (error) {
     res.json({message:error.message})
   }
