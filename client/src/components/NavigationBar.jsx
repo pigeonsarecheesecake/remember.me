@@ -12,6 +12,8 @@ const NavigationBar = ({setSearchResults}) => {
         ev.preventDefault()
         const {data} = await axios.post('/search',{userInput})
         setSearchResults(data)
+        console.log(data);
+        // Find out how to refresh the page again
         navigate('/search-results')
     }
     
