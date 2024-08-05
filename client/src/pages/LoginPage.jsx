@@ -1,15 +1,15 @@
 import axios from 'axios'
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context_provider/UserContext'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [redirect, setRedirect]= useState(false)
 
   // Use the user context and the value is an object passed in the provider
-  const{setUser,user} = useContext(UserContext)
+  const{setUser} = useContext(UserContext)
 
   const handleSubmit= async (ev)=>{
     ev.preventDefault()
@@ -21,16 +21,12 @@ const LoginPage = () => {
         ...loginData
       })
       setUser(data)
-      setRedirect(true)
+      navigate('/')
     } catch (error) {
       alert(error.response.data.message)
     }
   }
-
-  if(redirect){
-    return <Navigate to={'/'} />
-  }
-
+  
   return (
     <div className=" w-full flex items-center justify-center">
       <div className="w-[532px] flex flex-col items-center">
