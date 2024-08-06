@@ -164,7 +164,7 @@ const Modal = ({setParent, activeWorbite}) => {
             <p className='text-xl text-end'>1/3</p>
             {cardState === 'default' && (
               <form className='flex flex-col' onSubmit={handleSubmit}>
-                <input className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                <input required className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
                 <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
               </form>
             )}
@@ -200,7 +200,7 @@ const Modal = ({setParent, activeWorbite}) => {
             <p className='text-xl text-end'>2/3</p>
             {cardState === 'default' && (
               <form className='flex flex-col' onSubmit={handleSubmit}>
-                <input className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                <input required className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
                 <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
               </form>
             )}
@@ -236,7 +236,7 @@ const Modal = ({setParent, activeWorbite}) => {
             <p className='text-xl text-end'>3/3</p>
             {cardState === 'default' && (
               <form className='flex flex-col' onSubmit={handleSubmit}>
-                <input className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
+                <input required className={`border-b-2 border-[#E7E7E7] focus:outline-none mb-4`} type="text" value={example} onChange={ev => setExample(ev.target.value)} />
                 <button className={`h-[50px] rounded-[10px] text-white ${example ? 'bg-[#50DE00]': 'bg-[#E7E7E7]'}`} >Check English Grammar</button>                
               </form>
             )}
