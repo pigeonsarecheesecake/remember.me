@@ -13,7 +13,6 @@ import IndexPage from './pages/IndexPage'
 import RegisterPage from './pages/RegisterPage'
 
 // Modules
-import formatsWorbite from './modules/formatsWorbite'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import ResultsPage from './pages/ResultsPage'
@@ -22,12 +21,10 @@ import ResultsPage from './pages/ResultsPage'
 axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.withCredentials=true
 
-
 function App() {
   // States
   const [parent,setParent] = useState(null)
   const [activeId, setActiveId] = useState(null)
-
 
   // Worbites searchResults
   const [searchResults, setSearchResults] = useState([])
@@ -61,15 +58,29 @@ function App() {
     <UserContextProvider>
       <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <Routes>
-          <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite} setSearchResults={setSearchResults} />}>
-            <Route index  element={<IndexPage 
-                          activeId={activeId} 
-                          activeWorbite={activeWorbite}
-                          setActiveWorbite={setActiveWorbite} />}/>
+          <Route path='/' element={
+              <Layout 
+                parent={parent} 
+                setParent={setParent} 
+                activeWorbite={activeWorbite} 
+                setSearchResults={setSearchResults} 
+              />}>
+            <Route index element={
+              <IndexPage 
+                activeId={activeId} 
+                activeWorbite={activeWorbite}
+                setActiveWorbite={setActiveWorbite} />}
+              />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/account' element={<ProfilePage />} /> 
-            <Route path='/search-results' element={<ResultsPage searchResults={searchResults} activeId={activeId}/>} /> 
+            <Route path='/search-results' element={
+              <ResultsPage
+                activeId={activeId} 
+                searchResults={searchResults}
+                setActiveWorbite={setActiveWorbite} 
+                />}
+              /> 
           </Route>
         </Routes>
     </DndContext>

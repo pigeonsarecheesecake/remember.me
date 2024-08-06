@@ -4,10 +4,9 @@ import { DragOverlay } from '@dnd-kit/core'
 import WorbiteOverlay from '../components/WorbiteOverlay'
 import { useNavigate } from 'react-router-dom'
 
-const ResultsPage = ({activeId,searchResults}) => {
+const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
   const [worbiteObjects, setWorbiteObjects ] = useState([])
   const activeWorbite = worbiteObjects.find(worbiteObject => worbiteObject.id === activeId)
-  console.log(activeWorbite)
   const navigate = useNavigate()
   
   useEffect(()=>{
@@ -31,6 +30,11 @@ const ResultsPage = ({activeId,searchResults}) => {
     }
     formatsObject(searchResults)
   },[searchResults]) //Function runs everytime searchResults is updated
+
+  useEffect(()=>{
+    setActiveWorbite(activeWorbite)
+  },[activeId])
+  
   return (
     // <Worbite />
     <>
