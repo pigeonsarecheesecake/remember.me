@@ -10,6 +10,8 @@ const Modal = ({setParent, activeWorbite}) => {
   const [cardState, setCardState]=useState('default')
   const [correctExample, setCorrectExample] = useState('')
 
+  console.log(activeWorbite);
+
   const handleSubmit = async (ev)=>{
     ev.preventDefault()
     const worbiteData = {

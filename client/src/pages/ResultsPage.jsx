@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import Worbite from '../components/Worbite'
+import { DragOverlay } from '@dnd-kit/core'
+import WorbiteOverlay from '../components/WorbiteOverlay'
+import { useNavigate } from 'react-router-dom'
 
-const ResultsPage = ({searchResults}) => {
+const ResultsPage = ({activeId,searchResults}) => {
   const [worbiteObjects, setWorbiteObjects ] = useState([])
-
+  const activeWorbite = worbiteObjects.find(worbiteObject => worbiteObject.id === activeId)
+  console.log(activeWorbite)
+  const navigate = useNavigate()
+  
   useEffect(()=>{
     const formatsObject = (searchResults)=>{
+      if(!searchResults.length){
+        navigate('/')
+      }
       let formattedWorbites = []
       for(let i=0; i<searchResults.length; i++){
         const {meta:{id},fl,shortdef} = searchResults[i]
@@ -14,7 +23,7 @@ const ResultsPage = ({searchResults}) => {
           word:id.split(':')[0],
           pos:fl,
           definitions:shortdef[0],
-          id:i,
+          id:i+1,
           backgroundColor:`bg-${fl}`
         })
       }
@@ -22,16 +31,14 @@ const ResultsPage = ({searchResults}) => {
     }
     formatsObject(searchResults)
   },[searchResults]) //Function runs everytime searchResults is updated
-
-
-  
-  // const{meta}= searchResults[0]
-  // console.log(meta.id)
   return (
     // <Worbite />
     <>
-    {worbiteObjects.map(worbiteObject => (<Worbite worbiteObject={worbiteObject} />)
+    {worbiteObjects.map(worbiteObject => (<Worbite worbiteObject={worbiteObject} key={worbiteObject.id} id={worbiteObject.id}  />)
     )}
+      <DragOverlay>
+        {activeId ? (<WorbiteOverlay activeWorbite={activeWorbite} />) : null}
+      </DragOverlay>
     </>
   )
 }

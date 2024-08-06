@@ -28,10 +28,11 @@ const dictionaryAxios = axios.create({
 function App() {
   // States
   const [parent,setParent] = useState(null)
+
+  // Worbites
   const [worbites, setWorbites] = useState([])  
   const [activeId, setActiveId] = useState(null)
   const [searchResults, setSearchResults] = useState([])
-
   // Get random words to display in indexPage
   useEffect(()=>{
     const getRandomWords = async ()=>{
@@ -87,7 +88,7 @@ function App() {
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/account' element={<ProfilePage />} /> 
-            <Route path='/search-results' element={<ResultsPage searchResults={searchResults} />} /> 
+            <Route path='/search-results' element={<ResultsPage searchResults={searchResults} activeId={activeId}/>} /> 
           </Route>
         </Routes>
     </DndContext>

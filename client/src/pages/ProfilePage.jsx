@@ -22,8 +22,6 @@ const ProfilePage = () => {
     }
     getWorbites()
   },[])
-
-  console.log(worbites);
   
   if(redirect){
     return <Navigate to ={'/login'}/>
