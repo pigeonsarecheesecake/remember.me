@@ -21,41 +21,19 @@ import ResultsPage from './pages/ResultsPage'
 // Default axios URL config
 axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.withCredentials=true
-const dictionaryAxios = axios.create({
-  baseURL : '/dictionary.json'
-})
+
 
 function App() {
   // States
   const [parent,setParent] = useState(null)
-
-  // Worbites
-  const [worbites, setWorbites] = useState([])  
   const [activeId, setActiveId] = useState(null)
+
+
+  // Worbites searchResults
   const [searchResults, setSearchResults] = useState([])
-  // Get random words to display in indexPage
-  useEffect(()=>{
-    const getRandomWords = async ()=>{
-      let randomWords=[]
-      try {
-        const {data}=await dictionaryAxios.get()
-        for(let i=0; i<25;i++){
-          const randomIndex = Math.floor(Math.random()*data.length)
-          const randomWordObject = data[randomIndex]
-          randomWordObject.id=i+1
-          formatsWorbite(randomWordObject)
-          randomWords.push(randomWordObject)
-        }
-        setWorbites(randomWords)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getRandomWords()
-  },[])
 
   // Active Worbite
-  const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)
+  const[activeWorbite, setActiveWorbite] = useState({})
 
   // Sensor to allow click event on draggable elements
   const pointerSensor = useSensor(PointerSensor,{
@@ -83,8 +61,11 @@ function App() {
     <UserContextProvider>
       <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <Routes>
-          <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite} setSearchResults={setSearchResults}/>}>
-            <Route index element={<IndexPage handleDragStart={handleDragStart} activeId={activeId} worbites={worbites} activeWorbite={activeWorbite}/>}/>
+          <Route path='/' element={<Layout parent={parent} setParent={setParent} activeWorbite={activeWorbite} setSearchResults={setSearchResults} />}>
+            <Route index  element={<IndexPage 
+                          activeId={activeId} 
+                          activeWorbite={activeWorbite}
+                          setActiveWorbite={setActiveWorbite} />}/>
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/account' element={<ProfilePage />} /> 
