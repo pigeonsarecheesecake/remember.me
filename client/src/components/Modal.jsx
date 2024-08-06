@@ -281,8 +281,8 @@ const Modal = ({setParent, activeWorbite}) => {
               {/* Examples */}
               <div className="my-4">
                 <p className='text-md'>Your Sentences</p>
-                {examples.map(example=>
-                 ( <p className='text-primary p-2 border border-[3px] rounded-[10px] my-2'>{example}</p>)
+                {examples.map((example,index)=>
+                 ( <p key={index} className='text-primary p-2 border border-[3px] rounded-[10px] my-2'>{example}</p>)
                 )}
               </div>
               <form className='my-10' onSubmit={addsWorbite}>
