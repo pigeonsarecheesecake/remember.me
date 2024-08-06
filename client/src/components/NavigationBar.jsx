@@ -7,6 +7,7 @@ const NavigationBar = ({setSearchResults}) => {
     const {user} = useContext(UserContext)
     const [userInput, setUserInput] = useState('')
     const [menu, setMenu] = useState('')
+    const[redirect, setRedirect] = useState(false)
     const navigate=useNavigate()
     const searchWorbite = async(ev)=>{
         ev.preventDefault()
@@ -14,6 +15,7 @@ const NavigationBar = ({setSearchResults}) => {
         setSearchResults(data)
         console.log(data);
         // Find out how to refresh the page again
+        setRedirect(true)
         navigate('/search-results')
     }
     

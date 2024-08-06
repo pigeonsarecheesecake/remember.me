@@ -9,8 +9,9 @@ const ResultsPage = ({searchResults}) => {
       let formattedWorbites = []
       for(let i=0; i<searchResults.length; i++){
         const {meta:{id},fl,shortdef} = searchResults[i]
+        if (fl==='adjective' || fl==='adverb' || fl==='conjunction' || fl==='interjection' || fl==='noun' || fl==='preposition' || fl==='pronoun' || fl==='verb' )
         formattedWorbites.push({
-          word:id,
+          word:id.split(':')[0],
           pos:fl,
           definitions:shortdef[0],
           id:i,
@@ -20,7 +21,7 @@ const ResultsPage = ({searchResults}) => {
       setWorbiteObjects(formattedWorbites)
     }
     formatsObject(searchResults)
-  },[])
+  },[searchResults]) //Function runs everytime searchResults is updated
 
 
   
