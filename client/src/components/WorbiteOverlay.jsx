@@ -2,6 +2,7 @@
 const WorbiteOverlay = ({activeWorbite}) =>{
     // Worbite Object content
     const {word, backgroundColor} = activeWorbite
+    
     return (
         <div className={`${backgroundColor} relative text-center p-4 rounded-[14px] border border-2 border-black mt-6`}>
             <p>{word}</p>

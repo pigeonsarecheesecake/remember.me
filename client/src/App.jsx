@@ -53,7 +53,6 @@ function App() {
     const {over} = event
     setParent(over ? over.id : null)
   }
-
   return (
     <UserContextProvider>
       <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>

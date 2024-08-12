@@ -14,7 +14,7 @@ const IndexPage =  ({activeId, setActiveWorbite}) => {
   // Worbites index
   const [worbites, setWorbites] = useState([])
   const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)  
-  
+
   // Get random words to display in indexPage
   useEffect(()=>{
     const getRandomWords = async ()=>{
