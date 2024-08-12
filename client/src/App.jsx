@@ -78,7 +78,7 @@ function App() {
               <ResultsPage
                 activeId={activeId} 
                 searchResults={searchResults}
-                setActiveWorbite={setActiveWorbite} 
+                setActiveWorbite={setActiveWorbite}
                 />}
               /> 
           </Route>

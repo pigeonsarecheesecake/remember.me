@@ -8,7 +8,7 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
   const [worbites, setWorbites ] = useState([])
   const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)
   const navigate = useNavigate()
-  
+
   useEffect(()=>{
     const formatsObject = (searchResults)=>{
       if(!searchResults.length){
@@ -31,9 +31,10 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
     formatsObject(searchResults)
   },[searchResults]) //Function runs everytime searchResults is updated
 
+  // Sets active worbite object for drag and drop
   useEffect(()=>{
     setActiveWorbite(activeWorbite)
-  },[activeId])
+  },[activeWorbite])
 
   // Worbite groups to achieve masonry layout
   let j = 1

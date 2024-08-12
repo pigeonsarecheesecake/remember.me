@@ -36,50 +36,60 @@ const IndexPage =  ({activeId, setActiveWorbite}) => {
     getRandomWords()
   },[])
 
+  // Sets active worbite object for drag and drop
   useEffect(()=>{
     setActiveWorbite(activeWorbite)
-  },[activeId])
+  },[activeWorbite])
   
   // Worbite groups to achieve masonry layout
-  const groupOne = worbites.slice(0,5)
-  const groupTwo = worbites.slice(5,10)
-  const groupThree = worbites.slice(10,15)
-  const groupFour = worbites.slice(15,20)
-  const groupFive = worbites.slice(20,25)
-
+  let j = 1
+  const groups = {
+    group1:[],
+    group2:[],
+    group3:[],
+    group4:[],
+    group5:[]
+  }
+  for(let i=0;i<worbites.length;i++){
+    if(j>5){
+        j=1
+    }
+    groups[`group${j}`].push(worbites[i])
+    j++
+  }
   return (
     <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll scrollbar-none">
       <div className="">
         {
-          groupOne.map(worbiteObject=>(
+          groups.group1.map(worbiteObject=>(
             <Worbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
           ))
         }
       </div>
       <div className="">
         {
-          groupTwo.map(worbiteObject=>(
+          groups.group2.map(worbiteObject=>(
             <Worbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
           ))
         }
       </div>
       <div className="">
         {
-          groupThree.map(worbiteObject=>(
+          groups.group3.map(worbiteObject=>(
             <Worbite worbiteObject={worbiteObject}  id={worbiteObject.id} key={worbiteObject.id}/>
           ))
         }
       </div>
       <div className="">
         {
-          groupFour.map(worbiteObject=>(
+          groups.group4.map(worbiteObject=>(
             <Worbite worbiteObject={worbiteObject} id={worbiteObject.id}key={worbiteObject.id}/>
           ))
         }
       </div>
       <div className="">
         {
-          groupFive.map(worbiteObject=>(
+          groups.group5.map(worbiteObject=>(
             <Worbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
           ))
         }
