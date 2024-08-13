@@ -40,7 +40,20 @@ worbiteRouter.get('/',async(req,res)=>{
     const{id}=req.body
     try {
         const worbiteAdded=await WorbitesModel.find({addedBy:id})
-        res.json(worbiteAdded)
+        const count = await WorbitesModel.countDocuments({addedBy:id})
+        res.json({worbiteAdded,count})
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// Retrieve all Adjectives
+worbiteRouter.get('/adjective',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'adjective'})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'adjective'})
+        res.json({worbiteAdded,count})
     } catch (error) {
         res.json(error.message)
     }
