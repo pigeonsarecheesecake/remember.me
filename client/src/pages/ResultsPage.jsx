@@ -5,10 +5,9 @@ import WorbiteOverlay from '../components/WorbiteOverlay'
 import { useNavigate } from 'react-router-dom'
 
 const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
-  const [worbites, setWorbites ] = useState([])
-  const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)
   const navigate = useNavigate()
-
+  const [worbites, setWorbites ] = useState([])
+  
   useEffect(()=>{
     const formatsObject = (searchResults)=>{
       if(!searchResults.length){
@@ -32,6 +31,7 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
   },[searchResults]) //Function runs everytime searchResults is updated
 
   // Sets active worbite object for drag and drop
+  const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)
   useEffect(()=>{
     setActiveWorbite(activeWorbite)
   },[activeWorbite])
@@ -47,11 +47,12 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
   }
   for(let i=0;i<worbites.length;i++){
     if(j>5){
-        j=1
+      j=1
     }
     groups[`group${j}`].push(worbites[i])
     j++
   }
+
   return (
     <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll scrollbar-none">
       <div className="">
@@ -82,6 +83,7 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
           ))
         }
       </div>
+      
       <div className="">
         {
           groups.group5.map(worbiteObject=>(
