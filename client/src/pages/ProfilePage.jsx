@@ -3,9 +3,13 @@ import axios from 'axios'
 import { UserContext } from '../context_provider/UserContext'
 import { Navigate, useNavigate } from 'react-router-dom'
 import Worbite from '../components/Worbite'
+import FilterPage from './FilterPage'
 
 
-const ProfilePage = ({setWorbitesData}) => {
+const ProfilePage = () => {
+  // Use this following state to set the current worbites Data
+  const [pos, setPos] = useState('')
+  const [worbitesData, setWorbitesData] = useState(null)
   // User Context
   const {user, setUser} = useContext(UserContext)
 
@@ -53,16 +57,51 @@ const ProfilePage = ({setWorbitesData}) => {
     }
     getCounts()
   },[])
-
+  
   // Handle redirects
   const handleAllWorbites = async ()=>{
+    setPos('all')
     setWorbitesData(allWorbites)
-    navigate('/account/all')
   }
 
   const handleAllAdjectives = async ()=>{
+    setPos('adjective')
     setWorbitesData(allAdjectives)
-    navigate('/account/adjectives')
+  }
+
+  const handleAllAdverbs = async ()=>{
+    setPos('adverb')
+    setWorbitesData(allAdverbs)
+  }
+
+  const handleAllConjunctions = async ()=>{
+    setPos('conjunction')
+    setWorbitesData(allConjunctions)
+  }
+
+  const handleAllInterjections = async ()=>{
+    setPos('interjection')
+    setWorbitesData(allInterjections)
+  }
+
+  const handleAllNouns = async ()=>{
+    setPos('noun')
+    setWorbitesData(allNouns)
+  }
+
+  const handleAllPrepositions = async ()=>{
+    setPos('preposition')
+    setWorbitesData(allPrepositions)
+  }
+
+  const handleAllPronouns = async ()=>{
+    setPos('pronoun')
+    setWorbitesData(allPronouns)
+  }
+
+  const handleAllVerbs = async ()=>{
+    setPos('verb')
+    setWorbitesData(allVerbs)
   }
   
   // Log out
@@ -71,10 +110,24 @@ const ProfilePage = ({setWorbitesData}) => {
     navigate('/')
     setUser(null)
   }
+
+  const back = ()=>{
+    setWorbitesData(null)
+  }
   
   return (
     <>
-    <div className="w-full flex flex-col">
+    {
+      worbitesData && (
+        <>
+        <FilterPage worbitesData={worbitesData} pos={pos} />
+        <button onClick={back}>{'<'}</button></>
+        
+      )
+    }
+    {
+      !worbitesData && (
+        <div className="w-full flex flex-col">
       <h2 className='text-xl mb-6'>{user ? `${user.name}'s Worbites` : 'loading'}</h2>
       {/* Tags */}
       {/* All Worbites */}
@@ -90,42 +143,44 @@ const ProfilePage = ({setWorbitesData}) => {
           <p className='text-center'>Adjectives</p>
         </button>
         {/* All Adverbs */}
-        <button className="py-4 px-4 bg-adverb rounded-[10px] shadow-custom mr-5 mb-5 text-xs">
+        <button className="py-4 px-4 bg-adverb rounded-[10px] shadow-custom mr-5 mb-5 text-xs" onClick={handleAllAdverbs}>
           <p className='text-center'>{ allAdverbs.count ? allAdverbs.count : '0'}</p>
           <p className='text-center'>Adverb</p>
         </button>
         {/* All Conjunctions */}
-        <button className="py-4 px-4 bg-conjunction rounded-[10px] shadow-custom mr-5 mb-5 text-xs" >
+        <button className="py-4 px-4 bg-conjunction rounded-[10px] shadow-custom mr-5 mb-5 text-xs" onClick={handleAllConjunctions}>
           <p className='text-center'>{allConjunctions.count ? allConjunctions.count : '0'}</p>
           <p className='text-center'>Conjunction</p>
         </button>
         {/* All Interjections */}
-        <button className="py-4 px-4 bg-interjection rounded-[10px] shadow-custom mr-5 mb-5 text-xs" >
+        <button className="py-4 px-4 bg-interjection rounded-[10px] shadow-custom mr-5 mb-5 text-xs" onClick={handleAllInterjections} >
           <p className='text-center'>{allInterjections.count ? allInterjections.count : '0'}</p>
           <p className='text-center'>Interjections</p>
         </button>
         {/* All Nouns */}
-        <button className="py-4 px-4 bg-noun rounded-[10px] shadow-custom mr-5 mb-5 text-xs ">
+        <button className="py-4 px-4 bg-noun rounded-[10px] shadow-custom mr-5 mb-5 text-xs " onClick={handleAllNouns}>
           <p className='text-center'>{allNouns.count ? allNouns.count : '0'}</p>
           <p className='text-center'>Nouns</p>
         </button>
         {/* All Prepositions */}
-        <button className="py-4 px-4 bg-preposition rounded-[10px] shadow-custom mr-5 mb-5 text-xs" >
+        <button className="py-4 px-4 bg-preposition rounded-[10px] shadow-custom mr-5 mb-5 text-xs"  onClick={handleAllPrepositions}>
           <p className='text-center'>{allPrepositions.count ? allPrepositions.count : '0'}</p>
           <p className='text-center'>Prepositions</p>
         </button>
         {/* All Pronouns */}
-        <button className="py-4 px-4 bg-pronoun rounded-[10px] shadow-custom mr-5 mb-5 text-xs">
+        <button className="py-4 px-4 bg-pronoun rounded-[10px] shadow-custom mr-5 mb-5 text-xs" onClick={handleAllPronouns}>
           <p className='text-center'>{allPronouns.count ? allPronouns.count : '0'}</p>
           <p className='text-center'>Pronouns</p>
         </button>
         {/* All Verbs */}
-        <button className="py-4 px-4 bg-verb rounded-[10px] shadow-custom mr-5 mb-5 text-xs" >
+        <button className="py-4 px-4 bg-verb rounded-[10px] shadow-custom mr-5 mb-5 text-xs" onClick={handleAllVerbs}>
           <p className='text-center'>{allVerbs.count ? allVerbs.count : '0'}</p>
           <p className='text-center'>Verbs</p>
         </button>
       </div>
     </div>
+      )
+    }
     </>
   )
 }
