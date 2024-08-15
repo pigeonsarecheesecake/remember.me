@@ -16,6 +16,7 @@ import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import ResultsPage from './pages/ResultsPage'
+import FilterPage from './pages/FilterPage'
 
 // Default axios URL config
 axios.defaults.baseURL = 'http://localhost:3000'
@@ -73,7 +74,9 @@ function App() {
               />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/account' element={<ProfilePage />} /> 
+            <Route path='/account' element={<ProfilePage />} />
+             {/*POS will be dynamic  */}
+            <Route path='/account/adjectives' element={<FilterPage />} /> 
             <Route path='/search-results' element={
               <ResultsPage
                 activeId={activeId} 
