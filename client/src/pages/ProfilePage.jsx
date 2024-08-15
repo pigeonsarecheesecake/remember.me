@@ -27,35 +27,32 @@ const ProfilePage = () => {
   useEffect(()=>{
     const getCounts = async()=>{
       // Array of Promises
-      const [ allWorbitesResponse, allAdjectivesResponse, allAdverbsResponse, 
-              allConjunctionsResponse, allInterjectionsResponse, allNounsResponse,
-              allPrepositionsResponse, allPronounsResponse, allVerbsResponse] = await Promise.all([
-        axios.get('/worbites'), axios.get('/worbites/adjective'), axios.get('/worbites/adverb'),
-        axios.get('/worbites/conjunction'), axios.get('/worbites/interjection'), axios.get('/worbites/noun'),
-        axios.get('/worbites/preposition'), axios.get('/worbites/pronoun'), axios.get('/worbites/verb'),
+      try {
+        // Deconstructs promises dirrectly in the array
+        const [
+          {data:allWorbitesData}, {data: allAdjectivesData}, {data: allAdverbsData}, 
+          {data:allConjunctionsData}, {data: allInterjectionsData} , {data: allNounsData},
+          {data: allPrepositionsData}, {data: allPronounsData}, {data: allVerbsData}
+        ] = await Promise.all([
+          axios.get('/worbites'), axios.get('/worbites/adjective'), axios.get('/worbites/adverb'),
+          axios.get('/worbites/conjunction'), axios.get('/worbites/interjection'), axios.get('/worbites/noun'),
+          axios.get('/worbites/preposition'), axios.get('/worbites/pronoun'), axios.get('/worbites/verb'),
       ])
-      const {data: allWorbitesData} = allWorbitesResponse 
-      setAllWorbites(allWorbitesData)
-      const {data: allAdjectivesData} = allAdjectivesResponse
-      setAllAdjectives(allAdjectivesData)
-      const {data: allAdverbsData} = allAdverbsResponse
-      setAllAdverbs(allAdverbsData)
-      const {data: allConjunctionsData} = allConjunctionsResponse
-      setAllConjunctions(allConjunctionsData)
-      const {data: allInterjectionsData} = allInterjectionsResponse
-      setAllInterjections(allInterjectionsData)
-      const {data: allNounsData} = allNounsResponse
-      setAllNouns(allNounsData)
-      const {data: allPrepositionsData} = allPrepositionsResponse
-      setAllPrepositions(allPrepositionsData)
-      const {data: allPronounsData} = allPronounsResponse
-      setAllPronouns(allPronounsData)
-      const {data: allVerbsData} = allVerbsResponse
-      setAllVerbs(allVerbsData)
+        setAllWorbites(allWorbitesData)
+        setAllAdjectives(allAdjectivesData)
+        setAllAdverbs(allAdverbsData)
+        setAllConjunctions(allConjunctionsData)
+        setAllInterjections(allInterjectionsData)
+        setAllNouns(allNounsData)
+        setAllPrepositions(allPrepositionsData)
+        setAllPronouns(allPronounsData)
+        setAllVerbs(allVerbsData)
+      } catch (error) {
+        console.log(error)
+      }
     }
     getCounts()
   },[])
-
 
   // Handle redirects
   const handleAllWorbites = async ()=>{
