@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import Worbite from '../components/Worbite'
 
 
-const ProfilePage = () => {
+const ProfilePage = ({setWorbitesData}) => {
   // User Context
   const {user, setUser} = useContext(UserContext)
 
@@ -56,10 +56,12 @@ const ProfilePage = () => {
 
   // Handle redirects
   const handleAllWorbites = async ()=>{
-    navigate('/account/worbites')
+    setWorbitesData(allWorbites)
+    navigate('/account/all')
   }
 
   const handleAllAdjectives = async ()=>{
+    setWorbitesData(allAdjectives)
     navigate('/account/adjectives')
   }
   
@@ -78,7 +80,7 @@ const ProfilePage = () => {
       {/* All Worbites */}
       <div className="w-full flex flex-wrap" >
         {/* All Worbites */}
-        <button className="py-4 px-4 rounded-[10px] shadow-custom mr-5 mb-5 text-xs">
+        <button className="py-4 px-4 rounded-[10px] shadow-custom mr-5 mb-5 text-xs" onClick={handleAllWorbites}>
           <p className='text-center'>{allWorbites.count ? allWorbites.count : '0'}</p>
           <p className='text-center'>Worbites</p>
         </button>

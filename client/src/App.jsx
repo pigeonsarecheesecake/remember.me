@@ -26,6 +26,7 @@ function App() {
   // States
   const [parent,setParent] = useState(null)
   const [activeId, setActiveId] = useState(null)
+  const[worbitesData,setWorbitesData] = useState({})
 
   // Worbites searchResults
   const [searchResults, setSearchResults] = useState([])
@@ -74,9 +75,9 @@ function App() {
               />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/account' element={<ProfilePage />} />
+            <Route path='/account' element={<ProfilePage setWorbitesData={setWorbitesData} />} />
              {/*POS will be dynamic  */}
-            <Route path='/account/adjectives' element={<FilterPage />} /> 
+            <Route path='/account/:pos' element={<FilterPage worbitesData={worbitesData} />} /> 
             <Route path='/search-results' element={
               <ResultsPage
                 activeId={activeId} 
