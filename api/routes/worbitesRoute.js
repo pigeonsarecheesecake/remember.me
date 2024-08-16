@@ -54,55 +54,55 @@ worbiteRouter.get('/count',async(req,res)=>{
         ])
         res.json([
             {
-                pos:'worbites',
+                pos:'worbite',
                 count:allCount,
                 backgroundColor:'bg-white',
                 id:1
             },
             {
-                pos:'adjectives',
+                pos:'adjective',
                 count:adjectiveCount,
                 backgroundColor:'bg-adjective',
                 id:2
             },
             {
-                pos:'adverbs',
+                pos:'adverb',
                 count:adverbCount,
                 backgroundColor:'bg-adverb',
                 id:3
             },
             {
-                pos:'conjunctions',
+                pos:'conjunction',
                 count:conjunctionCount,
                 backgroundColor:'bg-conjunction',
                 id:4
             },
             {
-                pos:'interjections',
+                pos:'interjection',
                 count:interjectionCount,
                 backgroundColor:'bg-interjection',
                 id:5
             },
             {
-                pos:'nouns',
+                pos:'noun',
                 count:nounCount,
                 backgroundColor:'bg-noun',
                 id:6
             },
             {
-                pos:'prepositions',
+                pos:'preposition',
                 count:prepositionCount,
                 backgroundColor:'bg-preposition',
                 id:7
             },
             {
-                pos:'pronouns',
+                pos:'pronoun',
                 count:pronounCount,
                 backgroundColor:'bg-pronoun',
                 id:8
             },
             {
-                pos:'verbs',
+                pos:'verb',
                 count:verbCount,
                 backgroundColor:'bg-verb',
                 id:9
@@ -113,111 +113,15 @@ worbiteRouter.get('/count',async(req,res)=>{
     }
 })
 
-// Retrieve all worbites
-worbiteRouter.get('/',async(req,res)=>{
+// Retrieve filter worbites
+worbiteRouter.get('/:pos',async(req,res)=>{
     const{id}=req.body
+    const{pos}=req.params
     try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id})
-        const count = await WorbitesModel.countDocuments({addedBy:id})
-        res.json({worbiteAdded,count})
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-// Retrieve all adjectives
-worbiteRouter.get('/adjective',async(req,res)=>{
-    const{id}=req.body
-    try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'adjective'})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'adjective'})
-        res.json({worbiteAdded,count})
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-// Retrieve all adverbs
-worbiteRouter.get('/adverb',async(req,res)=>{
-    const{id}=req.body
-    try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'adverb'})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'adverb'})
-        res.json({worbiteAdded,count})
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-// Retrieve all conjunctions
-worbiteRouter.get('/conjunction',async(req,res)=>{
-    const{id}=req.body
-    try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'conjunction'})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'conjunction'})
-        res.json({worbiteAdded,count})
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-
-// Retrieve all interjections
-worbiteRouter.get('/interjection',async(req,res)=>{
-    const{id}=req.body
-    try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'interjection'})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'interjection'})
-        res.json({worbiteAdded,count})
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-
-// Retrieve all nouns
-worbiteRouter.get('/noun',async(req,res)=>{
-    const{id}=req.body
-    try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'noun'})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'noun'})
-        res.json({worbiteAdded,count})
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-// Retrieve all prepositions
-worbiteRouter.get('/preposition',async(req,res)=>{
-    const{id}=req.body
-    try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'preposition'})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'preposition'})
-        res.json({worbiteAdded,count})
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-// Retrieve all pronouns
-worbiteRouter.get('/pronoun',async(req,res)=>{
-    const{id}=req.body
-    try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'pronoun'})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'pronoun'})
-        res.json({worbiteAdded,count})
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-// Retrieve all verbs
-worbiteRouter.get('/verb',async(req,res)=>{
-    const{id}=req.body
-    try {
-        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'verb'})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'verb'})
-        res.json({worbiteAdded,count})
+        let filteredWorbites
+        pos === 'worbite' ? filteredWorbites=await WorbitesModel.find({addedBy:id}) : filteredWorbites=await WorbitesModel.find({addedBy:id, partOfSpeech:pos})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:pos})
+        res.json({filteredWorbites,count})
     } catch (error) {
         res.json(error.message)
     }
