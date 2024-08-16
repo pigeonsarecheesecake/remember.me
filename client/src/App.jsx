@@ -75,6 +75,7 @@ function App() {
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/account' element={<ProfilePage />} />
+            <Route path = '/account/:pos' element={<FilterPage />} />
             <Route path='/search-results' element={
               <ResultsPage
                 activeId={activeId} 

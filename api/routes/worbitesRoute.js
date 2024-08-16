@@ -35,6 +35,84 @@ worbiteRouter.post('/',async(req,res)=>{
     }
 })
 
+// Worbites count endpoint
+worbiteRouter.get('/count',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const [ allCount, adjectiveCount, adverbCount, 
+                conjunctionCount, interjectionCount, nounCount, 
+                prepositionCount, pronounCount, verbCount] = await Promise.all([
+            WorbitesModel.countDocuments({addedBy:id}), 
+            WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'adjective'}),
+            WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'adverb'}),
+            WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'conjunction'}),
+            WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'interjection'}),
+            WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'noun'}),
+            WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'preposition'}),
+            WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'pronoun'}),
+            WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'verb'})
+        ])
+        res.json([
+            {
+                pos:'worbites',
+                count:allCount,
+                backgroundColor:'bg-white',
+                id:1
+            },
+            {
+                pos:'adjectives',
+                count:adjectiveCount,
+                backgroundColor:'bg-adjective',
+                id:2
+            },
+            {
+                pos:'adverbs',
+                count:adverbCount,
+                backgroundColor:'bg-adverb',
+                id:3
+            },
+            {
+                pos:'conjunctions',
+                count:conjunctionCount,
+                backgroundColor:'bg-conjunction',
+                id:4
+            },
+            {
+                pos:'interjections',
+                count:interjectionCount,
+                backgroundColor:'bg-interjection',
+                id:5
+            },
+            {
+                pos:'nouns',
+                count:nounCount,
+                backgroundColor:'bg-noun',
+                id:6
+            },
+            {
+                pos:'prepositions',
+                count:prepositionCount,
+                backgroundColor:'bg-preposition',
+                id:7
+            },
+            {
+                pos:'pronouns',
+                count:pronounCount,
+                backgroundColor:'bg-pronoun',
+                id:8
+            },
+            {
+                pos:'verbs',
+                count:verbCount,
+                backgroundColor:'bg-verb',
+                id:9
+            }
+            ])
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
 // Retrieve all worbites
 worbiteRouter.get('/',async(req,res)=>{
     const{id}=req.body
@@ -47,12 +125,98 @@ worbiteRouter.get('/',async(req,res)=>{
     }
 })
 
-// Retrieve all Adjectives
+// Retrieve all adjectives
 worbiteRouter.get('/adjective',async(req,res)=>{
     const{id}=req.body
     try {
         const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'adjective'})
         const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'adjective'})
+        res.json({worbiteAdded,count})
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// Retrieve all adverbs
+worbiteRouter.get('/adverb',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'adverb'})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'adverb'})
+        res.json({worbiteAdded,count})
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// Retrieve all conjunctions
+worbiteRouter.get('/conjunction',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'conjunction'})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'conjunction'})
+        res.json({worbiteAdded,count})
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+
+// Retrieve all interjections
+worbiteRouter.get('/interjection',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'interjection'})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'interjection'})
+        res.json({worbiteAdded,count})
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+
+// Retrieve all nouns
+worbiteRouter.get('/noun',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'noun'})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'noun'})
+        res.json({worbiteAdded,count})
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// Retrieve all prepositions
+worbiteRouter.get('/preposition',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'preposition'})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'preposition'})
+        res.json({worbiteAdded,count})
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// Retrieve all pronouns
+worbiteRouter.get('/pronoun',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'pronoun'})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'pronoun'})
+        res.json({worbiteAdded,count})
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// Retrieve all verbs
+worbiteRouter.get('/verb',async(req,res)=>{
+    const{id}=req.body
+    try {
+        const worbiteAdded=await WorbitesModel.find({addedBy:id, partOfSpeech:'verb'})
+        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:'verb'})
         res.json({worbiteAdded,count})
     } catch (error) {
         res.json(error.message)

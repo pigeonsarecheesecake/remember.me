@@ -42,7 +42,9 @@ const NavigationBar = ({setSearchResults}) => {
             <div className="flex items-center justify-end w-1/5 ">
                 {user && (
                     <>
-                    <Link to={'/account'}>{user.username}</Link>
+                    <button onClick={()=>{console.log('d')}}>
+                        <Link to={'/account'}>{user.username}</Link>
+                    </button>
                     </>
                 )}
                 {!user && (
