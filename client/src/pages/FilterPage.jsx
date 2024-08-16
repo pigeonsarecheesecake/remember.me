@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import CollectedWorbite from '../components/CollectedWorbite'
+import CollectedWorbiteModal from '../components/CollectedWorbiteModal'
 
 const FilterPage = () => {
   const {pos} = useParams()
   const [retrievedWorbites, setRetrievedWorbites] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modal, setModal] = useState(null)
   
   useEffect(() => {
     const getFilteredWorbites = async () => {
       try {
         const {data} = await axios.get(`/worbites/${pos}`)
         setRetrievedWorbites(data.filteredWorbites)
-        console.log(data.filteredWorbites)
       } catch (error) {
         console.log(error.message)
       }
@@ -39,12 +41,12 @@ const FilterPage = () => {
   
   return (
   <div className="flex flex-col">
-    <p>{pos[0].toUpperCase() + pos.slice(1)}</p>
+    <h2>{pos[0].toUpperCase() + pos.slice(1)}</h2>
     <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll scrollbar-none">
       <div className="">
         {
           groups.group1.map(worbiteObject=>(
-            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
+            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
           ))
         }
       </div>
@@ -65,7 +67,7 @@ const FilterPage = () => {
       <div className="">
         {
           groups.group4.map(worbiteObject=>(
-            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id}key={worbiteObject.id}/>
+            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
           ))
         }
       </div>
@@ -77,6 +79,9 @@ const FilterPage = () => {
         }
       </div>
     </div> 
+    {
+      isModalOpen && (<CollectedWorbiteModal modal={modal} setIsModalOpen={setIsModalOpen}/>)
+    }
   </div>
   )
 }

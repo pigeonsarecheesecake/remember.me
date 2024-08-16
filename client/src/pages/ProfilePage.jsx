@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { UserContext } from '../context_provider/UserContext'
 import { useNavigate } from 'react-router-dom'
-import Worbite from '../components/Worbite'
 import PosTags from '../components/PosTags'
 
 const ProfilePage = () => {
@@ -14,9 +13,6 @@ const ProfilePage = () => {
 
   // Redirect
   const navigate = useNavigate()
-  
-  // States
-  const[allWorbites, setAllWorbites] = useState({})
 
   // Retrieve counts
   useEffect(()=>{
@@ -25,19 +21,12 @@ const ProfilePage = () => {
       try {
         const {data } = await axios.get('/worbites/count')
         setWorbitesCounts(data)
-        console.log(data);
-        
       } catch (error) {
         console.log(error)
       }
     }
     getCounts()
   },[])
-  
-  // Handle redirects
-  const handleClick = async ()=>{
-    navigate('/worbite')
-  }
   
   // Log out
   const logOut = async ()=>{
