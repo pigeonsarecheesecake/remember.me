@@ -5,40 +5,41 @@ import CollectedWorbite from '../components/CollectedWorbite'
 
 const FilterPage = () => {
   const {pos} = useParams()
+  const [retrievedWorbites, setRetrievedWorbites] = useState([])
   
   useEffect(() => {
     const getFilteredWorbites = async () => {
       try {
         const {data} = await axios.get(`/worbites/${pos}`)
-        console.log(data);
-        
+        setRetrievedWorbites(data.filteredWorbites)
+        console.log(data.filteredWorbites)
       } catch (error) {
         console.log(error.message)
       }
     }
     getFilteredWorbites()
-  })
-  // Worbite groups to achieve masonry layout
-  // let j = 1
-  // const groups = {
-  //   group1:[],
-  //   group2:[],
-  //   group3:[],
-  //   group4:[],
-  //   group5:[]
-  // }
-  // for(let i=0;i<worbiteAdded.length;i++){
-  //   if(j>5){
-  //     j=1
-  //   }
-  //   groups[`group${j}`].push(worbiteAdded[i])
-  //   j++
-  // }
+  },[])
 
+//  Worbite groups to achieve masonry layout
+  let j = 1
+  const groups = {
+    group1:[],
+    group2:[],
+    group3:[],
+    group4:[],
+    group5:[]
+  }
+  for(let i=0;i<retrievedWorbites.length;i++){
+    if(j>5){
+      j=1
+    }
+    groups[`group${j}`].push(retrievedWorbites[i])
+    j++
+  }
+  
   return (
   <div className="flex flex-col">
     <p>{pos[0].toUpperCase() + pos.slice(1)}</p>
-    {/* <h2 className='text-xl mb-4'>{`${pos[0].toUpperCase() + pos.slice(1)} (${count})`}</h2>
     <div className=" h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll scrollbar-none">
       <div className="">
         {
@@ -75,7 +76,7 @@ const FilterPage = () => {
           ))
         }
       </div>
-    </div> */}
+    </div> 
   </div>
   )
 }

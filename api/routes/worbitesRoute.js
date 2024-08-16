@@ -113,14 +113,14 @@ worbiteRouter.get('/count',async(req,res)=>{
     }
 })
 
-// Retrieve filter worbites
+// Retrieve filtered worbites
 worbiteRouter.get('/:pos',async(req,res)=>{
     const{id}=req.body
     const{pos}=req.params
     try {
         let filteredWorbites
         pos === 'worbite' ? filteredWorbites=await WorbitesModel.find({addedBy:id}) : filteredWorbites=await WorbitesModel.find({addedBy:id, partOfSpeech:pos})
-        const count = await WorbitesModel.countDocuments({addedBy:id, partOfSpeech:pos})
+        const count = filteredWorbites.length
         res.json({filteredWorbites,count})
     } catch (error) {
         res.json(error.message)
