@@ -53,7 +53,7 @@ const FilterPage = () => {
       <div className="">
         {
           groups.group2.map(worbiteObject=>(
-            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
+            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id } isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
           ))
         }
       </div>
