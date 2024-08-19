@@ -22,7 +22,7 @@ const CollectedWorbiteModal = ({modal, setIsModalOpen}) => {
         {/* Content */}
         <div className="absolute top-[30%] left-[10%] w-[700px] bg-white h-[427px] rounded-[27px] overflow-hidden shadow-modal flex">
           {/* Left Modal */}
-          <div className="border bg-tertiary flex flex-col justify-center w-[40%] p-6">
+          <div className="border bg-tertiary flex flex-col justify-center w-[50%] py-6 px-7">
             {/* Date */}
             <div className="flex font-normal mb-4">
               <svg className='mr-2' width="15" height="15" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,12 +36,43 @@ const CollectedWorbiteModal = ({modal, setIsModalOpen}) => {
               <h2 className='text-[40px] leading-[45px]'>{worbite}</h2>
               <h3 className='text-lg font-normal'>{partOfSpeech}</h3>
             </div>
+            <div className="border-t-4 border-black mb-4 "></div>
             {/* Definition */}
             <p className='font-normal'>{definition}</p>
           </div>
           {/* Right Modal */}
-          <div className="">
-            dadads
+          <div className="flex flex-col justify-center p-6 w-[50%]">
+            <p className='mb-4'>Your Examples</p>
+            {/* Examples */}
+            <div className="flex flex-col">
+              <div className="flex items-center mb-4">
+                <p className='text-primary p-2 border-2 rounded-[5px] w-full mr-4'>{examples[0]}</p>
+                <button>
+                  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.1661 6.66683L12.2286 16.6043C11.239 17.5939 8.30146 18.0522 7.64521 17.3959C6.98896 16.7397 7.43688 13.8022 8.42646 12.8126L18.3744 2.86472C18.6197 2.59707 18.9167 2.38193 19.2475 2.23224C19.5783 2.08255 19.936 2.0014 20.299 1.99376C20.6619 1.98612 21.0227 2.0521 21.3595 2.18774C21.6963 2.32337 22.0021 2.52587 22.2585 2.78296C22.5148 3.04004 22.7165 3.34639 22.8512 3.68354C22.9859 4.0207 23.051 4.38163 23.0423 4.7446C23.0337 5.10757 22.9515 5.46506 22.801 5.79542C22.6503 6.12579 22.4344 6.42224 22.1661 6.66683Z" stroke="#182DEA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11.458 4.16675H6.24967C5.1446 4.16675 4.08486 4.60573 3.30346 5.38713C2.52206 6.16854 2.08301 7.22834 2.08301 8.33341V18.7501C2.08301 19.8552 2.52206 20.915 3.30346 21.6963C4.08486 22.4778 5.1446 22.9167 6.24967 22.9167H17.708C20.0101 22.9167 20.833 21.0417 20.833 18.7501V13.5417" stroke="#182DEA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div className="flex items-center mb-4">
+                <p className='text-primary p-2 border-2 rounded-[5px] w-full mr-4'>{examples[1]}</p>
+                <button>
+                  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.1661 6.66683L12.2286 16.6043C11.239 17.5939 8.30146 18.0522 7.64521 17.3959C6.98896 16.7397 7.43688 13.8022 8.42646 12.8126L18.3744 2.86472C18.6197 2.59707 18.9167 2.38193 19.2475 2.23224C19.5783 2.08255 19.936 2.0014 20.299 1.99376C20.6619 1.98612 21.0227 2.0521 21.3595 2.18774C21.6963 2.32337 22.0021 2.52587 22.2585 2.78296C22.5148 3.04004 22.7165 3.34639 22.8512 3.68354C22.9859 4.0207 23.051 4.38163 23.0423 4.7446C23.0337 5.10757 22.9515 5.46506 22.801 5.79542C22.6503 6.12579 22.4344 6.42224 22.1661 6.66683Z" stroke="#182DEA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11.458 4.16675H6.24967C5.1446 4.16675 4.08486 4.60573 3.30346 5.38713C2.52206 6.16854 2.08301 7.22834 2.08301 8.33341V18.7501C2.08301 19.8552 2.52206 20.915 3.30346 21.6963C4.08486 22.4778 5.1446 22.9167 6.24967 22.9167H17.708C20.0101 22.9167 20.833 21.0417 20.833 18.7501V13.5417" stroke="#182DEA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div className="flex items-center mb-4">
+                <p className='text-primary p-2 border-2 rounded-[5px] w-full mr-4'>{examples[2]}</p>
+                <button>
+                  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.1661 6.66683L12.2286 16.6043C11.239 17.5939 8.30146 18.0522 7.64521 17.3959C6.98896 16.7397 7.43688 13.8022 8.42646 12.8126L18.3744 2.86472C18.6197 2.59707 18.9167 2.38193 19.2475 2.23224C19.5783 2.08255 19.936 2.0014 20.299 1.99376C20.6619 1.98612 21.0227 2.0521 21.3595 2.18774C21.6963 2.32337 22.0021 2.52587 22.2585 2.78296C22.5148 3.04004 22.7165 3.34639 22.8512 3.68354C22.9859 4.0207 23.051 4.38163 23.0423 4.7446C23.0337 5.10757 22.9515 5.46506 22.801 5.79542C22.6503 6.12579 22.4344 6.42224 22.1661 6.66683Z" stroke="#182DEA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11.458 4.16675H6.24967C5.1446 4.16675 4.08486 4.60573 3.30346 5.38713C2.52206 6.16854 2.08301 7.22834 2.08301 8.33341V18.7501C2.08301 19.8552 2.52206 20.915 3.30346 21.6963C4.08486 22.4778 5.1446 22.9167 6.24967 22.9167H17.708C20.0101 22.9167 20.833 21.0417 20.833 18.7501V13.5417" stroke="#182DEA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
     </div>

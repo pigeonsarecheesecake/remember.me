@@ -60,21 +60,21 @@ const FilterPage = () => {
       <div className="">
         {
           groups.group3.map(worbiteObject=>(
-            <CollectedWorbite worbiteObject={worbiteObject}  id={worbiteObject.id} key={worbiteObject.id}/>
+            <CollectedWorbite worbiteObject={worbiteObject}  id={worbiteObject.id} key={worbiteObject.id} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
           ))
         }
       </div>
       <div className="">
         {
           groups.group4.map(worbiteObject=>(
-            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
+            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
           ))
         }
       </div>
       <div className="">
         {
           groups.group5.map(worbiteObject=>(
-            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}/>
+            <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
           ))
         }
       </div>
