@@ -5,8 +5,21 @@ import { useNavigate } from 'react-router-dom'
 import PosTags from '../components/PosTags'
 
 const ProfilePage = () => {
-  // This will hold info for counts
+  // Date
+  const date = new Date()
+  const currentYear = date.getFullYear()
+  const currentMonth = date.getMonth()
+  
+  let formattedDate
+  if (currentMonth < 10) {
+    formattedDate = `${currentYear}-0${currentMonth}`
+  } else {
+    formattedDate = `${currentYear}-${currentMonth}`
+  }
+
+  // States
   const [worbitesCounts, setWorbitesCounts] = useState([])
+  const [month, setMonth] = useState(formattedDate)
   
   // User Context
   const {user, setUser} = useContext(UserContext)
@@ -34,22 +47,24 @@ const ProfilePage = () => {
     navigate('/')
     setUser(null)
   }
-  
+
   return (
     <>
     {
       <div className="w-full flex flex-col">
+        {/* Title */}
         <h2 className='text-xl mb-6'>{user ? `${user.name}'s Worbites` : 'loading'}</h2>
         {/* Tags */}
-        {/* All Worbites */}
         <div className="w-full flex flex-wrap" >
-          {/* All Worbites */}
           {
             worbitesCounts.map((worbite)=>{
               return <PosTags key={worbite.id} count={worbite.count} pos={worbite.pos} backgroundColor={worbite.backgroundColor} />
             })
           }
         </div>
+        {/* Dates */}
+        <input type="month" className='w-[20%]' value={month} onChange={(e)=>setMonth(e.target.value)}/>
+        {/* Log out button */}
         <button className='' onClick={logOut}>Log Out</button>
       </div>
       

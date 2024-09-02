@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import {parseISO, format} from 'date-fns'
-import axios from 'axios';
 
 const CollectedWorbiteModal = ({modal, setIsModalOpen}) => {
   // States
@@ -9,8 +8,6 @@ const CollectedWorbiteModal = ({modal, setIsModalOpen}) => {
   // Converts date to readable format
   const date  = parseISO(createdAt)
   const formattedDate = format(date, 'MM/dd/yyyy')
-
-  // Handlers
 
   return (
   <>
