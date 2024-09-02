@@ -1,5 +1,11 @@
+import { useDroppable } from "@dnd-kit/core"
 import SideBarDroppable from "./SideBarDroppable"
+import Modal from "./Modal"
+
 const SideBar = ({parent,setParent, activeWorbite}) => {
+    const {isOver, setNodeRef} = useDroppable({
+        id:'droppableId'
+    }) 
     // Droppable containers
     const Droppablecontainers = [{
         name:'adjective',
@@ -41,9 +47,9 @@ const SideBar = ({parent,setParent, activeWorbite}) => {
         abbreviation:'ver.',
         id:8
     }]
-    
+    // {parent === droppableId ? <Modal setParent={setParent} activeWorbite={activeWorbite} /> : ''}
     return (
-    <div className={`border border-2 border-tertiary rounded-[10px] min-w-16 h-[539px] flex flex-col items-center mr-6`}>
+    <div ref={setNodeRef} className={`border border-2 ${isOver ? 'border-[#182DEA]' : 'border-tertiary' }  rounded-[10px] min-w-16 h-[539px] flex flex-col items-center mr-6`}>
         {/* Library logo */}
         <div className="bg-tertiary h-12 w-12 rounded-[10px] my-2 flex justify-center items-center">
             <svg width="26" height="25" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +70,8 @@ const SideBar = ({parent,setParent, activeWorbite}) => {
             <line x1="0.5" y1="1.5" x2="43.5" y2="1.5" stroke="#182DEA" strokeOpacity="0.1" strokeWidth="3"/>
         </svg>
         {/* Parts of Speech */}
-        {Droppablecontainers.map(pos =>(<SideBarDroppable droppableId={pos.id} parent={parent} setParent={setParent} pos={pos} key={pos.id} activeWorbite={activeWorbite}/>))}
+        {Droppablecontainers.map(pos =>(<SideBarDroppable pos={pos} key={pos.id} />))}
+        {parent === 'droppableId' ? <Modal setParent={setParent} activeWorbite={activeWorbite} /> : ''}
     </div>
   )
 }
