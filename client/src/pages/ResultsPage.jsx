@@ -9,11 +9,9 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
   const [worbites, setWorbites ] = useState([])
   
   useEffect(()=>{
-    const formatsObject = (searchResults)=>{
-      if(!searchResults.length){
-        navigate('/')
-      }
+    if(searchResults.length > 0){
       let formattedWorbites = []
+      // Goes through search results and format them to model shape
       for(let i=0; i<searchResults.length; i++){
         const {meta:{id},fl,shortdef} = searchResults[i]
         if (fl==='adjective' || fl==='adverb' || fl==='conjunction' || fl==='interjection' || fl==='noun' || fl==='preposition' || fl==='pronoun' || fl==='verb' )
@@ -26,9 +24,11 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
         })
       }
       setWorbites(formattedWorbites)
+    }else{
+      alert('No results found')
+      navigate('/')
     }
-    formatsObject(searchResults)
-  },[searchResults]) //Function runs everytime searchResults is updated
+  },[searchResults]) //Function runs everytime searchResults is updated. State changes triggers re-render, not the variable itself
 
   // Sets active worbite object for drag and drop
   const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)

@@ -11,9 +11,13 @@ const NavigationBar = ({setSearchResults}) => {
 
     const searchWorbite = async(ev)=>{
         ev.preventDefault()
-        const {data} = await axios.post('/search',{userInput})
-        setSearchResults(data)
-        navigate('/search-results')
+        try {
+            const {data} = await axios.post('/search',{userInput})
+            setSearchResults(data)
+            navigate('/search-results')
+        } catch (error) {
+            console.log(error.message)
+        }
     }
     
     return (
@@ -41,11 +45,7 @@ const NavigationBar = ({setSearchResults}) => {
             {/* Register and Log in */}
             <div className="flex items-center justify-end w-1/5 ">
                 {user && (
-                    <>
-                    <button onClick={()=>{console.log('d')}}>
-                        <Link to={'/account'}>{user.username}</Link>
-                    </button>
-                    </>
+                    <Link to={'/account'}>{user.username}</Link>
                 )}
                 {!user && (
                     <>
