@@ -50,7 +50,7 @@ const ProfilePage = () => {
             })
           }
         </div>
-        <button className='border' onClick={logOut}>Log Out</button>
+        <button className='' onClick={logOut}>Log Out</button>
       </div>
       
     }
