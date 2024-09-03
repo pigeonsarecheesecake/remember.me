@@ -62,6 +62,25 @@ const ProfilePage = () => {
     setUser(null)
   }
 
+  //  Worbite groups to achieve masonry layout
+  let j = 1
+  const groups = {
+    group1:[],
+    group2:[],
+    group3:[],
+    group4:[],
+    group5:[]
+  }
+  for(let i=0;i<filteredMonth.length;i++){
+    if(j>5){
+      j=1
+    }
+    groups[`group${j}`].push(filteredMonth[i])
+    j++
+  }
+
+  console.log(groups)
+
   return (
     <>
     {
@@ -77,18 +96,47 @@ const ProfilePage = () => {
           }
         </div>
         {/* Dates */}
-        <input type="month" className='w-[20%]' value={month} onChange={(e)=>setMonth(e.target.value)}/>
-        <div className="">
-        {
-          filteredMonth.map(worbiteObject=>(
-            <CollectedWorbite worbiteObject={worbiteObject}  id={worbiteObject._id} key={worbiteObject._id}/>
-          ))
-        }
-      </div>
+        <input type="month" className='w-[20%] mb-4' value={month} onChange={(e)=>setMonth(e.target.value)}/>
+        <div className="h-[86vh] grid grid-cols-5 gap-1.5 overflow-y-scroll scrollbar-none">
+          <div className="">
+            {
+              groups.group1.map(worbiteObject=>(
+                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} />
+              ))
+            }
+          </div>
+          <div className="">
+            {
+              groups.group2.map(worbiteObject=>(
+                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id } />
+              ))
+            }
+          </div>
+          <div className="">
+            {
+              groups.group3.map(worbiteObject=>(
+                <CollectedWorbite worbiteObject={worbiteObject}  id={worbiteObject.id} key={worbiteObject.id} />
+              ))
+            }
+          </div>
+          <div className="">
+            {
+              groups.group4.map(worbiteObject=>(
+                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} />
+              ))
+            }
+          </div>
+          <div className="">
+            {
+              groups.group5.map(worbiteObject=>(
+                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} />
+              ))
+            }
+          </div>
+        </div>
         {/* Log out button */}
         <button className='' onClick={logOut}>Log Out</button>
       </div>
-      
     }
     </>
   )

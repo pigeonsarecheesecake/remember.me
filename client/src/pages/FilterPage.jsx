@@ -22,7 +22,7 @@ const FilterPage = () => {
     getFilteredWorbites()
   },[])
 
-//  Worbite groups to achieve masonry layout
+  //  Worbite groups to achieve masonry layout
   let j = 1
   const groups = {
     group1:[],
