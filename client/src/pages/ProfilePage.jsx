@@ -4,6 +4,8 @@ import { UserContext } from '../context_provider/UserContext'
 import { useNavigate } from 'react-router-dom'
 import PosTags from '../components/PosTags'
 import CollectedWorbite from '../components/CollectedWorbite'
+import CollectedWorbiteModal from '../components/CollectedWorbiteModal'
+
 
 const ProfilePage = () => {
   // Date
@@ -22,6 +24,10 @@ const ProfilePage = () => {
   const [worbitesCounts, setWorbitesCounts] = useState([])
   const [month, setMonth] = useState(formattedDate)
   const [filteredMonth, setFilteredMonth] = useState([])
+
+  // Modal
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modal, setModal] = useState(null)
   
   // User Context
   const {user, setUser} = useContext(UserContext)
@@ -79,8 +85,6 @@ const ProfilePage = () => {
     j++
   }
 
-  console.log(groups)
-
   return (
     <>
     {
@@ -101,39 +105,41 @@ const ProfilePage = () => {
           <div className="">
             {
               groups.group1.map(worbiteObject=>(
-                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} />
+                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}  isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
               ))
             }
           </div>
           <div className="">
             {
               groups.group2.map(worbiteObject=>(
-                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id } />
+                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id }  isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
               ))
             }
           </div>
           <div className="">
             {
               groups.group3.map(worbiteObject=>(
-                <CollectedWorbite worbiteObject={worbiteObject}  id={worbiteObject.id} key={worbiteObject.id} />
+                <CollectedWorbite worbiteObject={worbiteObject}  id={worbiteObject.id} key={worbiteObject.id}  isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
               ))
             }
           </div>
           <div className="">
             {
               groups.group4.map(worbiteObject=>(
-                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} />
+                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}  isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
               ))
             }
           </div>
           <div className="">
             {
               groups.group5.map(worbiteObject=>(
-                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id} />
+                <CollectedWorbite worbiteObject={worbiteObject} id={worbiteObject.id} key={worbiteObject.id}  isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setModal={setModal}/>
               ))
             }
           </div>
         </div>
+        {/* Modal */}
+        {isModalOpen && (<CollectedWorbiteModal modal={modal} setIsModalOpen={setIsModalOpen}/>)}
         {/* Log out button */}
         <button className='' onClick={logOut}>Log Out</button>
       </div>
@@ -144,11 +150,4 @@ const ProfilePage = () => {
 
 export default ProfilePage
 
-
-{/* <button className='border' onClick={logOut}>
-        Log Out
-      </button> */}
-
-
-      /* Total */
 
