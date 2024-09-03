@@ -127,6 +127,28 @@ worbiteRouter.get('/:pos',async(req,res)=>{
     }
 })
 
+// Retrieve sorted worbites by date
+worbiteRouter.get('/filter/:yearMonth',async(req,res)=>{
+    const{id}=req.body
+    const {yearMonth} = req.params
+    const year = Number(yearMonth.slice(0,4))
+    const month = Number(yearMonth.slice(5))
+    try {
+        const results = await WorbitesModel.find({
+            addedBy:id,
+            $expr:{
+                $and:[
+                    {$eq:[{$month:"$createdAt"},month]},
+                    {$eq:[{$year:"$createdAt"},year]}
+                ]
+            }
+        })
+        res.json(results)
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
 // Retrieve a worbite
 worbiteRouter.get('/:worbite',async(req,res)=>{
     const{id}=req.body

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { UserContext } from '../context_provider/UserContext'
 import { useNavigate } from 'react-router-dom'
 import PosTags from '../components/PosTags'
+import CollectedWorbite from '../components/CollectedWorbite'
 
 const ProfilePage = () => {
   // Date
@@ -20,6 +21,7 @@ const ProfilePage = () => {
   // States
   const [worbitesCounts, setWorbitesCounts] = useState([])
   const [month, setMonth] = useState(formattedDate)
+  const [filteredMonth, setFilteredMonth] = useState([])
   
   // User Context
   const {user, setUser} = useContext(UserContext)
@@ -27,10 +29,9 @@ const ProfilePage = () => {
   // Redirect
   const navigate = useNavigate()
 
-  // Retrieve counts
+  // Retrieves counts
   useEffect(()=>{
     const getCounts = async()=>{
-      // Array of Promises
       try {
         const {data } = await axios.get('/worbites/count')
         setWorbitesCounts(data)
@@ -40,7 +41,20 @@ const ProfilePage = () => {
     }
     getCounts()
   },[])
-  
+
+  // Retrieves new filteredMonth when month changes. Month changes when the onChange event on the month input element changes.
+  useEffect(()=>{
+    const getMonthData = async()=>{
+      try {
+        const {data} = await axios.get(`/worbites/filter/${month}`)
+        setFilteredMonth(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getMonthData()
+  },[month])
+
   // Log out
   const logOut = async ()=>{
     await axios.post('/account/logout')
@@ -64,6 +78,13 @@ const ProfilePage = () => {
         </div>
         {/* Dates */}
         <input type="month" className='w-[20%]' value={month} onChange={(e)=>setMonth(e.target.value)}/>
+        <div className="">
+        {
+          filteredMonth.map(worbiteObject=>(
+            <CollectedWorbite worbiteObject={worbiteObject}  id={worbiteObject._id} key={worbiteObject._id}/>
+          ))
+        }
+      </div>
         {/* Log out button */}
         <button className='' onClick={logOut}>Log Out</button>
       </div>
