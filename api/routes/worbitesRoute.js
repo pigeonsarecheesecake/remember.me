@@ -8,26 +8,43 @@ const worbiteRouter = Router()
 // Middleware
 worbiteRouter.use(verifyToken)
 
-// Add a new worbite
+// Checks if worbite exists
+worbiteRouter.get('/',async(req,res)=>{
+    // Query parameters to 
+    const {word,pos} = req.query
+    const{id}= req.body
+    try {
+        const worbiteExists = await WorbitesModel.findOne({worbite:word,partOfSpeech:pos,addedBy:id})
+        if (worbiteExists){
+             res.json({
+                "message": `Worbite: ${word} (${pos}) exists in collection`,
+                "exists":true
+            })
+        }else{
+            res.json({
+                "exists":false
+            })
+        }
+    } catch (error) {
+        res.json(error)
+    }
+})
+
+// Adds a new worbite
 worbiteRouter.post('/',async(req,res)=>{
     const{
         word,pos,definitions,
         examples,id
     }=req.body
-
     try {
-        // If worbite has been added by user, let user know
-        const worbiteAdded=await WorbitesModel.findOne({worbite:word,partOfSpeech:pos,addedBy:id})
-        if(worbiteAdded){
-            return res.json(`Worbite: ${word} (${pos}) exists in collection`)
-        }
-        // If worbite is new, add it to the database
         const worbiteDoc = new WorbitesModel({
             worbite:word,partOfSpeech:pos,definition:definitions,
             examples,addedBy:id
         })
         await worbiteDoc.save()
-        res.json('Worbite has been added!')
+        res.json({
+            "message": `Worbite: ${word} (${pos}) added to collection`,
+            "exists":false})
     } catch(error) {
         res.json(error.message)
     }
