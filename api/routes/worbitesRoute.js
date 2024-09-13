@@ -17,12 +17,10 @@ worbiteRouter.post('/',async(req,res)=>{
 
     try {
         // If worbite has been added by user, let user know
-        const worbiteAdded=await WorbitesModel.findOne({worbite:word,addedBy:id})
+        const worbiteAdded=await WorbitesModel.findOne({worbite:word,partOfSpeech:pos,addedBy:id})
         if(worbiteAdded){
-            res.json(`Worbite: ${word} exists in collection`)
-            return
+            return res.json(`Worbite: ${word} (${pos}) exists in collection`)
         }
-
         // If worbite is new, add it to the database
         const worbiteDoc = new WorbitesModel({
             worbite:word,partOfSpeech:pos,definition:definitions,
