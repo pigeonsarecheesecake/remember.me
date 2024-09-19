@@ -13,6 +13,26 @@ const NavigationBar = ({setSearchResults}) => {
         ev.preventDefault()
         try {
             const {data} = await axios.post('/search',{userInput})
+            // For each is good for applying function to each element in an array, it's an array method
+            data[0].def[0].sseq.forEach(item=>{
+                item.forEach(subItem=>{
+                    if(subItem[0]==='sense'){
+                        if(subItem[1].dt[1]){
+                        subItem[1].dt[1][1].forEach(subSubItem=>{
+                            console.log(subSubItem.t
+                                .replace(/{wi}/g, "")
+                                .replace(/{\/wi}/g, "")
+                                .replace(/{it}/g, "")
+                                .replace(/{\/it}/g, "")
+                            )
+                        })
+                    }else{
+                        console.log(subItem[1].dt[0][1])
+                    }
+                    }
+                    
+                })
+            })  
             setSearchResults(data)
             navigate('/search-results')
         } catch (error) {
