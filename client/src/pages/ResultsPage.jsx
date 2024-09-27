@@ -17,33 +17,34 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
         const {meta:{id},fl,shortdef} = searchResults[i]
         console.log(searchResults[i])
         let examples = []
-        searchResults[i].def[0].sseq.forEach(item=>{
-          item.forEach(subItem=>{
-              if(subItem[0]==='sense'){
-                  if(subItem[1].dt[1]){
-                      subItem[1].dt[1][1].forEach(subSubItem=>{
-                        if(subSubItem.t){
-                          examples.push( subSubItem.t
-                            .replace(/{wi}/g, "")
-                            .replace(/{\/wi}/g, "")
-                            .replace(/{it}/g, "")
-                            .replace(/{\/it}/g, ""))
-                        }
-                      })
-              }}
-          })
-        })
-        console.log(examples)
         if (fl==='adjective' || fl==='adverb' || fl==='conjunction' || fl==='interjection' || fl==='noun' || fl==='preposition' || fl==='pronoun' || fl==='verb' ){
+          searchResults[i].def[0].sseq.forEach(item=>{
+            item.forEach(subItem=>{
+                if(subItem[0]==='sense'){
+                    if(subItem[1].dt[1]){
+                        subItem[1].dt[1][1].forEach(subSubItem=>{
+                          if(subSubItem.t){
+                            examples.push( subSubItem.t
+                              .replace(/{wi}/g, "")
+                              .replace(/{\/wi}/g, "")
+                              .replace(/{it}/g, "")
+                              .replace(/{\/it}/g, ""))
+                          }
+                        })
+                }}
+            })
+          })
           formattedWorbites.push({
             word:id.split(':')[0],
             pos:fl,
             definitions:shortdef[0],
             id:i+1,
-            backgroundColor:`bg-${fl}`
+            backgroundColor:`bg-${fl}`,
+            exampleSentences:examples.slice(0,3)
           })
         }
       }
+      console.log(formattedWorbites)
       setWorbites(formattedWorbites)
     }else{
       alert('No results found')
@@ -51,6 +52,7 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
     }
   },[searchResults]) //Function runs everytime searchResults is updated. State changes triggers re-render, not the variable itself
 
+ 
   // Sets active worbite object for drag and drop
   const activeWorbite = worbites.find(worbiteObject => worbiteObject.id === activeId)
   useEffect(()=>{
