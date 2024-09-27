@@ -11,17 +11,38 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
   useEffect(()=>{
     if(searchResults.length > 0){
       let formattedWorbites = []
+      console.log(searchResults)
       // Goes through search results and format them to model shape
       for(let i=0; i<searchResults.length; i++){
         const {meta:{id},fl,shortdef} = searchResults[i]
-        if (fl==='adjective' || fl==='adverb' || fl==='conjunction' || fl==='interjection' || fl==='noun' || fl==='preposition' || fl==='pronoun' || fl==='verb' )
-        formattedWorbites.push({
-          word:id.split(':')[0],
-          pos:fl,
-          definitions:shortdef[0],
-          id:i+1,
-          backgroundColor:`bg-${fl}`
+        console.log(searchResults[i])
+        let examples = []
+        searchResults[i].def[0].sseq.forEach(item=>{
+          item.forEach(subItem=>{
+              if(subItem[0]==='sense'){
+                  if(subItem[1].dt[1]){
+                      subItem[1].dt[1][1].forEach(subSubItem=>{
+                        if(subSubItem.t){
+                          examples.push( subSubItem.t
+                            .replace(/{wi}/g, "")
+                            .replace(/{\/wi}/g, "")
+                            .replace(/{it}/g, "")
+                            .replace(/{\/it}/g, ""))
+                        }
+                      })
+              }}
+          })
         })
+        console.log(examples)
+        if (fl==='adjective' || fl==='adverb' || fl==='conjunction' || fl==='interjection' || fl==='noun' || fl==='preposition' || fl==='pronoun' || fl==='verb' ){
+          formattedWorbites.push({
+            word:id.split(':')[0],
+            pos:fl,
+            definitions:shortdef[0],
+            id:i+1,
+            backgroundColor:`bg-${fl}`
+          })
+        }
       }
       setWorbites(formattedWorbites)
     }else{

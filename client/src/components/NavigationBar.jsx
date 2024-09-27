@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { UserContext } from "../context_provider/UserContext"
 import axios from "axios"
@@ -7,32 +7,33 @@ const NavigationBar = ({setSearchResults}) => {
     const {user} = useContext(UserContext)
     const {pathname} = useLocation()
     const [userInput, setUserInput] = useState('')
+    const[examples, setExamples] = useState([])
     const navigate=useNavigate()
 
     const searchWorbite = async(ev)=>{
         ev.preventDefault()
+        setExamples([])
         try {
             const {data} = await axios.post('/search',{userInput})
             // For each is good for applying function to each element in an array, it's an array method
-            data[0].def[0].sseq.forEach(item=>{
-                item.forEach(subItem=>{
-                    if(subItem[0]==='sense'){
-                        if(subItem[1].dt[1]){
-                        subItem[1].dt[1][1].forEach(subSubItem=>{
-                            console.log(subSubItem.t
-                                .replace(/{wi}/g, "")
-                                .replace(/{\/wi}/g, "")
-                                .replace(/{it}/g, "")
-                                .replace(/{\/it}/g, "")
-                            )
-                        })
-                    }else{
-                        console.log(subItem[1].dt[0][1])
-                    }
-                    }
-                    
-                })
-            })  
+            // data[0].def[0].sseq.forEach(item=>{
+            //     item.forEach(subItem=>{
+            //         if(subItem[0]==='sense'){
+            //             if(subItem[1].dt[1]){
+            //                 subItem[1].dt[1][1].forEach(subSubItem=>{
+            //                     setExamples(previousExamples=>[...previousExamples, subSubItem.t
+            //                             .replace(/{wi}/g, "")
+            //                             .replace(/{\/wi}/g, "")
+            //                             .replace(/{it}/g, "")
+            //                             .replace(/{\/it}/g, "")
+            //                         ]
+            //                     )
+            //                 })
+            //         }else{
+            //             console.log('nope')
+            //         }}
+            //     })
+            // })  
             setSearchResults(data)
             navigate('/search-results')
         } catch (error) {
