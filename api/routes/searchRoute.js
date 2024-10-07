@@ -6,7 +6,6 @@ const searchRouter = Router()
 
 searchRouter.post('/',async(req,res)=>{
   const {userInput} = req.body
-  
   try {
     const {data} = await axios.get(`https://dictionaryapi.com/api/v3/references/collegiate/json/${userInput}?key=${process.env.DICTIONARY_KEY}`)
     res.json(data)
@@ -14,5 +13,7 @@ searchRouter.post('/',async(req,res)=>{
     res.json({message:error.message})
   }
 })
+
+
 
 export default searchRouter
