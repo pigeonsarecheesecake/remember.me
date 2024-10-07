@@ -11,11 +11,11 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
   useEffect(()=>{
     if(searchResults.length > 0){
       let formattedWorbites = []
-      console.log(searchResults)
+      // console.log(searchResults)
       // Goes through search results and format them to model shape
       for(let i=0; i<searchResults.length; i++){
         const {meta:{id},fl,shortdef} = searchResults[i]
-        console.log(searchResults[i])
+        // console.log(searchResults[i])
         let examples = []
         if (fl==='adjective' || fl==='adverb' || fl==='conjunction' || fl==='interjection' || fl==='noun' || fl==='preposition' || fl==='pronoun' || fl==='verb' ){
           searchResults[i].def[0].sseq.forEach(item=>{
@@ -44,7 +44,6 @@ const ResultsPage = ({activeId,searchResults,setActiveWorbite}) => {
           })
         }
       }
-      console.log(formattedWorbites)
       setWorbites(formattedWorbites)
     }else{
       alert('No results found')

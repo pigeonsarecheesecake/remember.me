@@ -4,13 +4,14 @@ import axios from 'axios';
 const Modal = ({setParent, activeWorbite}) => {
   // States
   const [step, setStep] = useState(1)
-  const {word, definitions, pos} = activeWorbite
+  const {word, definitions, pos, exampleSentences} = activeWorbite
   const [example, setExample] = useState('')
   const [examples, setExamples] = useState([])
   const [cardState, setCardState]=useState('default')
   const [correctExample, setCorrectExample] = useState('')
   const [exists, setExists] = useState(null)
 
+  console.log(exampleSentences)
   // Check if worbite exists
   useEffect(()=>{
     const check = async()=>{
@@ -84,7 +85,7 @@ const Modal = ({setParent, activeWorbite}) => {
       <div className="absolute p-6 top-[40%] left-[20%] bg-white w-[500px] rounded-[5px] overflow-hidden shadow-modal flex items-center justify-between">
         <p className='text-xxl'>{`${activeWorbite.word} as a/an ${activeWorbite.pos} already exists`}</p>
         <button onClick={()=>{setParent(null)}}>
-          <svg width="10px" height="10px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 21.32L21 3.32001" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3 3.32001L21 21.32" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+          <svg width="10px" height="10px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 21.32L21 3.32001" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M3 3.32001L21 21.32" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
         </button>
       </div>
     </div>
@@ -109,10 +110,17 @@ const Modal = ({setParent, activeWorbite}) => {
               <p className='text-sm font-normal leading-5'>{definitions}</p>
               {/* Examples */}
               <div className="my-4">
-                <p className='text-md'>Example sentences</p>
-                <p className='font-normal text-sm'>[1] For expeditious action, chichi an all-in-one leaf removal system.</p>
-                <p className='font-normal text-sm'>[2] We really feel like we can be more chichi and get more shots in arms.</p>
-                <p className='font-normal text-sm'>[3] Of course, any full and chichi development of these cleaner-coal strategies would require significant financial support. </p>
+                <p className='mb-2 text-md'>Example sentences:</p>
+                {
+                exampleSentences.length > 0 ? (
+                  exampleSentences.map((sentence, index) => (
+                    <p key={index} className='text-sm font-normal'>
+                      {`[${index + 1}] ${sentence[0].toUpperCase() + sentence.slice(1)}`}
+                    </p>
+                    )
+                  )
+                ) : (<p className='text-sm font-normal'>No examples found</p>)
+                }
               </div>
             </div>
           )}

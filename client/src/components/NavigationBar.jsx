@@ -33,7 +33,8 @@ const NavigationBar = ({setSearchResults}) => {
             //             console.log('nope')
             //         }}
             //     })
-            // })  
+            // })
+            console.log(data)  
             setSearchResults(data)
             navigate('/search-results')
         } catch (error) {
