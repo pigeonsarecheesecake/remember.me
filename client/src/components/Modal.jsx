@@ -10,21 +10,47 @@ const Modal = ({setParent, activeWorbite}) => {
   const [cardState, setCardState]=useState('default')
   const [correctExample, setCorrectExample] = useState('')
   const [exists, setExists] = useState(null)
-
-  console.log(exampleSentences)
+  const [indexExamples, setIndexExamples] = useState([])
   // Check if worbite exists
   useEffect(()=>{
     const check = async()=>{
       try {
        const {data} = await axios.get(`/worbites?word=${activeWorbite.word}&pos=${activeWorbite.pos}`)
        setExists(data.exists)
-       console.log(data)
       } catch (error) {
         console.log(error);
     }
   }
   check()
-  },[])
+  if(!exampleSentences){
+    const getExamples = async()=>{
+      try {
+        const {data} = await axios.post('/search',{userInput:word})
+        const result = data.filter((word)=> word.fl === pos)
+        let examples = []
+        result[0].def[0].sseq.forEach(item=>{
+          item.forEach(subItem=>{
+              if(subItem[0]==='sense'){
+                  if(subItem[1].dt[1]){
+                      subItem[1].dt[1][1].forEach(subSubItem=>{
+                        if(subSubItem.t){
+                          examples.push( subSubItem.t
+                            .replace(/{wi}/g, "")
+                            .replace(/{\/wi}/g, "")
+                            .replace(/{it}/g, "")
+                            .replace(/{\/it}/g, ""))
+                        }
+                      })
+              }}
+          })
+        })
+        setIndexExamples(examples.slice(0,3))
+        
+      } catch (error) {
+        console.log(error);
+    }}
+    getExamples()
+  }},[])
 
   const handleSubmit = async (ev)=>{
     ev.preventDefault()
@@ -111,15 +137,22 @@ const Modal = ({setParent, activeWorbite}) => {
               {/* Examples */}
               <div className="my-4">
                 <p className='mb-2 text-md'>Example sentences:</p>
+                {/* If exampleSentences prop exists */}
                 {
-                exampleSentences.length > 0 ? (
-                  exampleSentences.map((sentence, index) => (
-                    <p key={index} className='text-sm font-normal'>
-                      {`[${index + 1}] ${sentence[0].toUpperCase() + sentence.slice(1)}`}
-                    </p>
-                    )
-                  )
-                ) : (<p className='text-sm font-normal'>No examples found</p>)
+                  exampleSentences 
+                    ? exampleSentences.length > 0 
+                      ? exampleSentences.map((sentence,index)=>(
+                        <p key={index} className='text-sm font-normal'>
+                          {`[${index + 1}] ${sentence[0].toUpperCase() + sentence.slice(1)}`}
+                        </p>
+                        )) 
+                      : <p className='text-sm font-normal'>No examples found</p> 
+                    : indexExamples.length > 0 
+                      ? indexExamples.map((sentence,index)=>(
+                        <p key={index} className='text-sm font-normal'>
+                          {`[${index + 1}] ${sentence[0].toUpperCase() + sentence.slice(1)}`}
+                        </p>)) 
+                      : <p className='text-sm font-normal'>No examples found</p>
                 }
               </div>
             </div>
